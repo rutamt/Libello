@@ -3,6 +3,7 @@ import webbrowser as wb
 import config
 import time
 import datetime
+import os
 
 def get_assignments():
 
@@ -12,8 +13,8 @@ def get_assignments():
     bl2 = "5167125194"
 
     # This key can't really do anything, so it should be fine to leave here.
-    key = "1de57784114df33651b1af7ec0d35fdf0625b5cbb"
-    secret = "89b44b05a27ebed1dc3a96b8d434627a"
+    key = os.getenv('key')
+    secret = os.getenv('secret')
 
     auth = schoolopy.Auth(key, secret, three_legged=True, domain=DOMAIN)
     # Request authorization URL to open in another window.

@@ -1,0 +1,62 @@
+/* CSS HEX */
+--midnight-blue: #03045eff;
+--dark-cornflower-blue: #023e8aff;
+--star-command-blue: #0077b6ff;
+--blue-green: #0096c7ff;
+--pacific-blue: #00b4d8ff;
+--sky-blue-crayola: #48cae4ff;
+--middle-blue: #90e0efff;
+--blizzard-blue: #ade8f4ff;
+--light-cyan: #caf0f8ff;
+
+html, body {
+  width: 100%;
+  height: 100%;
+  color: blue;
+}
+
+body {
+   background: #00b4d8ff;
+}
+
+h1 {
+  color: white;
+  font-family: 'Work Sans', sans-serif;
+  margin-left: 25px;
+}
+
+p, h3, a {
+  color: #00b4d8ff;
+  font-family: 'Work Sans', sans-serif;
+  margin-left: 25px;
+}
+
+.boxed {
+  width: 50%;
+  }
+
+  .collapsible {
+  background-color: #0096C7;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  margin-left: 25px;
+}
+
+.active, .collapsible:hover {
+  background-color: #023E8A;
+  margin-left: 25px;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: white;
+  margin-left: 25px;
+}

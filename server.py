@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 import requests
+import datetime
 
 
 app = Flask(__name__)
@@ -38,7 +39,7 @@ class User(UserMixin, db.Model):
 @app.route('/')
 def home():
     # Every render_template has a logged_in variable set.
-    return render_template("previndex.html", logged_in=current_user.is_authenticated)
+    return render_template("index.html")
 
 
 @app.route('/register', methods=["GET", "POST"])
@@ -100,30 +101,18 @@ def login():
 
     return render_template("login.html", logged_in=current_user.is_authenticated)
 
-
-#
-# @app.route('/', methods=["GET", "POST"])
-# def gfg():
-#     # if request.method == "POST":
-#     global key, secret
-#         # getting input with name = fname in HTML form
-#     key = request.form.get("key")
-#         # getting input with name = lname in HTML form
-#     secret = request.form.get("secret")
-#     # # main.get_assignments(key, secret)
-#     assignments = config.assignments
-#     return render_template("form.html")
+@app.route('/about')
+def about():
+    return render_template("about.html")
 
 @app.route('/work')
 @login_required
 def work():
-
-
-
+    time = datetime.datetime.now().strftime('%A %B %d, %Y')
     assignments = main.get_assignments(key= current_user.key, secret=current_user.secret)
 
     name=current_user.name
-    return render_template("index.html", assignments=assignments, name=name)
+    return render_template("organizer.html", time=time, assignments=assignments, name=name)
 
 @app.route('/logout')
 def logout():
@@ -134,9 +123,7 @@ def logout():
 # A decorator used to tell the application
 # which URL is associated function
 
-@app.route('/open')
-def open(url):
-    return url
+
 
 
 

@@ -1,0 +1,139 @@
+{% extends "header.html" %}
+{% block content %}
+
+    <!-- Title Row -->
+
+    <div class="row title-row">
+      <div class="title-column col-lg-6 col-sm-12">
+        <h1>
+          A planner developed by students.
+        </h1>
+        <p>
+          IBMYP 2022 Summer Sophomore Project.
+        </p>
+
+        <a class="btn title-button btn-large btn-dark" role="button" href="{{url_for('register')}}">
+
+          <p>Get Started</p>
+
+        </a>
+
+      </div>
+
+      <!-- Card Showcase -->
+
+      <div class="card-box col-lg-6 col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            <h2>Meet Cards.</h2>
+            <p>
+              Totally new and never seen before. Click them to see cool stuff!1!1!
+            </p>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="card-column col-lg-6 col-md-12">
+
+<!-- Same system I use in the organizer. I'll explain it there. -->
+
+                <div class="card">
+                  <div class="card-body btn btn-primary" data-bs-toggle="collapse" data-bs-target="#assignmentCollapse1" role="button" aria-expanded="false" aria-controls="assignmentCollapse1">
+                    <h2 class="card-title">Assignment #1</h2>
+                  </div>
+                  <div class="collapse card-collapse" id="assignmentCollapse1">
+                    <div class="card card-body">
+                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="card-column col-lg-6 col-md-12">
+
+                <div class="card">
+                  <div class="card-body btn btn-secondary" data-bs-toggle="collapse" data-bs-target="#assignmentCollapse2" role="button" aria-expanded="false" aria-controls="assignmentCollapse2">
+                    <h2 class="card-title">Assignment #2</h2>
+                  </div>
+                  <div class="collapse card-collapse" id="assignmentCollapse2">
+                    <div class="card card-body">
+                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="card-column col-lg-6 col-md-12">
+                <div class="card-header">
+                  <h2>Meet Cards.</h2>
+                  <p>
+                    Totally new and never seen before. Click them to see cool stuff!1!1!
+                  </p>
+                </div>
+                <div class="card-body">
+                  Hehehea
+                </div>
+              </div>
+              <div class="card-column col-lg-6 col-md-12">
+                <div class="card-header">
+                  <h2>Meet Cards.</h2>
+                  <p>
+                    Totally new and never seen before. Click them to see cool stuff!1!1!
+                  </p>
+                </div>
+                <div class="card-body">
+                  Hehehea
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sponsors -->
+
+  <section id="schoology">
+
+    <h2 class="pb-5">
+      Too lazy to put in your own assignments? We've got you covered.
+    </h2>
+
+    <div class="row-steps row justify-content-center text-center">
+
+      <div class="col-lg-4 col-md-12">
+
+        <img class="schoology-image" src="{{url_for('static', filename='images/Schoology-icon.png')}}">
+        <p>Powered by the Schoology API.</p>
+
+      </div>
+
+      <div class="col-lg-4 col-md-12">
+
+        <i class="arrow-icon fa-rotate-by fa-solid fa-arrow-right fa-8x"></i>
+        <p>Move your schoology deadlines into an online planner.</p>
+
+      </div>
+
+      <div class="col-lg-4 col-md-12">
+
+        <i class="fa-solid fa-folder fa-10x"></i>
+
+        <p>
+          And use the website to manage your assignments with convenience!
+        </p>
+
+      </div>
+
+    </div>
+
+    <p>
+      Special thanks Erik Boesen and his schoolopy python package that makes it a whole lot simpler to interact with the API.
+    </p>
+
+  </section>
+
+  <!-- Footer -->
+
+{% endblock %}
+

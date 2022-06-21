@@ -1,0 +1,42 @@
+{% extends "header.html" %}
+{% block content %}
+<!-- Login Input -->
+
+      <div class="input-window justify-content-center">
+
+        <div class="brand-logo p-5 text-center">
+          Login<i class="fa-solid fa-align-left"></i>
+              {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+         <p style="color:red">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+        </div>
+
+        <form method="post">
+
+        <!-- Email input -->
+          <input type="email" name="email" placeholder="Email" required="required" id="form2Example1" class="form-control" />
+
+        <!-- Password input -->
+          <input type="password" name="password" placeholder="Password" required="required" id="form2Example2" class="form-control" />
+
+        <!-- Submit button -->
+          <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+
+        </form>
+
+        <!-- Register buttons -->
+          <div class="text-center">
+            Not a member? <a href="{{url_for('register')}}">Register</a>
+          </div>
+
+    </div>
+
+  </section>
+
+
+
+{% endblock %}

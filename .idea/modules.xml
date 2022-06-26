@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/input-test-flask.iml" filepath="$PROJECT_DIR$/.idea/input-test-flask.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Libello.iml" filepath="$PROJECT_DIR$/.idea/Libello.iml" />
     </modules>
   </component>
 </project>

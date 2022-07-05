@@ -110,9 +110,8 @@ def about():
 def work():
     time = datetime.datetime.now().strftime('%A %B %d, %Y')
     assignments = main.get_assignments(key= current_user.key, secret=current_user.secret)
-
     name=current_user.name
-    return render_template("organizer.html", time=time, assignments=assignments, name=name)
+    return render_template("planner.html", time=time, assignments=assignments, name=name)
 
 @app.route('/logout')
 def logout():

@@ -1,0 +1,111 @@
+/* Page Margins and Padding */
+@media (max-width: 935px){
+    body {
+        padding-top: 10%;
+    }
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container-fluid {
+    padding: 3% 10%;
+    background-color: #EEEEEE;
+    color: #222831;
+}
+
+.col-lg-4, .col-lg-6, .col-lg-8, .col-sm-12 { /* Preferably all columns would have zero padding but these are the ones I used most often. */
+    padding: 0;
+}
+
+.row {
+    margin: 0;
+}
+
+.border-emphasis {
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+    border-color: #393E46;
+}
+
+/* Text Formats */
+
+.header-text {
+    font-weight: 400;
+    font-family: 'Josefin Sans', sans-serif;
+    padding: 2% 0%;
+}
+.header-text--title {
+    font-size: 5rem;
+}
+.header-text--primary {
+    font-size: 2.5rem;
+}
+.header-text--secondary {
+    font-size: 2rem;
+}
+
+.body-text {
+    font-family: 'Lato', sans-serif;
+}
+.body-text--primary {
+    font-size: 1.5rem;
+}
+.body-text--secondary {
+    font-size: 1rem;
+}
+
+/* Navbar */
+
+.navbar {
+    padding: 0 10%;
+    background-color: #EEEEEE;
+}
+
+.navbar__logo, .navbar__logo:hover  {
+    font-family: 'Josefin Sans', sans-serif, Arial;
+    font-size: 2.5rem;
+    text-decoration: none;
+    color: #222831;
+}
+
+.nav-link, .nav-link:hover {
+    font-family: 'Josefin Sans', sans-serif, Arial;
+    font-size: 1rem;
+    text-decoration: none;
+    color: #222831;
+}
+
+.nav-item {
+    margin: 2.5%;
+}
+
+
+/* Sidebar */
+/* .side-bar {
+    width: 3%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+} */
+
+
+.color-demonstration {
+    color: #222831;
+    color: #393E46;
+    color: #00ADB5;
+    color: #EEEEEE;
+}
+
+/* CSS HEX */
+/* 
+#222831;
+#393E46;
+#00ADB5;
+#EEEEEE;
+*/

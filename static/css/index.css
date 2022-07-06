@@ -1,0 +1,159 @@
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+    transform: rotate(25deg);
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes schwiggle {
+  from {
+    transform: translateX(-10%);
+  }
+  to {
+    transform: translateX(10%);
+  }
+}
+
+/* Intro */
+
+.logo {
+  position: relative;
+  display: inline-block;
+}
+
+header {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 80px;
+}
+
+header h4 {
+  position: absolute;
+  left: 10%;
+  bottom: 1rem;
+  font-size: 1.6 rem;
+}
+
+.intro {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #222831;
+  transition: 1s;
+}
+
+.logo-header {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+}
+
+/* Updated Formats */
+@media (max-width: 991px){
+    main {
+      text-align: center;
+    }
+  }
+
+.content section {
+  margin-bottom: 25%;
+}
+/* Colors */
+
+/* Title Section */
+
+.title__column--image {
+  display: flex;
+  justify-content: center;
+}
+
+.title__text {
+  animation: 1s ease-out 0s 1 slideInFromLeft
+}
+
+.notebook-image {
+  width: 35rem;
+  margin: auto 0;
+  position: relative;
+  transition: 0.5s;
+  animation: 1s ease-out 0s 1 slideInFromTop;
+  transform: rotate(25deg);
+}
+
+.get-started-button, .get-started-button:hover {
+  font-size: 2rem;
+  color: white;
+  text-decoration: none;
+  margin: 20px 0;
+}
+
+/* Demonstration Section */
+
+@media (min-width: 991px){
+  .demo__image--arrow {
+    animation: schwiggle 3s infinite;
+    animation-direction: alternate-reverse;
+  }
+}
+
+.demo__container {
+  position: relative;
+}
+.demo__row {
+  text-align: center;
+}
+.demo__image {
+  margin: 5%;
+  position: relative;
+  transition: 0.5s;
+}
+.demo__image--schoology:hover, .demo__image--folder:hover {
+  transform: translateY(-20px);
+}
+.demo__image--schoology {
+    width: 10.5em;
+    height: auto;
+}
+.demo__image--arrow {
+  --fa-rotate-angle: 90deg;
+}
+.demo__text {
+  padding: 0 25%;
+}
+/* Features Section */
+.features {
+  text-align: center;
+}
+.features__image {
+  padding: 5%;
+}
+.features__text {
+  padding: 0 30%;
+}
+
+@-webkit-keyframes slide {
+  100% { left: 0; }
+}
+
+@keyframes slide {
+  100% { left: 0; }
+}

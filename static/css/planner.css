@@ -1,0 +1,143 @@
+h3 {
+    font-size: 1.5rem;
+}
+
+.mab {
+    position: relative;
+    background: #dddddd;
+    display: inline-flex;
+}
+
+.mab__button {
+    background: none;
+    border: none;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 5px;
+    color: #333333;
+    cursor: pointer;
+}
+.mab__button:focus {
+    outline: none;
+}
+.mab__button--secondary {
+    width: 100%;
+    justify-content: flex-start;
+}
+.mab__button:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.menu__button:not(.mab__button--menu) .mab__icon {
+    margin: 10px;
+}
+
+.mab__text {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.75rem;
+}
+
+.mab__list {
+    position: absolute;
+    display: none;
+    top: 115%;
+    left: 0;
+    padding: 5px 0;
+    background: white;
+    z-index: 2;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.mab__list--visible {
+    display: initial;
+}
+
+/* Cards */
+
+.card-container {
+    border-radius: 0;
+    margin: 0;
+    color: #222831;
+    padding: 0;
+    align-items: stretch;
+}
+
+.card-container__header {
+    background: #EEEEEE;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.card {
+    background: #EEEEEE;
+    border-width: 0!important;
+    border: none!important;
+
+}
+
+.card-assignment__body > h3 {
+    font-size: 1rem;
+
+}
+
+.card-assignment__title {
+    padding: 0;
+    margin: 0;
+    font-size: 1vw;
+}
+
+.card-assignment {
+    padding:0;
+    margin: 0;
+    align-items: stretch;
+}
+
+.card-assignment.card{
+    //*height: 100%; /**/
+}
+
+.card-assignment__column {
+    padding: 1.5%;
+    align-items: stretch;
+    word-break: keep-all !important;
+}
+
+/* Timer */
+
+.module__timer {
+    font-family: sans-serif;
+    display: flex;
+    padding: 2%;
+    border-radius: 15px;
+  }
+  
+  .timer__part {
+    font-size: 36px;
+    font-weight: bold;
+  }
+  
+  .timer__btn {
+    width: 50px;
+    height: 50px;
+    margin-left: 16px;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    background: #8208e6;
+  }
+  
+  .timer__btn--start {
+    background: #00b84c;
+  }
+  
+  .timer__btn--stop {
+    background: #ff0256;
+  }
+
+  .module__timer--visible {
+    display: initial;
+  }
+  

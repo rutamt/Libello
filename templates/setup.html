@@ -1,0 +1,48 @@
+{% extends "head.html" %}
+{% block content %}
+
+<main class="content">
+<div class="container-fluid input-window__container">
+  <section class="input-window--login">
+    <div class="input-window justify-content-center">
+
+      <div class="header-text header-text--primary p-5 text-center">
+        Set Classes<i class="fa-solid fa-align-left"></i>
+      </div>
+
+      <p class="header-text">Type the IDs of the classes you have.</p>
+
+      <form method="post" id="setup">
+        <input type='text' name='class__name--1' placeholder='Class 1' required='required' id='class__id--1' class='form-control'/>
+      </form>
+      <button class="btn add-class-button" onclick="addParameter()"><i class="fa-solid fa-plus"></i></button>
+      <button class="btn add-class-button">Submit</button>
+
+
+    </div>
+  </div>
+  </section>
+</div>
+
+</main>
+
+<!-- Footer -->
+
+
+<script>
+    let interval = 1
+    function addParameter() {
+        interval++
+        const basetext = "<input type='text' name='text' placeholder='class__name' required='required' id='class__id' class='form-control'/>"
+        let result = basetext.replace("class__name", `Class ${interval}`);
+        result = result.replace("class__id", `class__id--${interval}`);
+        result = result.replace("name='text'", `name='class__name--${interval}'`);
+        document.getElementById("setup").innerHTML += result
+    }
+</script>
+
+{% endblock %}
+
+<!-- https://webdesign.tutsplus.com/tutorials/reading-progress-bar-css-javascript--cms-36635 -->
+<!-- https://www.codeleaks.io/how-to-build-a-responsive-and-dynamic-progress-bar/ -->
+<!-- https://www.freecodecamp.org/news/how-to-build-a-responsive-and-dynamic-progress-bar/ -->

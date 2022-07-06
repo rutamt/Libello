@@ -105,6 +105,10 @@ def login():
 def about():
     return render_template("about.html")
 
+@app.route('/setup')
+def setup():
+    return render_template("setup.html")
+
 @app.route('/work')
 @login_required
 def work():

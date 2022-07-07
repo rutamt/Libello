@@ -32,6 +32,7 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(1000))
     key = db.Column(db.String(41))
     secret = db.Column(db.String(32))
+    classes = db.Column(db.String(1000))
 #Line below only required once, when creating DB.
 # db.create_all()
 
@@ -105,9 +106,19 @@ def login():
 def about():
     return render_template("about.html")
 
-@app.route('/setup')
+@app.route('/setup', methods=["GET", "POST"])
 def setup():
-    return render_template("setup.html")
+    if request.method == "POST":
+        values = request.form.getlist('classes')
+        current_user.classes = str(values).replace("[", "").replace("]", "").replace("'", "").replace('"', '')
+        db.session.commit()
+        return redirect(url_for('work'))
+    if current_user.classes == None:
+        return render_template("setup.html", classes="NONE")
+    else:
+        return render_template("setup.html", classes=(current_user.classes).split(","))
+
+
 
 @app.route('/work')
 @login_required

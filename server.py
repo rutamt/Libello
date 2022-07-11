@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, url_for, redirect, flash, send_from_directory
-import config
 import main
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 import requests
 import datetime
+
 
 
 app = Flask(__name__)
@@ -19,6 +19,16 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+# Credit: https://thispointer.com/python-3-ways-to-check-if-there-are-duplicates-in-a-list/
+def checkIfDuplicates(listOfElems):
+    # ''' Check if given list contains any duplicates '''
+    setOfElems = set()
+    for elem in listOfElems:
+        if elem in setOfElems:
+            return True
+        else:
+            setOfElems.add(elem)
+    return False
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -64,8 +74,8 @@ def register():
                 salt_length=8
             )
             new_user = User(
-                email=request.form.get('email'),
                 name=request.form.get('name'),
+                email=request.form.get('email'),
                 password=hash_and_salted_password,
                 key = request.form.get('key'),
                 secret = request.form.get('secret'),
@@ -74,6 +84,7 @@ def register():
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user)
+            print(current_user.name)
             return redirect(url_for("work"))
 
     return render_template("register.html", logged_in=current_user.is_authenticated)
@@ -109,10 +120,21 @@ def about():
 @app.route('/setup', methods=["GET", "POST"])
 def setup():
     if request.method == "POST":
-        values = request.form.getlist('classes')
-        current_user.classes = str(values).replace("[", "").replace("]", "").replace("'", "").replace('"', '')
-        db.session.commit()
-        return redirect(url_for('work'))
+        if request.form.getlist('classes') == []:
+            print("EMPTY LIST")
+            return render_template("setup.html")
+        else:
+            values = request.form.getlist('classes')
+            if checkIfDuplicates(values) == True:
+                flash("Please remove duplicate class ids")
+                current_user.classes = str(values).replace("[", "").replace("]", "").replace("'", "").replace('"', '')
+                db.session.commit()
+                return redirect(url_for('setup'))
+                # return render_template("setup.html")
+            elif checkIfDuplicates(values) == False:
+                current_user.classes = str(values).replace("[", "").replace("]", "").replace("'", "").replace('"', '')
+                db.session.commit()
+                return redirect(url_for('work'))
     if current_user.classes == None:
         return render_template("setup.html", classes="NONE")
     else:
@@ -124,9 +146,13 @@ def setup():
 @login_required
 def work():
     time = datetime.datetime.now().strftime('%A %B %d, %Y')
-    assignments = main.get_assignments(key= current_user.key, secret=current_user.secret)
-    name=current_user.name
-    return render_template("planner.html", time=time, assignments=assignments, name=name)
+    name = current_user.name
+    if current_user.classes == None:
+        return render_template("planner.html", time=time,  name=name, classes="NONE")
+    else:
+        # return render_template("setup.html", classes=(current_user.classes).split(","))
+        assignments = main.get_assignments(key=current_user.key, secret=current_user.secret, classes=current_user.classes.split(","))
+        return render_template("planner.html", time=time, assignments=assignments, name=name)
 
 @app.route('/logout')
 def logout():

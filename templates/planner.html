@@ -1,11 +1,11 @@
 {% extends "head.html" %}
 {% block content %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/planner.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/planner.css')}}">
 
 
 <main class="content">
-<div class="container-fluid menu__header">
-    <div class="row menu__row">
+    <div class="container-fluid menu__header">
+        <div class="row menu__row">
             <div class="col-lg-6 col-sm-12 header-menu__text">
                 <h1 class="header-text header-text--primary">
                     Hello, {{name}}.
@@ -16,103 +16,178 @@
             </div>
 
             <div class="col-lg-6 col-sm-12 header-menu__widgets border-emphasis header-text">
-                <div class="sample__text--visible">To add a widget, click the '+' button below and click on one you want.</div>
+                <div class="sample__text--visible">To add a widget, click the '+' button below and click on one you
+                    want.
+                </div>
                 <div class="row">
                     <div class="module__timer col-lg-4">
 
-                        </div>
+                    </div>
                     <div class="module__mindfulness col-lg-4">
-            
-                        </div>
+
+                    </div>
                     <div class="module__todo col-lg-4">
-            
-                        </div>
-                </div>
 
-            </div>
-
-    </div>
-</div>
-
-<div class="container-fluid body-text">
-    
-    <div class="mab">
-        
-        <button type="button" class="mab__button mab__button--menu">
-            <i class="fa-solid fa-plus mab__icon fa-2x"></i>
-        </button>
-
-        <div class="mab__list">
-            <button class="mab__button mab__button--secondary" id="timerButton">
-                <span class="mab__text">Timer</span>
-                </button>
-            <button class="mab__button mab__button--secondary">
-                <span class="mab__text">Mindfulness</span>
-                </button>
-            <button class="mab__button mab__button--secondary">
-                <span class="mab__text">To Do List</span>
-                </button>
-        </div>
-    </div>
-
-    <a class="btn btn-dark mb-4 setup-button justify-content-end" role="button" href="{{ url_for('setup') }}">
-        Add Schoology Classes
-        </a>
-
-</div>
-
-<div class="container-fluid assignment-menu__container">
-
-<section id="assignent-menu">
-
-    <div class="card-container card flex-fill">
-    <div class="card-container__header border-emphasis card-header">
-        <div class="header-text header-text--primary">Class1</div>
-    </div>
-
-    <div class="card-container__body card-body">
-
-
-        <div class="card-container__card-parent row  ">
- {% for title in assignments: %}
-
-            <div class="card-assignment__column col-lg-6 col-md-12 text-center align-middle ">
-
-                <div class="card-assignment card text-center">
-                <div class="card-assignment__header card-body column-card__button btn btn-primary btn-block text-center " data-bs-toggle="collapse" data-bs-target="#number{{title['id']}}" role="button" aria-expanded="false" aria-controls="card1">
-                    <div class="card-assignment__title card-title card-text card__header header-text header-text--primary  ">{{title['title']}}</div>
-                </div>
-                <div class="card-assignment__body collapse card-collapse" id="number{{title['id']}}">
-                    <div class="card-body body-text body-text--primary">
-                        {% if title['due'] == "" %}
-                <h3 class='boxed' style="color:red">No due date</h3>
-             {% else %}
-                <h3 class='boxed' style="color:green">Due: {{title['due']}}</h3>
-             {% endif %}
-                <h3><a href={{title['web_url']}} class='boxed' style="color:#023E8A">Link</a></h3>
-             {% if title['completed'] == 1 %}
-                <h3 class='boxed' style="color:green">Completed</h3>
-             {% elif title['completed'] == 0 %}
-                <h3 class='boxed' style="color:red">Incomplete</h3>
-             {% endif %}
                     </div>
                 </div>
-                </div>
 
             </div>
-{% endfor %}
+
+        </div>
+    </div>
+
+    <div class="container-fluid body-text">
+
+        <div class="mab">
+
+            <button type="button" class="mab__button mab__button--menu">
+                <i class="fa-solid fa-plus mab__icon fa-2x"></i>
+            </button>
+
+            <div class="mab__list">
+                <button class="mab__button mab__button--secondary" id="timerButton">
+                    <span class="mab__text">Timer</span>
+                </button>
+                <button class="mab__button mab__button--secondary">
+                    <span class="mab__text">Mindfulness</span>
+                </button>
+                <button class="mab__button mab__button--secondary">
+                    <span class="mab__text">To Do List</span>
+                </button>
+            </div>
         </div>
 
-    </div>
+        <a class="btn btn-dark mb-4 setup-button justify-content-end" role="button" href="{{ url_for('setup') }}">
+            Add Schoology Classes
+        </a>
 
     </div>
 
-</section>
-</div>
-</div>
+    <div class="container-fluid assignment-menu__container">
+
+
+        {% if classes == "NONE" %}
+                            <div class="card-container__header border-emphasis card-header">
+                        <div class="header-text header-text--primary" style="color:red">No classes yet. <a href="{{ url_for('setup') }}"> Click here </a>to add new classes.</div>
+                    </div>
+        <div class="container-fluid assignment-menu__container">
+            <section id="assignment-menu">
+
+                <div class="card-container card">
+
+                </div>
+
+                <div class="card-container card flex-fill">
+                    <div class="card-container__header border-emphasis card-header">
+                        <div class="header-text header-text--primary">Class Title</div>
+                    </div>
+                    <div class="card-container__body card-body">
+
+                        <div class="card-assignment__column">
+                            <div class="card-assignment card">
+                                <div class="card-assignment__header card-body column-card__button btn btn-primary"
+                                     data-bs-toggle="collapse" data-bs-target="#card1" role="button"
+                                     aria-expanded="false" aria-controls="card1">
+                                    <div class="card-assignment__title card-title card-text card__header">Board
+                                        Assignment
+                                    </div>
+                                </div>
+                                <div class="card-assignment__body collapse card-collapse" id="card1">
+                                    <div class="card-body body-text body-text--primary">
+                                        I cannot believe my own ineptitude.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-assignment__column">
+                            <div class="card-assignment card">
+                                <div class="card-assignment__header card-body column-card__button btn btn-primary"
+                                     data-bs-toggle="collapse" data-bs-target="#card2" role="button"
+                                     aria-expanded="false" aria-controls="card1">
+                                    <div class="card-assignment__title card-title card-text card__header">Board
+                                        Assignment Board AssignmentBoard AssignmentBoard AssignmentBoard
+                                        Assignment
+                                    </div>
+                                </div>
+                                <div class="card-assignment__body collapse card-collapse" id="card2">
+                                    <div class="card-body body-text body-text--primary">
+                                        I cannot believe my own ineptitude.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-assignment__column">
+                            <div class="card-assignment card">
+                                <div class="card-assignment__header card-body column-card__button btn btn-primary"
+                                     data-bs-toggle="collapse" data-bs-target="#card3" role="button"
+                                     aria-expanded="false" aria-controls="card1">
+                                    <div class="card-assignment__title card-title card-text card__header">
+                                        EAFSFASFASFAEFSFASFAFAEFSFASFSAFASFASFASFASF
+                                    </div>
+                                </div>
+                                <div class="card-assignment__body collapse card-collapse" id="card3">
+                                    <div class="card-body body-text body-text--primary">
+                                        I cannot believe my own ineptitude.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="card-container__body card-body">
+                            <section id="assignent-menu">
+
+                                <div class="card-container card flex-fill">
+                                    <div class="card-container__header border-emphasis card-header">
+                                        <div class="header-text header-text--primary">Class1</div>
+                                    </div>
+                                    <div class="card-container__card-parent row  ">
+
+                                        {% for title in assignments: %}
+
+                                        <div class="card-assignment__column col-lg-6 col-md-12 text-center align-middle ">
+
+                                            <div class="card-assignment card text-center">
+                                                <div class="card-assignment__header card-body column-card__button btn btn-primary btn-block text-center "
+                                                     data-bs-toggle="collapse" data-bs-target="#number{{title['id']}}"
+                                                     role="button" aria-expanded="false" aria-controls="card1">
+                                                    <div class="card-assignment__title card-title card-text card__header header-text header-text--primary  ">
+                                                        {{title['title']}}
+                                                    </div>
+                                                </div>
+                                                <div class="card-assignment__body collapse card-collapse"
+                                                     id="number{{title['id']}}">
+                                                    <div class="card-body body-text body-text--primary">
+                                                        {% if title['due'] == "" %}
+                                                        <h3 class='boxed' style="color:red">No due date</h3>
+                                                        {% else %}
+                                                        <h3 class='boxed' style="color:green">Due: {{title['due']}}</h3>
+                                                        {% endif %}
+                                                        <h3><a href={{title['web_url']}} class='boxed'
+                                                               style="color:#023E8A">Link</a></h3>
+                                                        {% if title['completed'] == 1 %}
+                                                        <h3 class='boxed' style="color:green">Completed</h3>
+                                                        {% elif title['completed'] == 0 %}
+                                                        <h3 class='boxed' style="color:red">Incomplete</h3>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+
+                        </div>
+
+            </section>
+        </div>
+    </div>
 </main>
-
-
 
 
 <script>
@@ -142,6 +217,8 @@
                 list.classList.remove("mab__list--visible");
             });
         });
+
+
 </script>
 
 <script src="{{ url_for('static', filename='js/main.js')}}" type="module"></script>

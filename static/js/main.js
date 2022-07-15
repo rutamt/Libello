@@ -1,6 +1,8 @@
 import Timer from "./timer.js";
+import Mindfulness from "./mindfulness.js";
 
-let reverse = true;
+
+let reverseTimer = true;
 
 const timerButton = document.getElementById("timerButton");
 
@@ -12,13 +14,37 @@ else if (timerButton.attatchEvent)
 
 function buildTimer() {
 
-    if (reverse) {
+    if (reverseTimer) {
         new Timer(document.querySelector(".module__timer"));
     } else {
         document.querySelector(".module__timer").textContent = "";
     }
 
-    reverse = !reverse;
+    reverseTimer = !reverseTimer;
 }
+
+let reverseMindful = true;
+
+const mindfulButton = document.getElementById("mindfulButton");
+
+if (mindfulButton.addEventListener)
+    mindfulButton.addEventListener("click", buildMindfulness, false);
+else if (mindfulButton.attatchEvent)
+    mindfulButton.attachEvent("onclick", buildMindfulness);
+
+
+function buildMindfulness() {
+
+    if (reverseMindful) {
+        new Mindfulness(document.querySelector(".module__mindfulness"));
+    } else {
+        document.querySelector(".mindfulness__container").textContent = "";
+        document.querySelector(".module__mindfulness").textContent = "";
+    }
+
+    reverseMindful = !reverseMindful;
+}
+
+
 
 

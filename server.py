@@ -1,16 +1,36 @@
 from flask import Flask, render_template, request, url_for, redirect, flash, send_from_directory
-import main
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 import requests
 import datetime
+import schoolopy
+import os
 
+
+
+def get_assignments(key, secret, classes = None ):
+
+    # Create a Schoology instance with Auth as a parameter.
+
+    sc = schoolopy.Schoology(schoolopy.Auth(key, secret))
+
+
+    if classes == None:
+        return "NONE"
+    else:
+        cl_list = []
+
+        for i in classes:
+            cl_list += (sc.get_assignments(i))
+        return cl_list
 
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = 'any-secret-key-you-choose'
+flask_key = os.urandom(12)
+
+app.config['SECRET_KEY'] = flask_key
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -58,7 +78,7 @@ def register():
     global u_key, u_secret
     if request.method == "POST":
         try:
-            main.get_assignments(key=request.form.get('key'), secret=request.form.get('secret'))
+            get_assignments(key=request.form.get('key'), secret=request.form.get('secret'))
         except requests.exceptions.HTTPError:
             flash('invalid api key/secret')
             return redirect(url_for("register"))
@@ -121,7 +141,6 @@ def about():
 def setup():
     if request.method == "POST":
         if request.form.getlist('classes') == []:
-            print("EMPTY LIST")
             return render_template("setup.html")
         else:
             values = request.form.getlist('classes')
@@ -151,7 +170,7 @@ def work():
         return render_template("planner.html", time=time,  name=name, classes="NONE")
     else:
         # return render_template("setup.html", classes=(current_user.classes).split(","))
-        assignments = main.get_assignments(key=current_user.key, secret=current_user.secret, classes=current_user.classes.split(","))
+        assignments = get_assignments(key=current_user.key, secret=current_user.secret, classes=current_user.classes.split(","))
         return render_template("planner.html", time=time, assignments=assignments, name=name)
 
 @app.route('/logout')
@@ -159,6 +178,10 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+@app.errorhandler(401)
+def not_logged_in(e):
+    # note that we set the 404 status explicitly
+    return render_template("unauthorized.html")
 
 # A decorator used to tell the application
 # which URL is associated function

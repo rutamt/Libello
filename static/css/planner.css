@@ -1,6 +1,5 @@
-h3 {
-    font-size: 1.5rem;
-}
+
+/* https://www.youtube.com/watch?v=Xz-ApgT7rZc */
 
 .mab {
     position: relative;
@@ -56,61 +55,101 @@ h3 {
 
 /* Cards */
 
-.card-container {
-    border-radius: 0;
-    margin: 0;
-    color: #222831;
-    padding: 0;
-    align-items: stretch;
-}
-
-.card-container__header {
-    background: #EEEEEE;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-
 .card {
     background: #EEEEEE;
     border-width: 0!important;
     border: none!important;
-
 }
 
-.card-assignment__body > h3 {
-    font-size: 1rem;
-
-}
-
-.card-assignment__title {
-    padding: 0;
+.card-container {
+    border-radius: 0;
     margin: 0;
-    font-size: 1vw;
+    color: #222831;
+}
+
+.card-container__body {
+    /* display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+    align-items: stretch; */
+    /* flex: 1 1 0px; */
+}
+
+.card-container__header {
+
 }
 
 .card-assignment {
-    padding:0;
-    margin: 0;
-    align-items: stretch;
+    
 }
 
-.card-assignment.card{
-    //*height: 100%; /**/
+.card-assignment__header {
+    max-width: 100%;
+    background-color: #393E46;
+    border-radius: 0;
+}
+
+.card-assignment__header:hover {
+    background-color: #222831;
+}
+
+.card-assignment__header:focus {
+    background-color: #222831;
+}
+
+.card-assignment__title {
+    padding: 5px;
+    margin: 0;
+    overflow: hidden;
+    word-break: break-word;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.card-assignment__body {
+    max-width: 100%;
+}
+
+.card-assignment__body--text {
+    font-size: 2vh;
+    word-break: break-word;
+}
+@media (max-width: 991px) {
+    .card-assignment__body--text {
+        font-size: 2vh;
+        word-break: break-word;
+    }
 }
 
 .card-assignment__column {
-    padding: 1.5%;
-    align-items: stretch;
-    word-break: keep-all !important;
+    margin: 0;
+    padding: 4px;
 }
+@media (max-width: 991px) {
+    .card-assignment__column {
+        margin: 0;
+        padding: 1%;
+    }
+}
+
+.card__header {
+    font-size: 100%;
+}
+
+/* @media (max-width: 991px) {
+    .card__header {
+        font-size: 2.1vw;
+    }
+} */
 
 /* Timer */
 
+/* https://www.youtube.com/watch?v=PIiMSMz7KzM */
 .module__timer {
     font-family: sans-serif;
     display: flex;
-    padding: 2%;
+    padding: 1%;
     border-radius: 15px;
   }
   
@@ -140,4 +179,123 @@ h3 {
   .module__timer--visible {
     display: initial;
   }
-  
+
+/* Mindfulness */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes initialize {
+    from {
+        border-weight: 0%;
+    }
+    to {
+        border-weight: 100%
+    }
+}
+
+@keyframes breatheIn {
+    from {
+        transform: scale(1);
+        top: 25%;
+    }
+
+    to {
+        transform: scale(3);
+        top: 25%;
+    }
+}
+
+@keyframes breatheOut {
+    from {
+        transform: scale(3);
+        top: 25%;
+    }
+
+    to {
+        transform: scale(1);
+        top: 25%;
+    }
+}
+
+.mindfulness__container {
+    display: flex;
+    position: relative;
+    height: 200px;
+    width: 200px;
+    text-align: center;
+    background-color: #222831;
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: lighter;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.mindfulness {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    transform: translateY(-50%);
+}
+
+.mindfulness__frame--breathe-in, .mindfulness__frame--breathe-out {
+    display: none;
+    color: white;
+    transition: 1s;
+    z-index: 2;
+}
+
+.mindfulness--start {
+    display: none;
+    outline: none;
+    background-color: #222831;
+    border: 3px solid white;
+    color: white;
+    padding: 3px;
+    width: 50%;
+    transition: 1s;
+    cursor: pointer;
+}
+.mindfulness--start:hover {
+    outline: none;
+    background-color: white;
+    border: 3px solid white;
+    color: #222831;
+    padding: 3px;
+    width: 50%;
+}
+.mindfulness--start:focus {
+    outline: 0;
+    opacity: 0;
+}
+
+.anim--breathe__in {
+    animation: breatheIn 7s;
+}
+.anim--breathe__out {
+    animation: breatheOut 7s;
+}
+
+.mindfulness__breathing-circle {
+    display: none;
+    z-index: 3;
+    border: 10px solid white;
+    border-radius: 100px;
+    height: 100px;
+    width: 100px;
+}
+
+
+
+.mindfulness--visible {
+    display: initial;
+}
+/* https://stackoverflow.com/questions/8451909/expand-div-from-the-middle-instead-of-just-top-and-left-using-css */

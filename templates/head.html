@@ -28,17 +28,19 @@
 
 </head>
 
+
+
 <div class="container-fluid navbar__container">
     <nav class="navbar navbar-expand-md fixed-top">
         <a class="navbar-brand navbar__logo" href="{{ url_for('home') }}"><i class="fa-solid fa-align-right fa-sm"></i>Libello</a>
 
-        <button
+   <button
             class="navbar-toggler navbar__toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#toggleMobileMenu"
         >
-            <span class="navbar-toggler-icon"></span>
+        <i class="fa-solid fa-align-justify"></i>
             </button>
 
         <div class="collapse navbar-collapse justify-content-end" id="toggleMobileMenu">
@@ -72,8 +74,12 @@
 
 <body>
 
+
+
 {% block content %}
        {% endblock %}
+
+
 
 <footer class="footer container-fluid">
 <section id="footer">

@@ -1,0 +1,12 @@
+{% extends "head.html" %}
+{% block content %}
+
+      <div class="text-center", style="font-size: 450%">
+          You need to sign in to access this page! <a href="{{url_for('login')}}">Login</a> or <a href="{{url_for('register')}}">register</a>!
+        </div>
+                <div class="title title__column title__column--image col-lg-6 col-sm-12">
+                    <img class="notebook-image" src="{{url_for('static', filename='images/notebook.png')}}"
+                         alt="notebook">
+                </div>
+            </div>
+{% endblock %}

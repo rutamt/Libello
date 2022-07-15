@@ -17,6 +17,16 @@
   }
 }
 
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 @keyframes schwiggle {
   from {
     transform: translateX(-10%);
@@ -68,9 +78,13 @@ header h4 {
 }
 
 /* Updated Formats */
-@media (max-width: 991px){
+@media (max-width: 991px) {
     main {
       text-align: center;
+    }
+
+    .title__text {
+      font-size: 10vw;
     }
   }
 
@@ -86,12 +100,9 @@ header h4 {
   justify-content: center;
 }
 
-.title__text {
-  animation: 1s ease-out 0s 1 slideInFromLeft
-}
-
 .notebook-image {
-  width: 35rem;
+  max-width: 90%;
+  height: auto;
   margin: auto 0;
   position: relative;
   transition: 0.5s;
@@ -99,11 +110,24 @@ header h4 {
   transform: rotate(25deg);
 }
 
+@media (max-width: 991px) {
+    .notebook-image {
+        animation: 1s ease-out 0s 1 slideInFromRight;
+        transform: rotate(0deg);
+    }
+}
+
 .get-started-button, .get-started-button:hover {
   font-size: 2rem;
   color: white;
   text-decoration: none;
   margin: 20px 0;
+}
+
+@media (max-width: 991px) {
+    #title {
+        margin-top: 20%;
+    }
 }
 
 /* Demonstration Section */

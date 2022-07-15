@@ -181,9 +181,10 @@ def logout():
 
 # Credit: https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/
 @app.errorhandler(401)
-def not_logged_in(e):
-    print("ERROR!!")
+def error401(e):
+    # flash("401 error")
     return render_template("unauthorized.html")
+
     # if current_user.is_authenticated:
     #     return redirect(url_for('home'))
     # else:

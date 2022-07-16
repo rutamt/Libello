@@ -15,7 +15,7 @@ if os.environ.get("PG_URL") is None:
 
 PG_URL = os.environ.get("PG_URL")
 
-def get_assignments(key, secret, classes = None ):
+def get_assignments(key, secret, classes = None):
 
     # Create a Schoology instance with Auth as a parameter.
 
@@ -146,29 +146,33 @@ def about():
     return render_template("about.html")
 
 @app.route('/setup', methods=["GET", "POST"])
+@login_required
 def setup():
     if request.method == "POST":
         if request.form.getlist('classes') == []:
             return render_template("setup.html")
         else:
             values = request.form.getlist('classes')
-            if check_if_duplicates(values) == True:
+            print(values)
+
+            if check_if_duplicates(values):
                 flash("Please remove duplicate class ids")
                 # current_user.classes = str(values).replace("[", "").replace("]", "").replace("'", "").replace('"', '')
                 db.session.commit()
                 return redirect(url_for('setup'))
                 # return render_template("setup.html")
-            elif check_if_duplicates(values) == False:
-                # try:
-                #     classes = str(values).replace("[", "").replace("]", "").replace("'", "").replace('"', '')
-                #     get_assignments(key=current_user.key, secret=current_user.secret, classes=classes)
-                # except requests.exceptions.HTTPError:
-                #     flash('invalid class ids')
-                #     return redirect(url_for("setup"))
-                # else:
-                current_user.classes = str(values).replace("[", "").replace("]", "").replace("'", "").replace('"', '')
-                db.session.commit()
-                return redirect(url_for('work'))
+            else:
+                try:
+                    # classes = str(values).replace("[", "").replace("]", "").replace("'", "").replace('"', '')
+                    # print(classes)
+                    get_assignments(key=current_user.key, secret=current_user.secret, classes=values)
+                except requests.exceptions.HTTPError:
+                    flash('invalid class ids')
+                    return redirect(url_for("setup"))
+                else:
+                    current_user.classes = ",".join(values)
+                    db.session.commit()
+                    return redirect(url_for('work'))
     if current_user.classes is None:
         return render_template("setup.html", classes="NONE")
     else:
@@ -195,10 +199,10 @@ def logout():
 
 
 # Credit: https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/
-@app.errorhandler(401)
-def error401(e):
-    # flash("401 error")
-    return render_template("unauthorized.html")
+# @app.errorhandler(401)
+# def error401(e):
+#     # flash("401 error")
+#     return render_template("unauthorized.html")
 
 #     # if current_user.is_authenticated:
     #     return redirect(url_for('home'))

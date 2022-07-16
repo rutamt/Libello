@@ -6,6 +6,7 @@ import requests
 import datetime
 import schoolopy
 import os
+from cryptography.fernet import Fernet
 
 
 
@@ -27,6 +28,9 @@ def get_assignments(key, secret, classes = None ):
 
 
 app = Flask(__name__)
+
+encrypt_key = Fernet.generate_key()
+fernet = Fernet(encrypt_key)
 
 flask_key = os.urandom(12)
 
@@ -75,7 +79,6 @@ def home():
 
 @app.route('/register', methods=["GET", "POST"])
 def register():
-    global u_key, u_secret
     if request.method == "POST":
         try:
             get_assignments(key=request.form.get('key'), secret=request.form.get('secret'))
@@ -115,8 +118,6 @@ def login():
     if request.method == "POST":
         email = request.form.get('email')
         password = request.form.get('password')
-        key = request.form.get('key')
-        secret = request.form.get('secret')
 
         user = User.query.filter_by(email=email).first()
         # Email doesn't exist or password incorrect.
@@ -127,7 +128,6 @@ def login():
             flash('Password incorrect, please try again.')
             return redirect(url_for('login'))
         else:
-            global u_key, u_secret
             login_user(user)
             return redirect(url_for('work'))
 
@@ -146,18 +146,25 @@ def setup():
             values = request.form.getlist('classes')
             if checkIfDuplicates(values) == True:
                 flash("Please remove duplicate class ids")
-                current_user.classes = str(values).replace("[", "").replace("]", "").replace("'", "").replace('"', '')
+                # current_user.classes = str(values).replace("[", "").replace("]", "").replace("'", "").replace('"', '')
                 db.session.commit()
                 return redirect(url_for('setup'))
                 # return render_template("setup.html")
             elif checkIfDuplicates(values) == False:
+                # try:
+                #     classes = str(values).replace("[", "").replace("]", "").replace("'", "").replace('"', '')
+                #     get_assignments(key=current_user.key, secret=current_user.secret, classes=classes)
+                # except requests.exceptions.HTTPError:
+                #     flash('invalid class ids')
+                #     return redirect(url_for("setup"))
+                # else:
                 current_user.classes = str(values).replace("[", "").replace("]", "").replace("'", "").replace('"', '')
                 db.session.commit()
                 return redirect(url_for('work'))
-    if current_user.classes == None:
+    if current_user.classes is None:
         return render_template("setup.html", classes="NONE")
     else:
-        return render_template("setup.html", classes=(current_user.classes).split(","))
+        return render_template("setup.html", classes=current_user.classes.split(","))
 
 
 
@@ -185,7 +192,7 @@ def error401(e):
     # flash("401 error")
     return render_template("unauthorized.html")
 
-    # if current_user.is_authenticated:
+#     # if current_user.is_authenticated:
     #     return redirect(url_for('home'))
     # else:
 

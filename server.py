@@ -7,8 +7,13 @@ import datetime
 import schoolopy
 import os
 from cryptography.fernet import Fernet
+from dotenv import load_dotenv
 
 
+if os.environ.get("PG_URL") is None:
+    load_dotenv()
+
+PG_URL = os.environ.get("PG_URL")
 
 def get_assignments(key, secret, classes = None ):
 
@@ -17,7 +22,7 @@ def get_assignments(key, secret, classes = None ):
     sc = schoolopy.Schoology(schoolopy.Auth(key, secret))
 
 
-    if classes == None:
+    if classes is None:
         return "NONE"
     else:
         cl_list = []
@@ -35,7 +40,7 @@ fernet = Fernet(encrypt_key)
 flask_key = os.urandom(12)
 
 app.config['SECRET_KEY'] = flask_key
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = PG_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -43,15 +48,18 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-# Credit: https://thispointer.com/python-3-ways-to-check-if-there-are-duplicates-in-a-list/
-def checkIfDuplicates(listOfElems):
-    # ''' Check if given list contains any duplicates '''
-    setOfElems = set()
-    for elem in listOfElems:
-        if elem in setOfElems:
+
+def check_if_duplicates(list_of_elems):
+    """Check if given list contains any duplicates
+
+    Credit: https://thispointer.com/python-3-ways-to-check-if-there-are-duplicates-in-a-list/
+    """
+    set_of_elems = set()
+    for elem in list_of_elems:
+        if elem in set_of_elems:
             return True
         else:
-            setOfElems.add(elem)
+            set_of_elems.add(elem)
     return False
 
 @login_manager.user_loader
@@ -144,13 +152,13 @@ def setup():
             return render_template("setup.html")
         else:
             values = request.form.getlist('classes')
-            if checkIfDuplicates(values) == True:
+            if check_if_duplicates(values) == True:
                 flash("Please remove duplicate class ids")
                 # current_user.classes = str(values).replace("[", "").replace("]", "").replace("'", "").replace('"', '')
                 db.session.commit()
                 return redirect(url_for('setup'))
                 # return render_template("setup.html")
-            elif checkIfDuplicates(values) == False:
+            elif check_if_duplicates(values) == False:
                 # try:
                 #     classes = str(values).replace("[", "").replace("]", "").replace("'", "").replace('"', '')
                 #     get_assignments(key=current_user.key, secret=current_user.secret, classes=classes)

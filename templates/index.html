@@ -15,18 +15,10 @@
                 <div class="title title__column title__column--words col-lg-6 col-sm-12">
                     <h1 class="title__text header-text header-text--title">organization starts </h1>
                     <h1 class="title__text header-text header-text--title title__text--here">here.</h1>
-                    {% if not current_user.is_authenticated: %}
-                    <a class="btn btn-dark get-started-button body-text" role="button" href="{{ url_for('register') }}">
-                        Get started
-                        <i class="fa-solid fa-arrow-right-long"></i>
-                    </a>
-                    {% endif %}
-                    {% if current_user.is_authenticated: %}
                     <a class="btn btn-dark get-started-button body-text" role="button" href="{{ url_for('work') }}">
                         Get started
                         <i class="fa-solid fa-arrow-right-long"></i>
                     </a>
-                    {% endif %}
                 </div>
                 <div class="title title__column title__column--image col-lg-6 col-sm-12">
                     <img class="notebook-image" src="{{url_for('static', filename='images/notebook.png')}}"

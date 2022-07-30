@@ -36,6 +36,12 @@ oauth.register(
     server_metadata_url=f'https://{AUTH0_DOMAIN}/.well-known/openid-configuration',
 )
 
+def is_logged_in():
+    ret_val = False
+    user_info = session.get("user", {}).get("userinfo")
+    if user_info:
+        ret_val = True
+    return ret_val
 
 # Controllers API
 @app.route("/")
@@ -44,6 +50,7 @@ def home():
     return render_template(
         "index.html",
         session=session.get("user"),
+        is_logged_in=is_logged_in(),
         pretty=json.dumps(session.get("user"), indent=4),
     )
 
@@ -95,10 +102,10 @@ def work():
     time = datetime.datetime.now().strftime('%A %B %d, %Y')
 
     if not creds or not classes:
-        return render_template("planner.html", time=time, name=f"{name}", classes="NONE")
+        return render_template("planner.html", is_logged_in=is_logged_in(), time=time, name=f"{name}", classes="NONE")
     else:
         assignments = get_assignments(key=creds[0], secret=creds[1], classes=classes.split(','))
-        return render_template("planner.html", time=time, assignments=assignments, name=name)
+        return render_template("planner.html", is_logged_in=is_logged_in(), time=time, assignments=assignments, name=name)
 
 
 @app.route('/setup', methods=["GET", "POST"])
@@ -113,11 +120,11 @@ def setup():
     creds = auth0.get_user_creds(user_info=user_info)
     if not creds:
         print("Please enter your API KEY and SECRET first")
-        return render_template("setup.html", classes=[])
+        return render_template("setup.html", is_logged_in=is_logged_in(), classes=[])
 
     if request.method == "POST":
         if not request.form.getlist('classes'):
-            return render_template("setup.html")
+            return render_template("setup.html", is_logged_in=is_logged_in(),)
         else:
             values = request.form.getlist('classes')
             print(values)
@@ -142,7 +149,7 @@ def setup():
     classes = auth0.get_user_classes(user_info=user_info).split(",")
     if classes == [""]:
         classes = []
-    return render_template("setup.html", classes=classes)
+    return render_template("setup.html", classes=classes, is_logged_in=is_logged_in(),)
 
 
 @app.route('/register', methods=["GET", "POST"])
@@ -171,12 +178,12 @@ def register():
             return redirect(url_for("work"))
 
     # this is for HTTP method GET
-    return render_template("register.html")
+    return render_template("register.html", is_logged_in=is_logged_in(),)
 
 
 @app.route('/about')
 def about():
-    return render_template("about.html")
+    return render_template("about.html", is_logged_in=is_logged_in(),)
 
 
 if __name__ == "__main__":

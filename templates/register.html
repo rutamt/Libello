@@ -8,7 +8,7 @@
     <div class="input-window justify-content-center">
 
       <div class="header-text header-text--primary p-5 text-center">
-        <i class="fa-solid fa-align-right fa-sm"></i>Register
+        <i class="fa-solid fa-align-right fa-sm"></i>Setup
       </div>
 
        {% with messages = get_flashed_messages() %}
@@ -21,28 +21,15 @@
 
       <form action="{{ url_for('register') }}" method="post">
 
-        <!-- Name Input -->
-        <input type="text" name="name" placeholder="Name" required="required" id="form1Example1" class="form-control" />
-
-        <!-- Email input -->
-        <input type="email" name="email" placeholder="Email" required="required" id="form2Example1" class="form-control" />
-
         <!-- API Key Input -->
         <input type="text" name="key" placeholder="API Key" required="required" id="form1Example1" class="form-control" />
 
         <!-- API Secret Input -->
         <input type="text" name="secret" placeholder="API Secret" required="required" id="form1Example1" class="form-control" />
 
-        <!-- Password input -->
-        <input type="password" name="password" placeholder="Password" required="required" id="form2Example2" class="form-control" />
-
         <!-- Submit button -->
         <button type="submit" class="btn btn-primary mb-4">Register</button>
 
-        <!-- Register buttons -->
-        <div class="text-center">
-          Already a member? <a href="{{url_for('login')}}">Login</a>
-        </div>
       </form>
 
     </div>

@@ -24,14 +24,14 @@
                 {% endif %}
                 {% endwith %}
 
-                {% if classes == "NONE" %}
-                <form method="post" id="setup">
+                {% if not classes %}
+                <form action="{{ url_for('setup') }}" method="post" id="setup">
                     <button class="btn add-class-button" onclick="addParameter()"><i class="fa-solid fa-plus"></i>
                     </button>
                     <button class="btn add-class-button" onclick="removeParameter()"><i class="fa-solid fa-minus"></i>
                     </button>
-                    <button type="submit" class="btn add-class-button">Submit</button>
-                    <input type='number' name='classes' placeholder='Class 1' id='class__id--1' class='form-control'/>
+                    <input type="submit" class="btn add-class-button"></input>
+                    <input type='number' name='classes' placeholder='Class 1' id='class__id--1' required="required" class='form-control'/>
                 </form>
                 {% else %}
                 <form action="{{ url_for('setup') }}" method="post" id="setup">
@@ -41,7 +41,7 @@
                     <button class="btn add-class-button" onclick="removeParameter()"><i class="fa-solid fa-minus"></i>
                     </button>
 
-                    <button type="submit" action="{{ url_for('setup') }}" class="btn add-class-button">Submit</button>
+                    <input type="submit" action="{{ url_for('setup') }}" class="btn add-class-button"></input>
                     {% for class in classes %}
                     <input type='number' name='classes' placeholder='Class 1' required="required" value={{class}}
                            id='class__id--1'
@@ -66,9 +66,8 @@
     function addParameter() {
         interval++
 
-
         var input = document.createElement('input');
-        let result = `<input type='text' name='classes' placeholder='Class ${interval}' required='required' id='class__id--${interval}' class='form-control'/>`;
+        let result = `<input type='number' name='classes' placeholder='Class ${interval}' required='required' id='class__id--${interval}' class='form-control'/>`;
         input.innerHTML = result;
         var child = input.firstChild;
         form.appendChild(child);
@@ -76,7 +75,7 @@
 
     function removeParameter() {
 
-        if (interval >= 0) {
+        if (interval > 0) {
             form.removeChild(form.lastElementChild)
             interval--
         }

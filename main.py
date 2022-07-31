@@ -33,8 +33,9 @@ oauth.register(
     client_kwargs={
         "scope": "openid profile email",
     },
-    server_metadata_url=f'https://{AUTH0_DOMAIN}/.well-known/openid-configuration',
+    server_metadata_url=f"https://{AUTH0_DOMAIN}/.well-known/openid-configuration",
 )
+
 
 def is_logged_in():
     ret_val = False
@@ -42,6 +43,7 @@ def is_logged_in():
     if user_info:
         ret_val = True
     return ret_val
+
 
 # Controllers API
 @app.route("/")
@@ -87,35 +89,63 @@ def logout():
     )
 
 
-
-
-@app.route('/work')
+@app.route("/work")
 def work():
     print("work()")
-    print("Session in /work", session)
-    user_info = session.get("user")['userinfo']
+    # print("Session in /work", session)
+    user_info = session.get("user")["userinfo"]
 
-    name = session.get("user")['userinfo']['given_name']
+    name = session.get("user")["userinfo"]["given_name"]
     classes = auth0.get_user_classes(user_info)
     creds = auth0.get_user_creds(user_info)
 
-    time = datetime.datetime.now().strftime('%A %B %d, %Y')
+    time = datetime.datetime.now().strftime("%A %B %d, %Y")
 
-    if not creds or not classes:
-        return render_template("planner.html", is_logged_in=is_logged_in(), time=time, name=f"{name}", classes="NONE")
+    if not creds:
+        print("NOT CREDS")
+        return render_template(
+            "planner.html",
+            is_logged_in=is_logged_in(),
+            time=time,
+            name=f"{name}",
+            creds=None,
+            classes="YES",
+        )
+    if not classes or classes == "default":
+        print("NOT CLASSES")
+        return render_template(
+            "planner.html",
+            is_logged_in=is_logged_in(),
+            time=time,
+            name=f"{name}",
+            classes=None,
+            creds="YES",
+        )
     else:
-        assignments = get_assignments(key=creds[0], secret=creds[1], classes=classes.split(','))
-        return render_template("planner.html", is_logged_in=is_logged_in(), time=time, assignments=assignments, name=name)
+        print(f"WORK GOING TO ELSE, creds: {creds}, classes {classes}")
+        assignments = get_assignments(
+            key=creds[0], secret=creds[1], classes=classes.split(",")
+        )
+        # print(f"ASSIGNMENTS {assignments}")
+        return render_template(
+            "planner.html",
+            is_logged_in=is_logged_in(),
+            time=time,
+            assignments=assignments,
+            name=name,
+            creds="YES",
+            classes="YES",
+        )
 
 
-@app.route('/setup', methods=["GET", "POST"])
+@app.route("/setup", methods=["GET", "POST"])
 def setup():
     print("setup()")
 
     user_info = session.get("user", {}).get("userinfo")
     if not user_info:
         print("Could not find the user that is logged on :(")
-        return redirect(url_for('work'))
+        return redirect(url_for("work"))
 
     creds = auth0.get_user_creds(user_info=user_info)
     if not creds:
@@ -123,22 +153,31 @@ def setup():
         return render_template("setup.html", is_logged_in=is_logged_in(), classes=[])
 
     if request.method == "POST":
-        if not request.form.getlist('classes'):
-            return render_template("setup.html", is_logged_in=is_logged_in(),)
+        if not request.form.getlist("classes"):
+            return render_template(
+                "setup.html",
+                is_logged_in=is_logged_in(),
+            )
         else:
-            values = request.form.getlist('classes')
+            values = request.form.getlist("classes")
             print(values)
 
             if check_if_duplicates(values):
                 flash("Please remove duplicate class ids")
-                return redirect(url_for('setup'))
+                return render_template(
+                    "setup.html", is_logged_in=is_logged_in(), classes=[]
+                )
             else:
                 try:
                     # flash("Checking that the class IDs are valid.", category="info")
+                    print("Checking if class IDs are valid")
                     get_assignments(key=creds[0], secret=creds[1], classes=values)
                 except requests.exceptions.HTTPError:
-                    flash('Invalid class ids', category="error")
-                    return redirect(url_for("work"))
+                    print("Invalid class IDs ")
+                    flash("Invalid class ids", category="error")
+                    return render_template(
+                        "setup.html", is_logged_in=is_logged_in(), classes=[]
+                    )
                 else:
                     # flash("Saving your class IDs.", category="info")
                     print("Saving your class IDs.")
@@ -149,16 +188,20 @@ def setup():
     classes = auth0.get_user_classes(user_info=user_info).split(",")
     if classes == [""]:
         classes = []
-    return render_template("setup.html", classes=classes, is_logged_in=is_logged_in(),)
+    return render_template(
+        "setup.html",
+        classes=classes,
+        is_logged_in=is_logged_in(),
+    )
 
 
-@app.route('/register', methods=["GET", "POST"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
     print("register()")
 
     if request.method == "POST":
-        key = request.form.get('key')
-        secret = request.form.get('secret')
+        key = request.form.get("key")
+        secret = request.form.get("secret")
         if not key or not secret:
             flash("You must provide key and secret.", category="error")
             return redirect(url_for("register"))
@@ -168,7 +211,7 @@ def register():
             sc.get_me()
 
         except requests.exceptions.HTTPError:
-            flash('Invalid api key/secret', category="error")
+            flash("Invalid api key/secret", category="error")
             return redirect(url_for("register"))
 
         else:
@@ -178,12 +221,18 @@ def register():
             return redirect(url_for("work"))
 
     # this is for HTTP method GET
-    return render_template("register.html", is_logged_in=is_logged_in(),)
+    return render_template(
+        "register.html",
+        is_logged_in=is_logged_in(),
+    )
 
 
-@app.route('/about')
+@app.route("/about")
 def about():
-    return render_template("about.html", is_logged_in=is_logged_in(),)
+    return render_template(
+        "about.html",
+        is_logged_in=is_logged_in(),
+    )
 
 
 if __name__ == "__main__":

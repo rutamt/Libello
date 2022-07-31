@@ -2,10 +2,6 @@
 {% extends "head.html" %}
 {% block content %}
 
-<!--                {% if remove == "yes" %}-->
-<!--                    <body onLoad="removeParameter();">-->
-<!--                {% endif %}-->
-
 <main class="content">
     <div class="container-fluid input-window__container">
         <section class="input-window--login">
@@ -26,28 +22,32 @@
                 {% endwith %}
 
                 {% if not classes %}
+                <button class="btn add-class-button" onclick="addParameter()"><i class="fa-solid fa-plus"></i>
+                </button>
+                <button class="btn add-class-button" onclick="removeParameter()"><i class="fa-solid fa-minus"></i>
+                </button>
                 <form action="{{ url_for('setup') }}" method="post" id="setup">
-                    <button class="btn add-class-button" onclick="addParameter()"><i class="fa-solid fa-plus"></i>
-                    </button>
-                    <button class="btn add-class-button" onclick="removeParameter()"><i class="fa-solid fa-minus"></i>
-                    </button>
-                    <input type="submit" class="btn add-class-button"></input>
-                    <input type='number' name='classes' placeholder='Class 1' id='class__id--1' required="required" class='form-control'/>
+                    <div class="input__wrapper">
+                        <input type='number' name='classes' placeholder='Type in class ID' id='class_input'
+                            required="required" class='form-control'
+                            onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'" />
+                    </div>
+                    <input type="submit" class="btn add-class-button">
                 </form>
                 {% else %}
+                <button class="btn add-class-button" onclick="addParameter()"><i class="fa-solid fa-plus"></i>
+                </button>
+                <button class="btn add-class-button" onclick="removeParameter()"><i class="fa-solid fa-minus"></i>
+                </button>
                 <form action="{{ url_for('setup') }}" method="post" id="setup">
-                    <button class="btn add-class-button" onclick="addParameter()"><i class="fa-solid fa-plus"></i>
-                    </button>
-
-                    <button class="btn add-class-button" onclick="removeParameter()"><i class="fa-solid fa-minus"></i>
-                    </button>
-
-                    <input type="submit" action="{{ url_for('setup') }}" class="btn add-class-button"></input>
-                    {% for class in classes %}
-                    <input type='number' name='classes' placeholder='Class 1' required="required" value={{class}}
-                           id='class__id--1'
-                           class='form-control'/>
-                    {% endfor %}
+                    <div class="input__wrapper">
+                        {% for class in classes %}
+                        <input type='number' name='classes' placeholder='Type in class ID' required="required"
+                            value={{class}} id='class_input' class='form-control'
+                            onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'" />
+                        {% endfor %}
+                    </div>
+                    <input type="submit" class="btn add-class-button">
                 </form>
                 {% endif %}
 
@@ -61,27 +61,28 @@
 <!-- Footer -->
 
 
+
 <script>
-    const form = document.getElementById("setup");
+    const form = document.querySelector(".input__wrapper");
     let interval = 1
+
     function addParameter() {
         interval++
-
         var input = document.createElement('input');
-        let result = `<input type='number' name='classes' placeholder='Class ${interval}' required='required' id='class__id--${interval}' class='form-control'/>`;
+        let result =
+            `<input type='number' name='classes' placeholder='Type in Class ID' required='required' id='class_input' class='form-control' onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'"/>`;
         input.innerHTML = result;
         var child = input.firstChild;
         form.appendChild(child);
     }
 
     function removeParameter() {
-
         if (interval > 0) {
             form.removeChild(form.lastElementChild)
             interval--
         }
-
     }
+
 
 </script>
 

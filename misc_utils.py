@@ -4,6 +4,7 @@ Misc utilities for use throughout the app.
 
 import schoolopy
 
+
 def check_if_duplicates(list_of_elems):
     """Check if given list contains any duplicates
 
@@ -20,15 +21,14 @@ def check_if_duplicates(list_of_elems):
 
 
 def get_assignments(key, secret, classes=None):
-    """Use the Schoology API to return the user's assignments
-    """
+    """Use the Schoology API to return the user's assignments"""
     print("get_assignments()")
     sc = schoolopy.Schoology(schoolopy.Auth(key, secret))
 
-    if classes is None or classes == "default":
+    if classes == ["default"] or classes == "default":
         return "NONE"
     else:
         cl_list = []
         for i in classes:
-            cl_list += (sc.get_assignments(i))
+            cl_list += sc.get_assignments(i)
         return cl_list

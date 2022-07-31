@@ -1,3 +1,4 @@
+{% set is_logged_in = is_logged_in %}
 {% extends "head.html" %}
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/planner.css')}}">
@@ -68,7 +69,7 @@
 
         {% if classes == "NONE" %}
                             <div class="card-container__header border-emphasis card-header">
-                        <div class="header-text header-text--primary" style="color:red">No classes yet. <a href="{{ url_for('setup') }}"> Click here </a>to add new classes.</div>
+                        <div class="header-text header-text--primary" style="color:red"><a href="{{ url_for('register') }}">Please enter your API key and secret. </a></div>
                     </div>
                                 {% else %}
                         <div class="card-container__body card-body">

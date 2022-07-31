@@ -29,8 +29,7 @@
                 <form action="{{ url_for('setup') }}" method="post" id="setup">
                     <div class="input__wrapper">
                         <input type='number' name='classes' placeholder='Type in class ID' id='class_input'
-                            required="required" class='form-control'
-                            onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'" />
+                            required="required" class='form-control' />
                     </div>
                     <input type="submit" class="btn add-class-button">
                 </form>
@@ -43,8 +42,7 @@
                     <div class="input__wrapper">
                         {% for class in classes %}
                         <input type='number' name='classes' placeholder='Type in class ID' required="required"
-                            value={{class}} id='class_input' class='form-control'
-                            onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'" />
+                            value={{class}} id='class_input' class='form-control' />
                         {% endfor %}
                     </div>
                     <input type="submit" class="btn add-class-button">
@@ -70,7 +68,7 @@
         interval++
         var input = document.createElement('input');
         let result =
-            `<input type='number' name='classes' placeholder='Type in Class ID' required='required' id='class_input' class='form-control' onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'"/>`;
+            `<input type='number' name='classes' placeholder='Type in Class ID' required='required' id='class_input' class='form-control' />`;
         input.innerHTML = result;
         var child = input.firstChild;
         form.appendChild(child);

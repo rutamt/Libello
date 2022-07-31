@@ -80,14 +80,17 @@
         {% else %}
         <div class="card-container__body card-body">
             <section id="assignent-menu">
+                {% for classes in assignments: %}
+
 
                 <div class="card-container card flex-fill">
                     <div class="card-container__header border-emphasis card-header">
-                        <div class="header-text header-text--primary">Class1</div>
+                        <div class="header-text header-text--primary" id="cl_input">Class
+                            {{cl_list[assignments.index(classes)]}}</div>
                     </div>
                     <div class="card-container__card-parent row  ">
 
-                        {% for title in assignments: %}
+                        {% for title in classes %}
 
                         <div class="card-assignment__column col-lg-6 col-md-12 text-center align-middle ">
 
@@ -119,6 +122,7 @@
                             </div>
 
                         </div>
+                        {% endfor %}
                         {% endfor %}
                         {% endif %}
                     </div>
@@ -161,7 +165,13 @@
         });
     });
 
+    const cl_input = document.getElementById("cl_input")
+    let cl_int = 1
 
+    function add_cl_int() {
+        cl_input.innerHTML = `Class ${cl_int}`
+        cl_int++
+    } 
 </script>
 
 <script src="{{ url_for('static', filename='js/main.js')}}" type="module"></script>

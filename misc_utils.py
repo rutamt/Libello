@@ -29,6 +29,22 @@ def get_assignments(key, secret, classes=None):
         return "NONE"
     else:
         cl_list = []
-        for i in classes:
-            cl_list += sc.get_assignments(i)
+        cl_num = 0
+        new_cl = []
+        classes_length = len(classes)
+        class_int = 0
+        for i in range(0, classes_length):
+            current_class_assignemnts = []
+            current_class_assignemnts.append(sc.get_assignments(classes[class_int]))
+            cl_list += current_class_assignemnts
+            class_int += 1
+
+        # print(cl_list)
+        # print(f"CLASSES LENGTH: {classes_length}")
+        # for i in classes:
+        #     new_cl.append(sc.get_assignments(i))
+        #     # cl_list.append(new_cl)
+        #     # cl_list += sc.get_assignments(i)
+        # cl_list.append(new_cl)
+        # # print(cl_list)
         return cl_list

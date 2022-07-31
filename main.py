@@ -126,6 +126,11 @@ def work():
         assignments = get_assignments(
             key=creds[0], secret=creds[1], classes=classes.split(",")
         )
+        cl_int = 0
+        cl_list = []
+        for i in range(0, len(assignments)):
+            cl_int += 1
+            cl_list.append(cl_int)
         # print(f"ASSIGNMENTS {assignments}")
         return render_template(
             "planner.html",
@@ -135,6 +140,7 @@ def work():
             name=name,
             creds="YES",
             classes="YES",
+            cl_list=cl_list,
         )
 
 

@@ -67,62 +67,72 @@
     <div class="container-fluid assignment-menu__container">
 
 
-        {% if classes == "NONE" %}
-                            <div class="card-container__header border-emphasis card-header">
-                        <div class="header-text header-text--primary" style="color:red"><a href="{{ url_for('register') }}">Please enter your API key and secret. </a></div>
+        {% if not creds %}
+        <div class="card-container__header border-emphasis card-header">
+            <div class="header-text header-text--primary" style="color:red"><a href="{{ url_for('register') }}">Please
+                    enter your API key and secret. </a></div>
+        </div>
+        {% elif not classes %}
+        <div class="card-container__header border-emphasis card-header">
+            <div class="header-text header-text--primary" style="color:red"><a href="{{ url_for('setup') }}">Please
+                    enter some class IDs. </a></div>
+        </div>
+        {% else %}
+        <div class="card-container__body card-body">
+            <section id="assignent-menu">
+                {% for classes in assignments: %}
+
+
+                <div class="card-container card flex-fill">
+                    <div class="card-container__header border-emphasis card-header">
+                        <div class="header-text header-text--primary" id="cl_input">Class
+                            {{cl_list[assignments.index(classes)]}}</div>
                     </div>
-                                {% else %}
-                        <div class="card-container__body card-body">
-                            <section id="assignent-menu">
+                    <div class="card-container__card-parent row  ">
 
-                                <div class="card-container card flex-fill">
-                                    <div class="card-container__header border-emphasis card-header">
-                                        <div class="header-text header-text--primary">Class1</div>
+                        {% for title in classes %}
+
+                        <div class="card-assignment__column col-lg-6 col-md-12 text-center align-middle ">
+
+                            <div class="card-assignment card text-center">
+                                <div class="card-assignment__header card-body column-card__button btn btn-dark btn-block text-center "
+                                    data-bs-toggle="collapse" data-bs-target="#number{{title['id']}}" role="button"
+                                    aria-expanded="false" aria-controls="card1">
+                                    <div
+                                        class="card-assignment__title card-title card-text card__header header-text header-text--primary  ">
+                                        {{title['title']}}
                                     </div>
-                                    <div class="card-container__card-parent row  ">
-
-                                        {% for title in assignments: %}
-
-                                        <div class="card-assignment__column col-lg-6 col-md-12 text-center align-middle ">
-
-                                            <div class="card-assignment card text-center">
-                                                <div class="card-assignment__header card-body column-card__button btn btn-dark btn-block text-center "
-                                                     data-bs-toggle="collapse" data-bs-target="#number{{title['id']}}"
-                                                     role="button" aria-expanded="false" aria-controls="card1">
-                                                    <div class="card-assignment__title card-title card-text card__header header-text header-text--primary  ">
-                                                        {{title['title']}}
-                                                    </div>
-                                                </div>
-                                                <div class="card-assignment__body collapse card-collapse"
-                                                     id="number{{title['id']}}">
-                                                    <div class="card-body body-text body-text--primary">
-                                                        {% if title['due'] == "" %}
-                                                        <h3 class='boxed' style="color:red">No due date</h3>
-                                                        {% else %}
-                                                        <h3 class='boxed' style="color:green">Due: {{title['due']}}</h3>
-                                                        {% endif %}
-                                                        <h3><a href={{title['web_url']}} class='boxed'
-                                                               style="color:#023E8A">Link</a></h3>
-                                                        {% if title['completed'] == 1 %}
-                                                        <h3 class='boxed' style="color:green">Completed</h3>
-                                                        {% elif title['completed'] == 0 %}
-                                                        <h3 class='boxed' style="color:red">Incomplete</h3>
-                                                        {% endif %}
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        {% endfor %}
+                                </div>
+                                <div class="card-assignment__body collapse card-collapse" id="number{{title['id']}}">
+                                    <div class="card-body body-text body-text--primary">
+                                        {% if title['due'] == "" %}
+                                        <h3 class='boxed' style="color:red">No due date</h3>
+                                        {% else %}
+                                        <h3 class='boxed' style="color:green">Due: {{title['due']}}</h3>
+                                        {% endif %}
+                                        <h3><a href={{title['web_url']}} class='boxed' style="color:#023E8A">Link</a>
+                                        </h3>
+                                        {% if title['completed'] == 1 %}
+                                        <h3 class='boxed' style="color:green">Completed</h3>
+                                        {% elif title['completed'] == 0 %}
+                                        <h3 class='boxed' style="color:red">Incomplete</h3>
                                         {% endif %}
                                     </div>
-
                                 </div>
+                            </div>
 
                         </div>
+                        {% endfor %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
 
-            </section>
+                </div>
+
         </div>
+
+        </section>
+    </div>
     </div>
 </main>
 
@@ -130,32 +140,38 @@
 <script>
     // Multi-action Button
 
-        // Enable all menu buttons
-        document.querySelectorAll(".mab").forEach(multiAction => {
-            const menuButton = multiAction.querySelector(".mab__button--menu");
-            const list = multiAction.querySelector(".mab__list");
+    // Enable all menu buttons
+    document.querySelectorAll(".mab").forEach(multiAction => {
+        const menuButton = multiAction.querySelector(".mab__button--menu");
+        const list = multiAction.querySelector(".mab__list");
 
-            menuButton.addEventListener("click", () => {
-                list.classList.toggle("mab__list--visible");
-            });
+        menuButton.addEventListener("click", () => {
+            list.classList.toggle("mab__list--visible");
         });
+    });
 
-        // Hide all lists when clicking elsewhere on the page
-        document.addEventListener("click", e => {
-            const keepOpen = (
-                e.target.matches(".mab__list")
-                || e.target.matches(".mab__button--menu")
-                || e.target.closest(".mab__button--menu")
-            ); // Is the element of click and you can check target if its on the list
+    // Hide all lists when clicking elsewhere on the page
+    document.addEventListener("click", e => {
+        const keepOpen = (
+            e.target.matches(".mab__list")
+            || e.target.matches(".mab__button--menu")
+            || e.target.closest(".mab__button--menu")
+        ); // Is the element of click and you can check target if its on the list
 
-            if (keepOpen) return;
+        if (keepOpen) return;
 
-            document.querySelectorAll(".mab__list").foreach(list => {
-                list.classList.remove("mab__list--visible");
-            });
+        document.querySelectorAll(".mab__list").foreach(list => {
+            list.classList.remove("mab__list--visible");
         });
+    });
 
+    const cl_input = document.getElementById("cl_input")
+    let cl_int = 1
 
+    function add_cl_int() {
+        cl_input.innerHTML = `Class ${cl_int}`
+        cl_int++
+    } 
 </script>
 
 <script src="{{ url_for('static', filename='js/main.js')}}" type="module"></script>

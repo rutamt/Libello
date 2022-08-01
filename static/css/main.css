@@ -1,5 +1,5 @@
 /* Page Margins and Padding */
-@media (max-width: 935px){
+@media (max-width: 935px) {
     body {
         padding-top: 10%;
     }
@@ -17,7 +17,11 @@ body {
     color: #222831;
 }
 
-.col-lg-4, .col-lg-6, .col-lg-8, .col-sm-12 { /* Preferably all columns would have zero padding but these are the ones I used most often. */
+.col-lg-4,
+.col-lg-6,
+.col-lg-8,
+.col-sm-12 {
+    /* Preferably all columns would have zero padding but these are the ones I used most often. */
     padding: 0;
 }
 
@@ -36,29 +40,34 @@ body {
 .title__text {
     animation: 1s ease-out 0s 1 slideInFromLeft;
     font-size: 4vw;
-  }
-  @media (max-width: 991px) {
+}
+
+@media (max-width: 991px) {
     .title__text {
-      font-size: 10vw;
+        font-size: 10vw;
     }
-  }
+}
 
 .header-text {
     font-weight: 400;
     font-family: 'Josefin Sans', sans-serif;
     padding: 2% 0%;
 }
+
 .header-text--title {
     font-size: 5vw;
 }
+
 .header-text--primary {
     font-size: 7vw;
 }
+
 @media (min-width: 991px) {
     .header-text--primary {
         font-size: 2.5vw;
     }
 }
+
 .header-text--secondary {
     font-size: 2vw;
 }
@@ -66,14 +75,17 @@ body {
 .body-text {
     font-family: 'Lato', sans-serif;
 }
+
 .body-text--primary {
     font-size: 5vw;
 }
+
 @media (min-width: 991px) {
     .body-text--primary {
         font-size: 1.25vw;
     }
 }
+
 .body-text--secondary {
     font-size: 2vw;
 }
@@ -85,14 +97,16 @@ body {
     background-color: #EEEEEE;
 }
 
-.navbar__logo, .navbar__logo:hover  {
+.navbar__logo,
+.navbar__logo:hover {
     font-family: 'Josefin Sans', sans-serif, Arial;
     font-size: 2.5rem;
     text-decoration: none;
     color: #222831;
 }
 
-.nav-link, .nav-link:hover {
+.nav-link,
+.nav-link:hover {
     font-family: 'Josefin Sans', sans-serif, Arial;
     font-size: 1rem;
     text-decoration: none;
@@ -129,3 +143,18 @@ body {
 #00ADB5;
 #EEEEEE;
 */
+
+
+/* Takes the arrows off the number inputs */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}

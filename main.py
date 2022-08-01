@@ -16,6 +16,7 @@ from flask import Flask, redirect, render_template, session, url_for, request, f
 import schoolopy
 import datetime
 import requests
+from functools import wraps
 
 from auth0_utils import AUTH0_DOMAIN, CLIENT_ID, CLIENT_SECRET, Auth0Utils
 from misc_utils import check_if_duplicates, get_assignments
@@ -43,6 +44,19 @@ def is_logged_in():
     if user_info:
         ret_val = True
     return ret_val
+
+
+def login_required(func):
+    @wraps(func)
+    def _inner(*args, **kwargs):
+        # check if user is logged in
+        if not is_logged_in():
+            print("User was not logged in. :(")
+            return render_template("unauthorized.html"), 401
+        # they were logged in, so go ahead
+        return func(*args, **kwargs)
+
+    return _inner
 
 
 # Controllers API
@@ -90,6 +104,7 @@ def logout():
 
 
 @app.route("/work")
+@login_required
 def work():
     print("work()")
     # print("Session in /work", session)
@@ -126,11 +141,6 @@ def work():
         assignments = get_assignments(
             key=creds[0], secret=creds[1], classes=classes.split(",")
         )
-        cl_int = 0
-        cl_list = []
-        for i in range(0, len(assignments)):
-            cl_int += 1
-            cl_list.append(cl_int)
         # print(f"ASSIGNMENTS {assignments}")
         return render_template(
             "planner.html",
@@ -140,11 +150,11 @@ def work():
             name=name,
             creds="YES",
             classes="YES",
-            cl_list=cl_list,
         )
 
 
 @app.route("/setup", methods=["GET", "POST"])
+@login_required
 def setup():
     print("setup()")
 
@@ -202,6 +212,7 @@ def setup():
 
 
 @app.route("/register", methods=["GET", "POST"])
+@login_required
 def register():
     print("register()")
 
@@ -239,6 +250,12 @@ def about():
         "about.html",
         is_logged_in=is_logged_in(),
     )
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template("unauthorized.html"), 404
 
 
 if __name__ == "__main__":

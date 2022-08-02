@@ -1,6 +1,8 @@
 """Python Flask WebApp Auth0 integration example
 """
 
+from ast import keyword
+from re import T
 from dotenv import find_dotenv, load_dotenv
 
 ENV_FILE = find_dotenv()
@@ -16,11 +18,15 @@ from flask import Flask, redirect, render_template, session, url_for, request, f
 import schoolopy
 import datetime
 import requests
+from functools import wraps
+from flask_talisman import Talisman
+
 
 from auth0_utils import AUTH0_DOMAIN, CLIENT_ID, CLIENT_SECRET, Auth0Utils
 from misc_utils import check_if_duplicates, get_assignments
 
 app = Flask(__name__)
+Talisman(app, content_security_policy=None)
 app.secret_key = os.environ.get("APP_SECRET_KEY")
 oauth = OAuth(app)
 
@@ -45,6 +51,19 @@ def is_logged_in():
     return ret_val
 
 
+def login_required(func):
+    @wraps(func)
+    def _inner(*args, **kwargs):
+        # check if user is logged in
+        if not is_logged_in():
+            print("User was not logged in. :(")
+            return render_template("unauthorized.html"), 401
+        # they were logged in, so go ahead
+        return func(*args, **kwargs)
+
+    return _inner
+
+
 # Controllers API
 @app.route("/")
 def home():
@@ -53,7 +72,6 @@ def home():
         "index.html",
         session=session.get("user"),
         is_logged_in=is_logged_in(),
-        pretty=json.dumps(session.get("user"), indent=4),
     )
 
 
@@ -90,24 +108,30 @@ def logout():
 
 
 @app.route("/work")
+@login_required
 def work():
     print("work()")
     # print("Session in /work", session)
     user_info = session.get("user")["userinfo"]
+    print("USER INFO:", session.get("user")["userinfo"])
+    try:
+        name = session.get("user")["userinfo"]["given_name"]
+    except KeyError:
+        name = session.get("user")["userinfo"]["nickname"]
 
-    name = session.get("user")["userinfo"]["given_name"]
+    # name = session.get("user")["userinfo"]["given_name"]
     classes = auth0.get_user_classes(user_info)
     creds = auth0.get_user_creds(user_info)
 
     time = datetime.datetime.now().strftime("%A %B %d, %Y")
 
-    if not creds:
+    if not creds or creds == ["default", "default"]:
         print("NOT CREDS")
         return render_template(
             "planner.html",
             is_logged_in=is_logged_in(),
             time=time,
-            name=f"{name}",
+            name=name,
             creds=None,
             classes="YES",
         )
@@ -126,11 +150,6 @@ def work():
         assignments = get_assignments(
             key=creds[0], secret=creds[1], classes=classes.split(",")
         )
-        cl_int = 0
-        cl_list = []
-        for i in range(0, len(assignments)):
-            cl_int += 1
-            cl_list.append(cl_int)
         # print(f"ASSIGNMENTS {assignments}")
         return render_template(
             "planner.html",
@@ -140,11 +159,11 @@ def work():
             name=name,
             creds="YES",
             classes="YES",
-            cl_list=cl_list,
         )
 
 
 @app.route("/setup", methods=["GET", "POST"])
+@login_required
 def setup():
     print("setup()")
 
@@ -155,7 +174,7 @@ def setup():
 
     creds = auth0.get_user_creds(user_info=user_info)
     if not creds:
-        print("Please enter your API KEY and SECRET first")
+        flash("Please enter your API KEY and SECRET first")
         return render_template("setup.html", is_logged_in=is_logged_in(), classes=[])
 
     if request.method == "POST":
@@ -202,6 +221,7 @@ def setup():
 
 
 @app.route("/register", methods=["GET", "POST"])
+@login_required
 def register():
     print("register()")
 
@@ -241,5 +261,11 @@ def about():
     )
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template("unauthorized.html"), 404
+
+
 if __name__ == "__main__":
-    app.run(host="localhost", port=os.environ.get("PORT", 3000), debug=True)
+    app.run(host="localhost", port=os.environ.get("PORT", 3000))

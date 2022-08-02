@@ -1,6 +1,8 @@
 """Python Flask WebApp Auth0 integration example
 """
 
+from ast import keyword
+from re import T
 from dotenv import find_dotenv, load_dotenv
 
 ENV_FILE = find_dotenv()
@@ -111,20 +113,25 @@ def work():
     print("work()")
     # print("Session in /work", session)
     user_info = session.get("user")["userinfo"]
+    print("USER INFO:", session.get("user")["userinfo"])
+    try:
+        name = session.get("user")["userinfo"]["given_name"]
+    except KeyError:
+        name = session.get("user")["userinfo"]["nickname"]
 
-    name = session.get("user")["userinfo"]["given_name"]
+    # name = session.get("user")["userinfo"]["given_name"]
     classes = auth0.get_user_classes(user_info)
     creds = auth0.get_user_creds(user_info)
 
     time = datetime.datetime.now().strftime("%A %B %d, %Y")
 
-    if not creds:
+    if not creds or creds == ["default", "default"]:
         print("NOT CREDS")
         return render_template(
             "planner.html",
             is_logged_in=is_logged_in(),
             time=time,
-            name=f"{name}",
+            name=name,
             creds=None,
             classes="YES",
         )
@@ -167,7 +174,7 @@ def setup():
 
     creds = auth0.get_user_creds(user_info=user_info)
     if not creds:
-        print("Please enter your API KEY and SECRET first")
+        flash("Please enter your API KEY and SECRET first")
         return render_template("setup.html", is_logged_in=is_logged_in(), classes=[])
 
     if request.method == "POST":

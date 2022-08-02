@@ -17,11 +17,14 @@ import schoolopy
 import datetime
 import requests
 from functools import wraps
+from flask_talisman import Talisman
+
 
 from auth0_utils import AUTH0_DOMAIN, CLIENT_ID, CLIENT_SECRET, Auth0Utils
 from misc_utils import check_if_duplicates, get_assignments
 
 app = Flask(__name__)
+Talisman(app, content_security_policy=None)
 app.secret_key = os.environ.get("APP_SECRET_KEY")
 oauth = OAuth(app)
 
@@ -67,7 +70,6 @@ def home():
         "index.html",
         session=session.get("user"),
         is_logged_in=is_logged_in(),
-        pretty=json.dumps(session.get("user"), indent=4),
     )
 
 
@@ -259,4 +261,4 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=os.environ.get("PORT", 3000), debug=True)
+    app.run(host="localhost", port=os.environ.get("PORT", 3000))

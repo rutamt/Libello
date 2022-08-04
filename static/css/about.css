@@ -1,0 +1,16 @@
+
+.about__people {
+    padding: 5%;
+}
+
+.about__people > div {
+    display: flex;
+    margin: 5% 0;
+} 
+.about__people > div > img {
+    height: auto;
+    width: 20%;
+    background-color: var(--blue);
+    border-radius: 50%;
+    margin-right: 5%;
+}

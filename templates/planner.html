@@ -1,192 +1,121 @@
 {% set is_logged_in = is_logged_in %}
 {% extends "head.html" %}
 {% block content %}
+
+<title>Planner</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css')}}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/planner.css')}}">
 
+<script src="{{ url_for('static', filename='js/modal.js')}}" defer></script>
+<script src="{{ url_for('static', filename='js/widgets.js')}}" type="module" defer></script>
 
-<main class="content">
-    <div class="container-fluid menu__header">
-        <div class="row menu__row">
-            <div class="col-lg-6 col-sm-12 header-menu__text">
-                <h1 class="header-text header-text--primary">
-                    Hello, {{name}}.
-                </h1>
-                <h1 class="header-text header-text--primary">
-                    It is {{time}}.
-                </h1>
+<!-- Main Content -->
+<main>
+
+
+    <!-- Header -->
+    <div class="header-wrapper container-fluid">
+        <h1 class="header-text">Hello {{name}}, it is {{time}}. </h1>
+    </div>
+    <!-- Header -->
+
+
+    <!-- Widget Container -->
+    <div class="container-fluid">
+
+        <div class="widget__bar">
+            <div class="widget-wrapper" data-bs-toggle="collapse" data-bs-target="#widgetDropdown" role="button"
+                aria-expanded="false" aria-controls="widgets">
+                <span class="symbol__plus material-symbols-outlined">add</span>
+                <h2 class="header-text">
+                    Add Widget
+                </h2>
             </div>
 
-            <div class="col-lg-6 col-sm-12 header-menu__widgets border-emphasis header-text">
-                <div class="sample__text--visible">To add a widget, click the '+' button below and click on one you
-                    want.
-                </div>
-                <div class="row">
-                    <div class="module__timer col-lg-4">
-
-                    </div>
-                    <div class="module__mindfulness col-lg-4">
-
-                    </div>
-                    <div class="module__todo col-lg-4">
-
-                    </div>
-                </div>
-
+            <div class="widget__collapse collapse" id="widgetDropdown">
+                <button>
+                    <h3 class="header-text" id="timerBtn">Timer</h3>
+                </button>
+                <button>
+                    <h3 class="header-text" id="mindfulnessBtn">Mindfulness</h3>
+                </button>
+                <button>
+                    <h3 class="header-text" id="todoBtn">To Do</h3>
+                </button>
             </div>
+            <!-- Widget Bar -->
+        </div>
+        <!-- Container-fluid -->
+    </div>
+
+    <div class="container-fluid row" id="widgetBar">
+        <!-- Its The Thought That Matters ;) -->
+    </div>
+
+    <!-- Modal Ask Classes -->
+
+    <div class="modal" id="modal">
+        <div class="modal__content modal__tutorial">
+            <span class="close material-symbols-outlined">close</span>
+
+            <h2 class="header-text">Warning</h2>
+            {% if not creds %}
+            <h1>You don't seem to have an api key or secret added to your account.
+            </h1>
+            <a href="{{ url_for('register') }}"><button class="btn__setup header-text">Add key and secret</button></a>
+            {% elif not classes %}
+            <h1>You don't seem to have any classes added to your account. Please add classes to your planner.</h1>
+            <a href="{{ url_for('setup') }}"><button class="btn__setup header-text">Setup Classes</button></a>
+            {% else %}
 
         </div>
     </div>
 
-    <div class="container-fluid body-text">
+    <!-- Modal Ask Classes -->
 
-        <div class="mab">
+    <!-- PLANNER -->
 
-            <button type="button" class="mab__button mab__button--menu">
-                <i class="fa-solid fa-plus mab__icon fa-2x"></i>
-            </button>
+    <div class="planner-wrapper container-fluid">
+        {% for classes in assignments: %}
 
-            <div class="mab__list">
-                <button class="mab__button mab__button--secondary" id="timerButton">
-                    <span class="mab__text">Timer</span>
-                </button>
-                <button class="mab__button mab__button--secondary" id="mindfulButton">
-                    <span class="mab__text">Mindfulness</span>
-                </button>
-                <button class="mab__button mab__button--secondary">
-                    <span class="mab__text">To Do List</span>
-                </button>
-            </div>
-        </div>
+        <div class="class-wrapper">
 
-        <a class="btn btn-dark mb-4 setup-button justify-content-end" role="button" href="{{ url_for('setup') }}">
-            Add Schoology Classes
-        </a>
+            <h1 class="header-text">Class
+                {{loop.index}}</h1>
 
-    </div>
+            <div class="assignment__grid">
+                {% for title in classes %}
 
-    <div class="container-fluid assignment-menu__container">
+                <div class="assignment">
+                    <h4 class="header-text">{{title['title']}}</h4>
 
-
-        {% if not creds %}
-        <div class="card-container__header border-emphasis card-header">
-            <div class="header-text header-text--primary" style="color:red"><a href="{{ url_for('register') }}">Please
-                    enter your API key and secret. </a></div>
-        </div>
-        {% elif not classes %}
-        <div class="card-container__header border-emphasis card-header">
-            <div class="header-text header-text--primary" style="color:red"><a href="{{ url_for('setup') }}">Please
-                    enter some class IDs. </a></div>
-        </div>
-        {% else %}
-        <div class="card-container__body card-body">
-            <section id="assignent-menu">
-                {% for classes in assignments: %}
-
-
-                <div class="card-container card flex-fill">
-                    <div class="card-container__header border-emphasis card-header">
-                        <div class="header-text header-text--primary" id="cl_input">Class
-                            {{loop.index}}</div>
-                    </div>
-                    <div class="card-container__card-parent row  ">
-
-                        {% for title in classes %}
-
-                        <div class="card-assignment__column col-lg-6 col-md-12 text-center align-middle ">
-
-                            <div class="card-assignment card text-center">
-                                <div class="card-assignment__header card-body column-card__button btn btn-dark btn-block text-center "
-                                    data-bs-toggle="collapse" data-bs-target="#number{{title['id']}}" role="button"
-                                    aria-expanded="false" aria-controls="card1">
-                                    <div
-                                        class="card-assignment__title card-title card-text card__header header-text header-text--primary  ">
-                                        {{title['title']}}
-                                    </div>
-                                </div>
-                                <div class="card-assignment__body collapse card-collapse" id="number{{title['id']}}">
-                                    <div class="card-body body-text body-text--primary">
-                                        {% if title['due'] == "" %}
-                                        <h3 class='boxed' style="color:red">No due date</h3>
-                                        {% else %}
-                                        <h3 class='boxed' style="color:green">Due: {{title['due']}}</h3>
-                                        {% endif %}
-                                        <h3><a href={{title['web_url']}} class='boxed' style="color:#023E8A">Link</a>
-                                        </h3>
-                                        {% if title['completed'] == 1 %}
-                                        <h3 class='boxed' style="color:green">Completed</h3>
-                                        {% elif title['completed'] == 0 %}
-                                        <h3 class='boxed' style="color:red">Incomplete</h3>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        {% endfor %}
-                        {% endfor %}
+                    <div class="class__content">
+                        {% if title['due'] == "" %}
+                        <h3 class='boxed' style="color:red">No due date</h3>
+                        {% else %}
+                        <h3 class='boxed' style="color:green">Due: {{title['due']}}</h3>
+                        {% endif %}
+                        <h3>
+                            <a href={{title['web_url']}} class='boxed' style="color:#023E8A">Link</a>
+                        </h3>
+                        {% if title['completed'] == 1 %}
+                        <h3 class='boxed' style="color:green">Completed</h3>
+                        {% elif title['completed'] == 0 %}
+                        <h3 class='boxed' style="color:red">Incomplete</h3>
                         {% endif %}
                     </div>
-
                 </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            {% endif %}
 
-        </div>
 
-        </section>
-    </div>
-    </div>
+
+            <!-- Class Wrapper -->
+
+
+            <!-- PLANNER -->
 </main>
 
-
-<script>
-    // Multi-action Button
-
-    // Enable all menu buttons
-    document.querySelectorAll(".mab").forEach(multiAction => {
-        const menuButton = multiAction.querySelector(".mab__button--menu");
-        const list = multiAction.querySelector(".mab__list");
-
-        menuButton.addEventListener("click", () => {
-            list.classList.toggle("mab__list--visible");
-        });
-    });
-
-    // Hide all lists when clicking elsewhere on the page
-    document.addEventListener("click", e => {
-        const keepOpen = (
-            e.target.matches(".mab__list")
-            || e.target.matches(".mab__button--menu")
-            || e.target.closest(".mab__button--menu")
-        ); // Is the element of click and you can check target if its on the list
-
-        if (keepOpen) return;
-
-        document.querySelectorAll(".mab__list").foreach(list => {
-            list.classList.remove("mab__list--visible");
-        });
-    });
-
-    const cl_input = document.getElementById("cl_input")
-    let cl_int = 1
-
-    function add_cl_int() {
-        cl_input.innerHTML = `Class ${cl_int}`
-        cl_int++
-    } 
-</script>
-
-<script src="{{ url_for('static', filename='js/main.js')}}" type="module"></script>
-
 {% endblock %}
-
-<!-- https://webdesign.tutsplus.com/tutorials/reading-progress-bar-css-javascript--cms-36635 -->
-<!-- https://www.codeleaks.io/how-to-build-a-responsive-and-dynamic-progress-bar/ -->
-<!-- https://www.freecodecamp.org/news/how-to-build-a-responsive-and-dynamic-progress-bar/ -->
-
-<!-- 
-Implement Parallax Scrolling
-Create your own classes that save alongside assignments
-Custom Scrollbar
-Create design motif across website 
-Custom notification
-- Push notifications 
--->

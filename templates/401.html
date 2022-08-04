@@ -1,0 +1,16 @@
+{% set is_logged_in = is_logged_in %}
+{% extends "head.html" %}
+{% block content %}
+
+    <title>Error 401</title>
+
+    <main>
+        <!-- Unauthorized -->
+        <div class="container__401 container-fluid">
+            <img `="  {{ url_for('static', filename='images/ERROR.png')}}" alt="Error">
+            <h1 class="header-text">ERROR CODE 401</h1>
+            <h2 class="body-text">You are trying to access data you are unauthorized for.</h2>
+        </div>
+    </main>
+
+    {% endblock %}

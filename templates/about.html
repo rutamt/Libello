@@ -2,7 +2,38 @@
 {% extends "head.html" %}
 {% block content %}
 
-<h1>Hello!</h1>
-<a href="{{ url_for('home') }}"></a>
+    <title>About</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css')}}">
 
-{% endblock %}
+    <main>
+        <section id="about">
+            <div class="about-wrapper container-fluid">
+                <h1 class="spec-text">Meet The Team</h1>
+                
+                <div class="about__people">
+                    <div class="jaewon">
+                        <img src="{{ url_for('static', filename='images/blank-profile-picture.png')}}" alt="Blank Profile Image">
+                        <div class="about__text">
+                            <h2 class="header-text">Front-End Developer</h2>
+                            <h4>
+                                Built website template and widgets for the organizer.
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="rutam">
+                        <img src="  {{ url_for('static', filename='images/blank-profile-picture.png')}}" alt="Blank Profile Image">
+                        <div class="about__text">
+                            <h2 class="header-text">Back-End Developer</h2>
+                            <h4>
+                                Built website template and widgets for the organizer.
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            <!-- About Wrapper -->
+            </div>
+        <!-- About Section -->
+        </section>
+    </main>
+  
+    {% endblock %}

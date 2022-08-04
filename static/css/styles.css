@@ -1,0 +1,242 @@
+/* Variables (Mainly colors) */
+
+:root {
+    --bg-color: #FAF9F6;
+    /* Off White */
+    --blue: #4878D4;
+    /* Blue Varation */
+    --purple: #594AFF;
+    /* Purple Variation */
+    --black: #222831;
+    /* Black */
+    --bg-emphasis: linear-gradient(45deg, #594AFF 0%, #3377FD 100%);
+    /* Drippy gradient */
+
+    /* Timer Widget */
+
+    --time-purple: #6B2883;
+    --time-purple-dark: #4B0082;
+    --time-green: #009150;
+    --time-green-dark: #00703C;
+    --time-red: #D22B2B;
+    --time-red-dark: #610C04;
+    --time-pomo: #D95550;
+    --time-pomo-dark: #7E2811;
+    --time-lightblue: #5DD2F6;
+    --time-lightblue-dark: #0047AB;
+    --time-bg: #4878D4;
+    --time-bg-dark: #002D62;
+
+    /* Mindfulness Widget */
+
+    --zen-green: #E4FFE3;
+    --zen-blue: #91C7CB;
+
+    /* Todo Widget */
+
+    --todo-bg: #4B0082;
+}
+
+/* Basic Formats */
+
+* {
+    /* Remove margin and padding from anything */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding-top: 58px;
+    background: var(--bg-emphasis);
+    overflow: overlay;
+}
+
+.col-lg-6,
+.col-lg-4,
+.col-lg-8 {
+    padding: 0;
+}
+
+.container-fluid {
+    /* Base Container for each vertical section of the webpage */
+    background: var(--bg-color);
+    padding: 3% 10%;
+    height: 100%;
+}
+
+.material-icons {
+    font-size: 60px;
+}
+
+
+.text-fill {
+    /* Gradient Effect from https://www.youtube.com/watch?v=odptart8ifk */
+    position: relative;
+}
+
+.text-fill::before {
+    background-color: var(--blue);
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    white-space: nowrap;
+
+    content: attr(data-text);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+
+    transition: width 0.5s ease-in;
+    overflow: hidden;
+}
+
+.text-fill:hover::before {
+    width: 100%;
+}
+
+/* Font Formats */
+
+.brand-text {
+    font-family: 'Josefin Sans', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.header-text {
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: bold;
+}
+
+.emphasis-text {
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+.spec-text {
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: bold;
+    line-height: 1.5;
+    color: var(--blue);
+    position: relative;
+}
+
+.spec-text::before {
+    position: absolute;
+    content: '';
+    bottom: 0%;
+    right: 0%;
+    width: 30px;
+    height: 30px;
+    border-bottom: 5px solid var(--blue);
+    border-right: 5px solid var(--blue);
+    margin: auto;
+}
+
+
+.body-text {
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: normal;
+}
+
+/* Navbar */
+
+.navbar {
+    padding: 0 10%;
+    background: transparent;
+    color: var(--bg-color);
+}
+
+.nav-item {
+    margin: 2% 0;
+    margin-left: .75em;
+    margin-right: auto;
+    padding: 0 .5em;
+    border-bottom: 2px solid transparent;
+
+}
+
+.navbar-brand {
+    color: var(--bg-color);
+}
+
+.navbar-brand:hover {
+    color: var(--blue);
+}
+
+.nav-link {
+    color: var(--bg-color);
+}
+
+.nav__sign-in {
+    background: var(--bg-emphasis);
+    border: none;
+}
+
+.nav__sign-in>.nav-link {
+    color: var(--bg-color);
+}
+
+.nav__sign-in:hover {
+    background: var(--bg-color);
+}
+
+.nav__sign-in>.nav-link:hover {
+    color: var(--purple);
+}
+
+.navbar-toggler:focus {
+    outline: 0;
+    border: 0;
+}
+
+.nav__about:hover {
+    border-bottom: 2px solid var(--bg-color);
+}
+
+.nav-active {
+    background-color: var(--bg-color);
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--purple);
+    border-radius: 20px;
+}
+
+/* Footer */
+
+footer {
+    background-color: WhiteSmoke;
+}
+
+/* Error Pages */
+
+.container__401 {
+    background-color: var(--blue);
+    display: flex;
+    flex-direction: column;
+    color: white;
+
+    text-align: center;
+
+    justify-content: center;
+}
+
+.container__401>img {
+    margin: auto;
+    max-width: 75vw;
+}

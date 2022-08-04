@@ -1,0 +1,113 @@
+/* Input Window */
+
+.input-window__container {
+  padding: 20% 5%;
+  background: var(--bg-emphasis);
+}
+
+.input-window {
+  margin: 0 30%;
+  padding: 3%;
+
+  background-color: var(--bg-color);
+  color: var(--black);
+  border-radius: 20px;
+
+  text-align: center;
+}
+
+@media (max-width: 1200px) {
+  .input-window {
+    margin: 0 15%;
+  }
+}
+
+@media (max-width: 690px) {
+  .input-window {
+    margin: 0;
+  }
+}
+
+form {
+  padding: 0 5%;
+}
+
+.btn__control {
+  position: relative;
+  background: var(--bg-emphasis);
+  border: none;
+  border-radius: 10px;
+
+  padding: 1% 2%;
+  margin: 1%;
+
+  color: var(--bg-color);
+  font-weight: bold;
+  line-height: 100%;
+
+  box-sizing: border-box;
+
+  border: 3px solid var(--bg-color);
+
+  transition:
+    background-color 0.5s,
+    border 0.5s,
+    color 0.5s,
+    transform 0.25s;
+}
+
+.btn__control--submit {
+  padding: 2% 3%;
+}
+
+.btn__control:hover {
+  background: var(--bg-color);
+  border: 3px solid var(--purple);
+  color: var(--purple);
+}
+
+.btn__control:active {
+  transform: scale(0.915);
+}
+
+.input__wrapper>input {
+  margin: 2.5% 0;
+  border-width: 0;
+  border-bottom: 3px solid darkgray;
+}
+
+
+.setup-button {
+  display: flex;
+}
+
+/* Modal */
+
+.modal__error {
+  max-width: 50%;
+}
+
+li {
+  margin: 5% 0;
+  list-style: none;
+}
+
+li>img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* Takes the arrows off the number inputs */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

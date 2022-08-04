@@ -1,7 +1,7 @@
 """Python Flask WebApp Auth0 integration example
 """
 
-from ast import keyword
+
 from re import T
 from dotenv import find_dotenv, load_dotenv
 
@@ -57,7 +57,7 @@ def login_required(func):
         # check if user is logged in
         if not is_logged_in():
             print("User was not logged in. :(")
-            return render_template("unauthorized.html"), 401
+            return render_template("401.html"), 401
         # they were logged in, so go ahead
         return func(*args, **kwargs)
 
@@ -264,8 +264,8 @@ def about():
 @app.errorhandler(404)
 def page_not_found(e):
     # note that we set the 404 status explicitly
-    return render_template("unauthorized.html"), 404
+    return render_template("404.html"), 404
 
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=os.environ.get("PORT", 3000))
+    app.run(host="localhost", port=os.environ.get("PORT", 3000), debug=True)

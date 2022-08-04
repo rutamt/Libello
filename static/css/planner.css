@@ -1,301 +1,337 @@
-
-/* https://www.youtube.com/watch?v=Xz-ApgT7rZc */
-
-.mab {
-    position: relative;
-    background: #dddddd;
-    display: inline-flex;
+main {
+    color: var(--bg-color);
 }
 
-.mab__button {
-    background: none;
-    border: none;
-    
+.container-fluid {
+    background-color: var(--blue);
+}
+
+.footer-wrapper {
+    background-color: whitesmoke;
+}
+
+/* Widget Creator */
+
+.widget-wrapper {
     display: flex;
+    padding: 2.5% 5%;
+    background-color: var(--bg-color);
+    color: var(--blue);
     align-items: center;
+    border-radius: 20px;
+}
+
+.symbol__plus {
+    font-size: 48px;
+}
+.widget-wrapper > h2 {
+    margin-left: auto;
+}
+
+.widget__collapse > button {
+    display: block;
+    border: none;
+    background-color: var(--bg-color);
+    padding: 1% 2.5%;
+    margin: 1%;
+    border-radius: 20px;
+    color: var(--blue);
+}
+
+.row {
     justify-content: center;
-    padding: 4px 5px;
-    color: #333333;
-    cursor: pointer;
-}
-.mab__button:focus {
-    outline: none;
-}
-.mab__button--secondary {
-    width: 100%;
-    justify-content: flex-start;
-}
-.mab__button:hover {
-    background: rgba(0, 0, 0, 0.05);
 }
 
-.menu__button:not(.mab__button--menu) .mab__icon {
-    margin: 10px;
+.row > div {
+    margin: 
+    3%;
 }
 
-.mab__text {
-    font-family: 'Lato', sans-serif;
-    font-size: 0.75rem;
+/* Planner */
+
+.class-wrapper > h1 {
+    padding: 1% 0;
+    border-bottom: 3px solid var(--bg-color);
 }
 
-.mab__list {
+.assignment__grid {
+    display: grid; 
+    margin-top: 5%;
+    grid-template-columns: repeat(4, 24.25%);
+    grid-auto-rows: 35vh;
+    grid-gap: 1%;
+}
+@media (max-width: 1200px) {
+    .assignment__grid {
+        grid-template-columns: repeat(3, 32%)
+    }
+}
+
+@media (max-width: 800px) {
+    .assignment__grid {
+        grid-template-columns: repeat(2, 48%)
+    }
+}
+
+@media (max-width: 400px) {
+    .assignment__grid {
+        grid-template-columns: repeat(1, 98%)
+    }
+}
+
+.assignment {
+    background-color: var(--blue);
+    overflow: auto;
+    }
+    .assignment > .header-text {
+        padding: 5%;
+        background-color: var(--bg-color);
+        color: var(--blue);
+    }
+    .assignment > .body-text {
+        padding: 5%;
+        overflow-wrap: break-word;
+}
+
+/* Modal */
+
+.btn__setup {
+    margin: 2%;
+    padding: 1% 2%;
+    border: none;
+    border-radius: 20px;
+
+    background: var(--bg-emphasis);
+    color: white;
+}
+
+/* Timer Module */
+
+.timer__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    height: 200px; width: 200px;
+
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+.timer__container--timer {
+    background-color: var(--time-bg);
+}
+.timer__container--pomo {
+    background-color: var(--time-pomo);
+}
+
+.timer {
+    font-size: 2em;
+}
+
+.timer__buttons {
+    display: grid;
+
+    grid-template-columns: 50px 50px;
+    grid-auto-rows: 45px;
+    grid-gap: 10px;
+
+    grid-template-areas:
+        'start-stop control'
+        'pomodoro pomodoro';
+}
+
+.timer__btn {
+    display: flex;
+    justify-content: center; align-items: center;
+    text-align: center;
+    border: none;
+    border-bottom: 5px solid white;
+    color: var(--bg-color);
+    }
+    .timer__btn:active {
+        border: none;
+        margin-top: 5px;
+}
+
+.timer__btn--start-stop {
+    grid-area: start-stop;
+}
+.timer__btn--control {
+    grid-area: control;
+}
+.timer__btn--pomo {
+    grid-area: pomodoro;
+    }
+    .timer__btn--pomo > .header-text{
+        font-size: 1em;
+        margin: 0;
+}
+
+.timer__btn--start {
+    background-color: var(--time-green);
+    border-color: var(--time-green-dark);
+}
+.timer__btn--stop {
+    background-color: var(--time-red);
+    border-color: var(--time-red-dark);
+}
+.timer__btn--break {
+    background-color: var(--time-lightblue);
+    border-color: var(--time-lightblue-dark);
+}
+.timer__btn--reset {
+    background-color: var(--time-purple);
+    border-color: var(--time-purple-dark);
+}
+.timer__btn--work {
+    color: var(--black);
+    background-color: white;
+    border-color: grey;
+}
+.timer__btn--pomodoro {
+    background-color: var(--time-pomo);
+    border-color: var(--time-pomo-dark);
+}
+.timer__btn--timer {
+    background-color: var(--time-bg);
+    border-color: var(--time-bg-dark);
+}
+
+
+
+/* Mindfulness Module */
+
+.mindfulness__container {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+
+    height: 200px; width: 200px;
+
+    background-color: var(--zen-green);
+
+    font-family: "Amatic SC", sans-serif;
+}
+
+.mindfulness__frame {
     position: absolute;
     display: none;
-    top: 115%;
-    left: 0;
-    padding: 5px 0;
-    background: white;
+    margin: auto; /* Adds space between words and the borders */
     z-index: 2;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
-}
 
-.mab__list--visible {
-    display: initial;
-}
-
-/* Cards */
-
-.card {
-    background: #EEEEEE;
-    border-width: 0!important;
-    border: none!important;
-}
-
-.card-container {
-    border-radius: 0;
-    margin: 0;
-    color: #222831;
-}
-
-.card-container__body {
-    /* display: flex;
-    flex-wrap: wrap; 
-    justify-content: center;
-    align-items: stretch; */
-    /* flex: 1 1 0px; */
-}
-
-.card-container__header {
-
-}
-
-.card-assignment {
-    
-}
-
-.card-assignment__header {
-    max-width: 100%;
-    background-color: #393E46;
-    border-radius: 0;
-}
-
-.card-assignment__header:hover {
-    background-color: #222831;
-}
-
-.card-assignment__header:focus {
-    background-color: #222831;
-}
-
-.card-assignment__title {
-    padding: 5px;
-    margin: 0;
-    overflow: hidden;
-    word-break: break-word;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-family: 'Josefin Sans', sans-serif;
-}
-
-.card-assignment__body {
-    max-width: 100%;
-}
-
-.card-assignment__body--text {
-    font-size: 2vh;
-    word-break: break-word;
-}
-@media (max-width: 991px) {
-    .card-assignment__body--text {
-        font-size: 2vh;
-        word-break: break-word;
+    top: 50%; left: 0; right: 0;
+    transform: translateY(-50%);
     }
-}
-
-.card-assignment__column {
-    margin: 0;
-    padding: 4px;
-}
-@media (max-width: 991px) {
-    .card-assignment__column {
+    .mindfulness__frame > h2 {
         margin: 0;
-        padding: 1%;
     }
+    .mindfulness__frame > span {
+        font-size: 2em
 }
 
-.card__header {
-    font-size: 100%;
-}
-
-/* @media (max-width: 991px) {
-    .card__header {
-        font-size: 2.1vw;
-    }
-} */
-
-/* Timer */
-
-/* https://www.youtube.com/watch?v=PIiMSMz7KzM */
-.module__timer {
-    font-family: sans-serif;
-    display: flex;
-    padding: 1%;
-    border-radius: 15px;
-  }
-  
-  .timer__part {
-    font-size: 36px;
-    font-weight: bold;
-  }
-  
-  .timer__btn {
-    width: 50px;
-    height: 50px;
-    margin-left: 16px;
-    border-radius: 50%;
+.frame__start {
     border: none;
-    color: white;
-    background: #8208e6;
-  }
-  
-  .timer__btn--start {
-    background: #00b84c;
-  }
-  
-  .timer__btn--stop {
-    background: #ff0256;
-  }
-
-  .module__timer--visible {
-    display: initial;
-  }
-
-/* Mindfulness */
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    padding: 5%;
+    background-color: transparent;
 }
 
-@keyframes initialize {
-    from {
-        border-weight: 0%;
+.frame__breathe-in {
+    color: white;
+}
+.frame__breathe-out {
+    color: black;
+}
+
+.frame--active {
+    display: initial;
+    transition:
+        transform 0.5s
+        color 0.5s;
+}
+
+.frame__circle {
+    top: 20%; bottom: 20%; right: 20%; left: 20%;
+    transform: translateY(0%);
+
+    background-color: var(--zen-blue);
+    border-radius: 50%;
     }
-    to {
-        border-weight: 100%
+    .frame__circle--breatheIn {
+        display: initial;
+        animation: breatheIn ease-in 7s;
     }
+    .frame__circle--breatheOut {
+        display: initial;
+        animation: breatheOut ease-out 7s;
 }
 
 @keyframes breatheIn {
     from {
         transform: scale(1);
-        top: 25%;
     }
 
     to {
         transform: scale(3);
-        top: 25%;
     }
 }
 
 @keyframes breatheOut {
     from {
         transform: scale(3);
-        top: 25%;
     }
 
     to {
         transform: scale(1);
-        top: 25%;
     }
 }
 
-.mindfulness__container {
-    display: flex;
-    position: relative;
+/* Todo Module */
+
+.todo__container {
     height: 200px;
     width: 200px;
-    text-align: center;
-    background-color: #222831;
-    font-family: "Josefin Sans", sans-serif;
-    font-weight: lighter;
-    font-size: 14px;
-    overflow: hidden;
+    padding: 1%;
+
+    background-color: var(--todo-bg);
+    overflow: auto;
 }
 
-.mindfulness {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    margin: auto;
-    transform: translateY(-50%);
+.todo__header {
+    display: flex;
+    align-items: center;
 }
 
-.mindfulness__frame--breathe-in, .mindfulness__frame--breathe-out {
-    display: none;
-    color: white;
-    transition: 1s;
-    z-index: 2;
+.todo__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.mindfulness--start {
-    display: none;
-    outline: none;
-    background-color: #222831;
-    border: 3px solid white;
-    color: white;
-    padding: 3px;
-    width: 50%;
-    transition: 1s;
-    cursor: pointer;
-}
-.mindfulness--start:hover {
-    outline: none;
-    background-color: white;
-    border: 3px solid white;
-    color: #222831;
-    padding: 3px;
-    width: 50%;
-}
-.mindfulness--start:focus {
-    outline: 0;
-    opacity: 0;
+.todo {
+    word-wrap: break-word;
+    padding: 3% 5%;
+    background-color: var(--bg-color);
+    margin: 2.5% 0;
+    color: black;
+    counter-increment: todo;
+
+    border-radius: 5px;
 }
 
-.anim--breathe__in {
-    animation: breatheIn 7s;
-}
-.anim--breathe__out {
-    animation: breatheOut 7s;
-}
-
-.mindfulness__breathing-circle {
-    display: none;
-    z-index: 3;
-    border: 10px solid white;
-    border-radius: 100px;
-    height: 100px;
-    width: 100px;
+.todo::before {
+    font-weight: bold;
+    content: counter(todo);
+    float: right;
 }
 
-
-
-.mindfulness--visible {
-    display: initial;
+.todo--done {
+    text-decoration: line-through;
 }
-/* https://stackoverflow.com/questions/8451909/expand-div-from-the-middle-instead-of-just-top-and-left-using-css */
+
+.btn__add-todo {
+    display: flex;
+
+    border: none;
+    padding: 5%;
+    border-radius: 15%;
+}

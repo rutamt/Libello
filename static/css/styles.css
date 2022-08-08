@@ -223,6 +223,10 @@ footer {
     background-color: WhiteSmoke;
 }
 
+.footer__row>div {
+    margin: 0;
+}
+
 /* Error Pages */
 
 .container__401 {

@@ -4,67 +4,67 @@
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css')}}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/setup-register.css')}}">
-<script src="{{ url_for('static', filename='js/setup_modal.js')}}" defer></script>
+<script src="{{ url_for('static', filename='js/modal.js')}}" defer></script>
 
 <!-- Main Content -->
 <main>
     <!-- TOO MANY MARGINS!!! ALSO RENDERING MULTIPLE MODALS DOESNT WORK!!!! -->
     <!-- Modal Tutorial -->
-    <div class="modal" id="tutorial">
-        <div class="modal__content modal__tutorial"></div>
-        <span class="close material-symbols-outlined">close</span>
-        <ol class="modal__ol">
-            <h1 class="header-text">
-                Don't know how to get your Schoology API key or secret?
-            </h1>
-            <li>
-                <h3 class="body-text">Go to your school's Schoology website.</h3>
-                <img src="{{ url_for('static', filename='images/tutorial/part1.PNG')}}" alt="">
-            </li>
-            <li>
-                <h3 class="body-text">Replace the /home with /api to access your account's API page.</h3>
-                <img src="{{ url_for('static', filename='images/tutorial/part2.PNG')}}" alt="">
-            </li>
-            <li>
-                <h3 class="body-text">Copy the text under 'your current consumer key'. That is your API key.</h3>
-                <img src="{{ url_for('static', filename='images/tutorial/part3.PNG')}}" alt="">
-            </li>
-            <li>
-                <h3 class="body-text">Click the captcha underneath and then click 'reveal existing secret'</h3>
-                <img src="{{ url_for('static', filename='images/tutorial/part4.PNG')}}" alt="">
-            </li>
-            <li>
-                <h3 class="body-text">Copy the text under 'your current consumer secret'. That is your API secret.
-                </h3>
-                <img src="{{ url_for('static', filename='images/tutorial/part5.PNG')}}" alt="">
-            </li>
+    <div class="modal modal__tutorial" id="tutorial">
+        <div class="modal__content">
+            <span class="close material-symbols-outlined">close</span>
+            <ol class="modal__ol">
+                <h1 class="header-text">
+                    Don't know how to get your Schoology API key or secret?
+                </h1>
+                <li>
+                    <h3 class="body-text">Go to your school's Schoology website.</h3>
+                    <img src="{{ url_for('static', filename='images/tutorial/part1.PNG')}}" alt="">
+                </li>
+                <li>
+                    <h3 class="body-text">Replace the /home with /api to access your account's API page.</h3>
+                    <img src="{{ url_for('static', filename='images/tutorial/part2.PNG')}}" alt="">
+                </li>
+                <li>
+                    <h3 class="body-text">Copy the text under 'your current consumer key'. That is your API key.</h3>
+                    <img src="{{ url_for('static', filename='images/tutorial/part3.PNG')}}" alt="">
+                </li>
+                <li>
+                    <h3 class="body-text">Click the captcha underneath and then click 'reveal existing secret'</h3>
+                    <img src="{{ url_for('static', filename='images/tutorial/part4.PNG')}}" alt="">
+                </li>
+                <li>
+                    <h3 class="body-text">Copy the text under 'your current consumer secret'. That is your API secret.
+                    </h3>
+                    <img src="{{ url_for('static', filename='images/tutorial/part5.PNG')}}" alt="">
+                </li>
 
-            <h2 class="header-text">Do not share around your API key or secret, as they can give other people
-                unwanted access to your account.</h2>
-        </ol>
-
-
-
-
+                <h2 class="header-text">Do not share around your API key or secret, as they can give other people
+                    unwanted access to your account.</h2>
+            </ol>
+            <!-- Modal Content -->
+        </div>
+        <!-- Modal Tutorial -->
     </div>
 
-    </div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
 
     <div class="modal" id="error">
         <div class="modal__content modal__error">
 
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            {% for message in messages %}
+            <span class="close material-symbols-outlined">close</span>
+
             <h1 class="header-text">
                 {{message}}
             </h1>
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
-
         </div>
     </div>
+
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
 
     <!-- Incorrect Key/Secret -->
 
@@ -77,7 +77,7 @@
             <p class="header-text p-3">
                 Type in your Schoology API Key and Secret
                 <button class="header-text modal__Btn" href="#tutorial">
-                    <span class="material-symbols-outlined">help</span>
+                    <span class="material-symbols-outlined modal__Btn" href="#tutorial">help</span>
                 </button>
             </p>
             <!-- FORM -->

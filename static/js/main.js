@@ -11,7 +11,7 @@ window.addEventListener("scroll", () => scrollCheck())
 
 // CHANGE THE COLORSS !!!(!(!)(!(!)(!())(!)))
 function scrollCheck() {
-    if (window.scrollY > 250) {
+    if (window.scrollY > 0) {
         navbar.style.backgroundColor = '#FAF9F6'
         navBrand.style.color = '#4878D4'
         navText.style.color = '#4878D4'

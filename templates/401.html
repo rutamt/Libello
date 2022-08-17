@@ -2,15 +2,16 @@
 {% extends "head.html" %}
 {% block content %}
 
-    <title>Error 401</title>
+<title>Error 401</title>
 
-    <main>
-        <!-- Unauthorized -->
-        <div class="container__401 container-fluid">
-            <img `="  {{ url_for('static', filename='images/ERROR.png')}}" alt="Error">
-            <h1 class="header-text">ERROR CODE 401</h1>
-            <h2 class="body-text">You are trying to access data you are unauthorized for.</h2>
-        </div>
-    </main>
+<main>
+    <!-- Unauthorized -->
+    <div class="container__401 container-fluid">
+        <img src="{{ url_for('static', filename='images/ERROR.png')}}" alt="Error">
+        <h1 class="header-text">ERROR CODE 401</h1>
+        <h2 class="body-text">Try <a href="{{ url_for('login') }}" style="color: black">logging in</a> before accessing
+            this page.</h2>
+    </div>
+</main>
 
-    {% endblock %}
+{% endblock %}

@@ -1,13 +1,20 @@
-const modal = document.querySelector(".modal");
-const btn = document.querySelector(".modal__Btn");
-const span = document.querySelector(".close");
+const modals = document.querySelectorAll(".modal")
+const btn = document.querySelectorAll(".modal__Btn")
+const spans = document.getElementsByClassName("close")
 
-span.addEventListener("click", () => {
-    modal.style.display = "none";
-})
+for (var i = 0; i < btn.length; i++) {
+    btn[i].addEventListener("click", (e) => {
+        e.preventDefault()
+        modal = document.querySelector(e.target.getAttribute("href"))
+        console.log(modal)
+        modal.style.display = "block"
+    })
+}
 
-window.addEventListener("click", (event) => {
-    if (event.target == modal) {
-        modal.style.display = "none"
-    }
-})
+for (var i = 0; i < spans.length; i++) {
+    spans[i].addEventListener("click", () => {
+        for (var index in modals) {
+            if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none"
+        }
+    })
+}

@@ -54,28 +54,39 @@
 
     <!-- Modal Ask Classes -->
 
+    {% if not creds %}
+
     <div class="modal" id="modal">
         <div class="modal__content modal__tutorial">
-            <span class="close material-symbols-outlined">close</span>
 
             <h2 class="header-text">Warning</h2>
-            {% if not creds %}
-            <h1>You don't seem to have an api key or secret added to your account.
-            </h1>
-            <a href="{{ url_for('register') }}"><button class="btn__setup header-text">Add key and secret</button></a>
-            {% elif not classes %}
-            <h1>You don't seem to have any classes added to your account. Please add classes to your planner.</h1>
-            <a href="{{ url_for('setup') }}"><button class="btn__setup header-text">Setup Classes</button></a>
-            {% else %}
+            <h1>You don't seem to have an api key or secret added to your account.</h1>
+            <a href="{{ url_for('register') }}"><button class="btn__setup header-text">Add key and
+                    secret</button></a>
 
         </div>
     </div>
+
+    {% elif not classes %}
+
+    <div class="modal" id="modal">
+        <div class="modal__content modal__tutorial">
+
+            <h2 class="header-text">Warning</h2>
+            <h1>You don't seem to have any classes added to your account. Please add classes to your planner.</h1>
+            <a href="{{ url_for('setup') }}"><button class="btn__setup header-text">Setup Classes</button></a>
+
+        </div>
+    </div>
+
+    {% else %}
 
     <!-- Modal Ask Classes -->
 
     <!-- PLANNER -->
 
     <div class="planner-wrapper container-fluid">
+
         {% for classes in assignments: %}
 
         <div class="class-wrapper">
@@ -105,17 +116,22 @@
                         {% endif %}
                     </div>
                 </div>
+
                 {% endfor %}
             </div>
-            {% endfor %}
-            {% endif %}
-
-
-
             <!-- Class Wrapper -->
+        </div>
+
+        {% endfor %}
+        {% endif %}
 
 
-            <!-- PLANNER -->
+
+
+
+
+
+        <!-- PLANNER -->
 </main>
 
 {% endblock %}

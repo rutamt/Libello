@@ -10,7 +10,7 @@
 
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png')}}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png')}}">
     <link rel="manifest" href="{{ url_for('static', filename='favicon/favicon-16x16.png')}}">
     <link rel="mask-icon" href="{{ url_for('static', filename='favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
@@ -94,18 +94,18 @@
     <footer>
         <div class="footer-wrapper container-fluid">
             <div class="container footer__container text-center text-md-start mt-5">
-                <div class="row mt-3">
+                <h1 class="mt-3 brand-text">
+                    Libello
+                </h1>
+                <div class="footer__row row mt-3">
                     <!-- Grid column -->
-                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <div class="text-start col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                         <!-- Content -->
-                        <h1 class="mb-4 brand-text">
-                            Libello
-                        </h1>
                         <p class="body-text">
                             2022 IB Sophomore Summer Project.
                         </p>
                         <p class="body-text">
-                            Created with care by students like you.
+                            Created with ❤ by students like you.
                         </p>
                     </div>
                     <!-- Grid column -->
@@ -114,16 +114,13 @@
                     <div class="text-center col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
 
                         <p class="body-text">
-                            main page
+                            <a href="{{ url_for('home') }}" style="color:#212529">main page</a>
                         </p>
                         <p class="body-text">
-                            features
+                            <a href="{{ url_for('about') }}" style="color:#212529">about</a>
                         </p>
                         <p class="body-text">
-                            about
-                        </p>
-                        <p class="body-text">
-                            planner
+                            <a href="{{ url_for('work') }}" style="color:#212529">Assignments</a>
                         </p>
                     </div>
                     <!-- Grid column -->
@@ -134,8 +131,12 @@
                             Rutam T. - Jaewon C. Summer of 2022
                         </p>
 
-                        <p class="body-text">email@gmail.com</p>
-                        <p class="body-text">email@gmail.com</p>
+                        <p class="body-text"><a href="mailto:tasgaonkar.rutam@gmail.com"
+                                style="text-decoration: none; color:#212529">tasgaonkar.rutam@gmail.com</a>
+                        </p>
+                        <p class="body-text"><a href="mailto:pajamajaewon.rutam@gmail.com"
+                                style="text-decoration: none; color:#212529">pajamajaewon@gmail.com</a>
+                        </p>
                     </div>
                     <!-- Grid column -->
                 </div>

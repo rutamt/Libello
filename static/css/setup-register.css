@@ -97,6 +97,9 @@ li>img {
   height: auto;
 }
 
+.modal__tutorial {
+  display: none;
+}
 
 /* Takes the arrows off the number inputs */
 

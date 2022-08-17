@@ -3,7 +3,7 @@ main {
 }
 
 .container-fluid {
-    background-color: var(--blue);
+    background-color: transparent;
 }
 
 .footer-wrapper {
@@ -24,11 +24,12 @@ main {
 .symbol__plus {
     font-size: 48px;
 }
-.widget-wrapper > h2 {
+
+.widget-wrapper>h2 {
     margin-left: auto;
 }
 
-.widget__collapse > button {
+.widget__collapse>button {
     display: block;
     border: none;
     background-color: var(--bg-color);
@@ -42,28 +43,28 @@ main {
     justify-content: center;
 }
 
-.row > div {
-    margin: 
-    3%;
+.row>div {
+    margin: 3%;
 }
 
 /* Planner */
 
-.class-wrapper > h1 {
+.class-wrapper>h1 {
     padding: 1% 0;
     border-bottom: 3px solid var(--bg-color);
 }
 
 .assignment__grid {
-    display: grid; 
-    margin-top: 5%;
+    display: grid;
     grid-template-columns: repeat(4, 24.25%);
-    grid-auto-rows: 35vh;
+    grid-auto-rows: 25vh;
     grid-gap: 1%;
+    overflow: auto;
 }
+
 @media (max-width: 1200px) {
     .assignment__grid {
-        grid-template-columns: repeat(3, 32%)
+        grid-template-columns: repeat(3, 32%);
     }
 }
 
@@ -80,17 +81,18 @@ main {
 }
 
 .assignment {
-    background-color: var(--blue);
+    background-color: var(--bg-color);
     overflow: auto;
-    }
-    .assignment > .header-text {
-        padding: 5%;
-        background-color: var(--bg-color);
-        color: var(--blue);
-    }
-    .assignment > .body-text {
-        padding: 5%;
-        overflow-wrap: break-word;
+    padding: 5%;
+}
+
+.assignment>.header-text {
+    color: var(--blue);
+}
+
+.assignment>.class__content {
+    background-color: gray;
+    overflow-wrap: break-word;
 }
 
 /* Modal */
@@ -110,8 +112,10 @@ main {
 .timer__container {
     display: flex;
     flex-direction: column;
-    align-items: center; justify-content: center;
-    height: 200px; width: 200px;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    width: 200px;
 
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
@@ -120,6 +124,7 @@ main {
 .timer__container--timer {
     background-color: var(--time-bg);
 }
+
 .timer__container--pomo {
     background-color: var(--time-pomo);
 }
@@ -142,56 +147,67 @@ main {
 
 .timer__btn {
     display: flex;
-    justify-content: center; align-items: center;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     border: none;
     border-bottom: 5px solid white;
     color: var(--bg-color);
-    }
-    .timer__btn:active {
-        border: none;
-        margin-top: 5px;
+}
+
+.timer__btn:active {
+    border: none;
+    margin-top: 5px;
 }
 
 .timer__btn--start-stop {
     grid-area: start-stop;
 }
+
 .timer__btn--control {
     grid-area: control;
 }
+
 .timer__btn--pomo {
     grid-area: pomodoro;
-    }
-    .timer__btn--pomo > .header-text{
-        font-size: 1em;
-        margin: 0;
+}
+
+.timer__btn--pomo>.header-text {
+    font-size: 1em;
+    margin: 0;
 }
 
 .timer__btn--start {
     background-color: var(--time-green);
     border-color: var(--time-green-dark);
 }
+
 .timer__btn--stop {
     background-color: var(--time-red);
     border-color: var(--time-red-dark);
 }
+
 .timer__btn--break {
     background-color: var(--time-lightblue);
     border-color: var(--time-lightblue-dark);
 }
+
 .timer__btn--reset {
     background-color: var(--time-purple);
     border-color: var(--time-purple-dark);
 }
+
 .timer__btn--work {
     color: var(--black);
     background-color: white;
     border-color: grey;
 }
+
 .timer__btn--pomodoro {
     background-color: var(--time-pomo);
     border-color: var(--time-pomo-dark);
 }
+
 .timer__btn--timer {
     background-color: var(--time-bg);
     border-color: var(--time-bg-dark);
@@ -206,7 +222,8 @@ main {
     text-align: center;
     overflow: hidden;
 
-    height: 200px; width: 200px;
+    height: 200px;
+    width: 200px;
 
     background-color: var(--zen-green);
 
@@ -216,17 +233,22 @@ main {
 .mindfulness__frame {
     position: absolute;
     display: none;
-    margin: auto; /* Adds space between words and the borders */
+    margin: auto;
+    /* Adds space between words and the borders */
     z-index: 2;
 
-    top: 50%; left: 0; right: 0;
+    top: 50%;
+    left: 0;
+    right: 0;
     transform: translateY(-50%);
-    }
-    .mindfulness__frame > h2 {
-        margin: 0;
-    }
-    .mindfulness__frame > span {
-        font-size: 2em
+}
+
+.mindfulness__frame>h2 {
+    margin: 0;
+}
+
+.mindfulness__frame>span {
+    font-size: 2em
 }
 
 .frame__start {
@@ -238,6 +260,7 @@ main {
 .frame__breathe-in {
     color: white;
 }
+
 .frame__breathe-out {
     color: black;
 }
@@ -245,24 +268,28 @@ main {
 .frame--active {
     display: initial;
     transition:
-        transform 0.5s
-        color 0.5s;
+        transform 0.5s color 0.5s;
 }
 
 .frame__circle {
-    top: 20%; bottom: 20%; right: 20%; left: 20%;
+    top: 20%;
+    bottom: 20%;
+    right: 20%;
+    left: 20%;
     transform: translateY(0%);
 
     background-color: var(--zen-blue);
     border-radius: 50%;
-    }
-    .frame__circle--breatheIn {
-        display: initial;
-        animation: breatheIn ease-in 7s;
-    }
-    .frame__circle--breatheOut {
-        display: initial;
-        animation: breatheOut ease-out 7s;
+}
+
+.frame__circle--breatheIn {
+    display: initial;
+    animation: breatheIn ease-in 7s;
+}
+
+.frame__circle--breatheOut {
+    display: initial;
+    animation: breatheOut ease-out 7s;
 }
 
 @keyframes breatheIn {

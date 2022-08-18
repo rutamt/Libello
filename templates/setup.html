@@ -2,98 +2,80 @@
 {% extends "head.html" %}
 {% block content %}
 
-<main class="content">
-    <div class="container-fluid input-window__container">
-        <section class="input-window--login">
-            <div class="input-window justify-content-center">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/setup-register.css')}}">
+<script src="{{ url_for('static', filename='js/modal.js')}}" defer></script>
+<script src="{{ url_for('static', filename='js/setup.js')}}" defer></script>
 
-                <div class="header-text header-text--primary p-5 text-center">
-                    Set Classes <i class="fa-solid fa-align-left"></i>
+
+<!-- Main Content -->
+<main>
+
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+
+    <div class="modal" id="modal">
+        <div class="modal__content modal__error">
+            <span class="close material-symbols-outlined">close</span>
+            <h2 class="header-text">ERROR</h2>
+            {% for message in messages %}
+            <h1 class="emphasis-text">{{message}}</h1>
+            {% endfor %}
+
+        </div>
+    </div>
+    {% endif %}
+    {% endwith %}
+
+
+
+
+    <div class="container-fluid input-window__container">
+        <div class="input-window">
+
+            <h1 class="emphasis-text p-5">Set Classes</h1>
+            <p class="header-text p-3">Type the IDs of the classes you have.</p>
+
+            <button class="btn__control btn__control--add">
+                <span class="material-symbols-outlined">
+                    add
+                </span>
+            </button>
+
+            <button class="btn__control btn__control--remove">
+                <span class="material-symbols-outlined">
+                    remove
+                </span>
+            </button>
+
+            {% if not classes %}
+            <form action="{{ url_for('setup') }}" method="post" id="setup">
+                <div class="input__wrapper">
+                    <input type='number' name='classes' placeholder='Type in Class ID' required='required'
+                        class='form-control' />
                 </div>
 
-                <p class="header-text">Type the IDs of the classes you have.</p>
+                <button type="submit" class="btn__control btn__control--submit">Submit</button>
+            </form>
+            {% else %}
 
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                {% for message in messages %}
-                <p style="color:red">{{ message }}</p>
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
+            <form action="{{ url_for('setup') }}" method="post" id="setup">
+                <div class="input__wrapper">
+                    {% for class in classes %}
+                    <input type='number' name='classes' placeholder='Type in class ID' required="required"
+                        value={{class}} id='class_input' class='form-control' />
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn__control btn__control--submit">Submit</button>
+            </form>
+            {% endif %}
 
-                {% if not classes %}
-                <button class="btn add-class-button" onclick="addParameter()"><i class="fa-solid fa-plus"></i>
-                </button>
-                <button class="btn add-class-button" onclick="removeParameter()"><i class="fa-solid fa-minus"></i>
-                </button>
-                <form action="{{ url_for('setup') }}" method="post" id="setup">
-                    <div class="input__wrapper">
-                        <input type='number' name='classes' placeholder='Type in class ID' id='class_input'
-                            required="required" class='form-control' />
-                    </div>
-                    <input type="submit" class="btn add-class-button">
-                </form>
-                {% else %}
-                <button class="btn add-class-button" onclick="addParameter()"><i class="fa-solid fa-plus"></i>
-                </button>
-                <button class="btn add-class-button" onclick="removeParameter()"><i class="fa-solid fa-minus"></i>
-                </button>
-                <form action="{{ url_for('setup') }}" method="post" id="setup">
-                    <div class="input__wrapper">
-                        {% for class in classes %}
-                        <input type='number' name='classes' placeholder='Type in class ID' required="required"
-                            value={{class}} id='class_input' class='form-control' />
-                        {% endfor %}
-                    </div>
-                    <input type="submit" class="btn add-class-button">
-                </form>
-                {% endif %}
-
-            </div>
-    </div>
-    </section>
+            <!-- Input Window -->
+        </div>
+        <!-- Input Window Container -->
     </div>
 
 </main>
 
-<!-- Footer -->
-
-
-
-<script>
-    const form = document.querySelector(".input__wrapper");
-    let interval = 1
-
-    function addParameter() {
-        interval++
-        var input = document.createElement('input');
-        input.type = "number";
-        input.className = "form-control";
-        input.placeholder = "Type in Class ID";
-        input.required = true;
-        input.name = "classes";
-        form.appendChild(input);
-
-        // let result =
-        //    `<input type='number' name='classes' placeholder='Type in Class ID' required='required' id='class_input' class='form-control' />`;
-        // input.innerHTML = result;
-
-        // var child = input.firstChild;
-        // form.appendChild(child);
-    }
-
-    function removeParameter() {
-        if (interval > 0) {
-            form.removeChild(form.lastElementChild)
-            interval--
-        }
-    }
-
-
-</script>
-
 {% endblock %}
-
-<!-- https://webdesign.tutsplus.com/tutorials/reading-progress-bar-css-javascript--cms-36635 -->
-<!-- https://www.codeleaks.io/how-to-build-a-responsive-and-dynamic-progress-bar/ -->
-<!-- https://www.freecodecamp.org/news/how-to-build-a-responsive-and-dynamic-progress-bar/ -->

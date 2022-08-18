@@ -1,22 +1,33 @@
+// https://www.youtube.com/watch?v=PIiMSMz7KzM
 export default class Timer {
     constructor(root) {
-        root.innerHTML = Timer.getHTML();
+
+        const newTimer = document.createElement("div")
+        newTimer.className = "timer__container timer__container--timer col-lg-4 col-md-6 col-sm-12"
+        newTimer.innerHTML = Timer.getHTML()
+
+        root.appendChild(newTimer)
+
 
         // References each of the parts of the timer
 
         this.el = {
+            container: root.querySelector(".timer__container"),
             minutes: root.querySelector(".timer__part--minutes"),
             seconds: root.querySelector(".timer__part--seconds"),
-            control: root.querySelector(".timer__btn--control"),
-            reset: root.querySelector(".timer__btn--reset"),
+            startStop: root.querySelector(".timer__btn--start-stop"),
+            reset: root.querySelector(".timer__btn--control"),
+            pomodoro: root.querySelector(".timer__btn--pomo"),
         };
 
         this.interval = null; // Use the setinterval function in java to make the timer trigger.
         // Its null because the timer has to start up not running.
         this.remainingSeconds = 0; // Current remaining seconds
 
+        this.ispomodoro = false;
+
         // EventListeners for the buttons ie. check if they are clicked
-        this.el.control.addEventListener("click", () => {
+        this.el.startStop.addEventListener("click", () => {
             if (this.interval === null) { // Is there an interval going?
                 this.start();
             } else {
@@ -26,14 +37,36 @@ export default class Timer {
         });
 
         this.el.reset.addEventListener("click", () => { // Prompt user for time input
-            const inputMinutes = prompt("Enter number of minutes:"); // Opens up a prompt in the browser
-
-            if (inputMinutes < 60) {
-                this.stop(); // Stop before you set a new time
-                this.remainingSeconds = inputMinutes * 60;
+            if (this.ispomodoro) {
+                this.stop();
+                if (this.pomo) {
+                    this.remainingSeconds = 1500;
+                    this.el.reset.classList.replace("timer__btn--work", "timer__btn--break")
+                    this.el.reset.innerHTML = "Break"
+                } else {
+                    this.remainingSeconds = 300;
+                    this.el.reset.classList.replace("timer__btn--break", "timer__btn--work")
+                    this.el.reset.innerHTML = "Work"
+                }
                 this.updateInterfaceTime();
+                this.pomo = !this.pomo;
+            } else {
+                const inputMinutes = prompt("Enter number of minutes:"); // Opens up a prompt in the browser
+
+                if (inputMinutes < 60) {
+                    if (inputMinutes > 0) {
+                        this.stop(); // Stop before you set a new time
+                        this.remainingSeconds = inputMinutes * 60;
+                        this.updateInterfaceTime();
+                    }
+                }
             }
         });
+
+        this.el.pomodoro.addEventListener("click", () => {
+            this.pomo = true;
+            this.pomofy()
+        })
 
     }
 
@@ -52,13 +85,11 @@ export default class Timer {
 
     updateInterfaceControls() { //Check whether the timer is running
         if (this.interval === null) { // If timer(interval) is not running . . .
-            this.el.control.innerHTML = `<i class="fa-solid fa-play"></i>`; // Set icon to play
-            this.el.control.classList.add("timer__btn--start"); // Adds start class
-            this.el.control.classList.remove("timer__btn--stop"); // Removes stop class
+            this.el.startStop.innerHTML = `<span class="material-symbols-outlined">play_arrow</span>`; // Set icon to play
+            this.el.startStop.classList.replace("timer__btn--stop", "timer__btn--start"); // Adds start class
         } else { // So if the timer IS running . . .
-            this.el.control.innerHTML = `<i class="fa-solid fa-pause"></i>`; // Set icon to stop
-            this.el.control.classList.add("timer__btn--stop"); // Adds stop class
-            this.el.control.classList.remove("timer__btn--start"); // Removes start class
+            this.el.startStop.innerHTML = `<span class="material-symbols-outlined">pause</span>`; // Set icon to stop
+            this.el.startStop.classList.replace("timer__btn--start", "timer__btn--stop"); // Adds stop class
         }
     }
 
@@ -68,13 +99,15 @@ export default class Timer {
         if (this.remainingSeconds === 0) return; // If there are already remaining seconds we can just return and cancel out current operation
         // If not we do smth interesting
         this.interval = setInterval(() => { // This code runs every second
-            this.remainingSeconds-- ; // Remove a second every second
+            this.remainingSeconds--; // Remove a second every second
             this.updateInterfaceTime(); // Update timer
 
-            if (this.reaminingSeconds === 0) {
+            if (this.remainingSeconds === 0) {
+                var audio = new Audio("../static/images/timer_ding.wav");
+                audio.play();
+                console
                 this.stop(); // Another function
             }
-
         }, 1000) // The setInterval function allows for code to run on a timer. The 1000 is 1000 miliseconds or one second
 
         this.updateInterfaceControls();
@@ -88,19 +121,59 @@ export default class Timer {
         this.updateInterfaceControls(); // Displays the updated buttons
     }
 
+    pomofy() {
+        this.stop()
+        this.remainingSeconds = 0;
+
+        this.el.pomodoro.classList.toggle("timer__btn--timer")
+        this.el.pomodoro.classList.toggle("timer__btn--pomodoro")
+
+        this.el.container.classList.toggle("timer__container--timer")
+        this.el.container.classList.toggle("timer__container--pomo")
+
+        if (!this.ispomodoro) {
+            this.el.pomodoro.innerHTML = "TIMER"
+
+            this.el.reset.classList.replace("timer__btn--reset", "timer__btn--work")
+            this.el.reset.innerHTML = "Work"
+
+            this.ispomodoro = true
+        } else {
+            this.el.pomodoro.innerHTML = "POMODORO"
+
+            this.el.reset.classList.remove("timer__btn--work", "timer__btn__break")
+            this.el.reset.classList.add("timer__btn--reset")
+            this.el.reset.innerHTML = '<span class="material-symbols-outlined">timer</span>'
+            this.ispomodoro = false
+        }
+
+        this.updateInterfaceTime()
+    }
+
     // User Interface
 
     static getHTML() {
         return `
-            <span class="timer__part timer__part--minutes">00</span>
-            <span class="timer__part">:</span>
-            <span class="timer__part timer__part--seconds">00</span>
-            <button type="button" class="timer__btn timer__btn--control timer__btn--start">
-                <i class="fa-solid fa-play"></i>
-            </button>
-            <button type="button" class="timer__btn timer__btn--control timer__btn--reset">
-                <i class="fa-solid fa-clock"></i>
-            </button>
+            <div class="timer">
+                <span class="timer__part timer__part--minutes">00</span>
+                <span class="timer__part">:</span>
+                <span class="timer__part timer__part--seconds">00</span>
+            </div>
+
+            <div class="timer__buttons">
+
+                <!-- Find a way to insert <span class="material-symbols-outlined">pause</span> into a class -->
+
+                <button type="button" class="timer__btn timer__btn--start-stop timer__btn--start">
+                    <span class="material-symbols-outlined">play_arrow</span>
+                    </button>
+                <button type="button" class="timer__btn timer__btn--control timer__btn--reset">
+                    <span class="material-symbols-outlined">timer</span>
+                    </button>
+                <button type="button" class="timer__btn timer__btn--pomo timer__btn--pomodoro">
+                    POMODORO
+                    </button>
+            </div>
         `;
     }
 

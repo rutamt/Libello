@@ -1,7 +1,7 @@
 """Python Flask WebApp Auth0 integration example
 """
 
-from ast import keyword
+
 from re import T
 from dotenv import find_dotenv, load_dotenv
 
@@ -16,7 +16,6 @@ from urllib.parse import quote_plus, urlencode
 from authlib.integrations.flask_client import OAuth
 from flask import Flask, redirect, render_template, session, url_for, request, flash
 import schoolopy
-import datetime
 import requests
 from functools import wraps
 from flask_talisman import Talisman
@@ -57,7 +56,7 @@ def login_required(func):
         # check if user is logged in
         if not is_logged_in():
             print("User was not logged in. :(")
-            return render_template("unauthorized.html"), 401
+            return render_template("401.html"), 401
         # they were logged in, so go ahead
         return func(*args, **kwargs)
 
@@ -123,14 +122,11 @@ def work():
     classes = auth0.get_user_classes(user_info)
     creds = auth0.get_user_creds(user_info)
 
-    time = datetime.datetime.now().strftime("%A %B %d, %Y")
-
     if not creds or creds == ["default", "default"]:
         print("NOT CREDS")
         return render_template(
             "planner.html",
             is_logged_in=is_logged_in(),
-            time=time,
             name=name,
             creds=None,
             classes="YES",
@@ -140,7 +136,6 @@ def work():
         return render_template(
             "planner.html",
             is_logged_in=is_logged_in(),
-            time=time,
             name=f"{name}",
             classes=None,
             creds="YES",
@@ -154,7 +149,6 @@ def work():
         return render_template(
             "planner.html",
             is_logged_in=is_logged_in(),
-            time=time,
             assignments=assignments,
             name=name,
             creds="YES",
@@ -261,11 +255,12 @@ def about():
     )
 
 
+# https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/
 @app.errorhandler(404)
 def page_not_found(e):
     # note that we set the 404 status explicitly
-    return render_template("unauthorized.html"), 404
+    return render_template("404.html"), 404
 
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=os.environ.get("PORT", 3000))
+    app.run(host="localhost", port=os.environ.get("PORT", 3000), debug=True)

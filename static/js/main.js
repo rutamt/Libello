@@ -1,50 +1,30 @@
-import Timer from "./timer.js";
-import Mindfulness from "./mindfulness.js";
+// Navbar Functions
+// https://stackoverflow.com/questions/19900953/trying-to-trigger-event-on-certain-scroll-height-using-javascript
 
+const navbar = document.querySelector(".navbar")
+const navBrand = document.querySelector(".navbar-brand")
+const navText = document.querySelector(".nav-link")
+const collapse = document.querySelector(".collapse")
 
-let reverseTimer = true;
+scrollCheck()
 
-const timerButton = document.getElementById("timerButton");
+window.addEventListener("scroll", () => scrollCheck())
 
-if (timerButton.addEventListener)
-    timerButton.addEventListener("click", buildTimer, false);
-else if (timerButton.attatchEvent)
-    timerButton.attachEvent("onclick", buildTimer);
+document.querySelector(".navbar-toggler").addEventListener("click", () => {
+    navbar.style.backgroundColor = '#FAF9F6'
+    navBrand.style.color = '#4878D4'
+    navText.style.color = '#4878D4'
+})
 
-
-function buildTimer() {
-
-    if (reverseTimer) {
-        new Timer(document.querySelector(".module__timer"));
+// CHANGE THE COLORSS !!!(!(!)(!(!)(!())(!)))
+function scrollCheck() {
+    if (window.scrollY > 0) {
+        navbar.style.backgroundColor = '#FAF9F6'
+        navBrand.style.color = '#4878D4'
+        navText.style.color = '#4878D4'
     } else {
-        document.querySelector(".module__timer").textContent = "";
+        navbar.style.backgroundColor = 'transparent'
+        navBrand.style.color = '#FAF9F6'
+        navText.style.color = '#FAF9F6'
     }
-
-    reverseTimer = !reverseTimer;
 }
-
-let reverseMindful = true;
-
-const mindfulButton = document.getElementById("mindfulButton");
-
-if (mindfulButton.addEventListener)
-    mindfulButton.addEventListener("click", buildMindfulness, false);
-else if (mindfulButton.attatchEvent)
-    mindfulButton.attachEvent("onclick", buildMindfulness);
-
-
-function buildMindfulness() {
-
-    if (reverseMindful) {
-        new Mindfulness(document.querySelector(".module__mindfulness"));
-    } else {
-        document.querySelector(".mindfulness__container").textContent = "";
-        document.querySelector(".module__mindfulness").textContent = "";
-    }
-
-    reverseMindful = !reverseMindful;
-}
-
-
-
-

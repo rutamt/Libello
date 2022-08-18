@@ -1,79 +1,79 @@
-// Issues; code is asynchronous bc the timeout functions and the classremove/add is not working
-
 export default class Mindfulness {
     constructor(root) {
-        root.innerHTML = Mindfulness.getHTML()
+        // root.innerHTML = Mindfulness.getHTML() // Essentially creates the stuff inside the 'root' or the selected thing its gonna be put inside
 
-        this.el = {
-            start: root.querySelector(".mindfulness--start"),
-            circle: root.querySelector(".mindfulness__breathing-circle"),
-            breatheIn: root.querySelector(".mindfulness__frame--breathe-in"),
-            breatheOut: root.querySelector(".mindfulness__frame--breathe-out"),
+        const newMindfulness = document.createElement("div")
+        newMindfulness.className = "mindfulness__container col-lg-4 col-md-6 col-sm-12"
+        newMindfulness.innerHTML = Mindfulness.getHTML()
+
+        root.appendChild(newMindfulness)
+
+        this.el = { // Selecting important parts of the html code; makes it easier to edit them
+            start: root.querySelector(".frame__start"),
+            circle: root.querySelector(".frame__circle"),
+            breatheIn: root.querySelector(".frame__breathe-in"),
+            breatheOut: root.querySelector(".frame__breathe-out"),
         }
 
-        this.el.start.addEventListener("click", () => {
-            console.log("Got Clicked")
-            this.el.start.classList.remove(`mindfulness--visible`)
+        this.BREATHINGINTERVAL = 7000; // Length of each interval of breathing in or out
+
+        this.el.start.addEventListener("click", () => { // When Clicked . . .
+            this.el.start.classList.remove(`frame--active`) // Remove 'frame--active' class to the start button
+            // *NOTE frame--active just makes the thing visible and applies a few animations
             this.sequence()
+
+            setTimeout(() => { // Wait until everything is over to then add it back and make it visible
+                this.el.start.classList.add(`frame--active`)
+            }, this.BREATHINGINTERVAL * 2) // 2 Breaths mean 2 intervals
         })
     }
 
-    breatheIn() {
-        this.el.circle.classList.add(`anim--breathe__in`)
-        this.el.breatheIn.classList.add(`mindfulness--visible`)
-        console.log("Breathing In")
-        // setTimeout(() => {
-        //     this.el.circle.classList.remove(`anim--breathe__in`)
-        // }, 7000)
-    }
-    breatheOut() {
-        this.el.circle.classList.add(`anim--breathe__out`)
-        this.el.breatheOut.classList.add(`mindfulness--visible`)
-        console.log("Breathing Out")
-        // setTimeout(() => {
-        //     this.el.circle.classList.remove(`anim--breathe__out`)
-        // }, 7000)
-    }
+    breatheIn() { // Breathing in . . .
+        this.el.circle.classList.add(`frame__circle--breatheIn`) // Add animation frame for the circle - makes it get larger!
+        this.el.breatheIn.classList.add(`frame--active`)
 
-    sequence() {
-        console.log("I am sequencing . . .")
-        this.el.circle.classList.add(`mindfulness--visible`)
-        this.el.start.classList.remove(`mindfulness--visible`)
-        this.breatheIn()
         setTimeout(() => {
-            this.el.circle.classList.remove(`anim--breathe__in`)
-            this.el.breatheIn.classList.remove(`mindfulness--visible`)
-            this.breatheOut()
-            console.log("Finished breathein")
-
-            setTimeout(() => {
-                this.el.breatheOut.classList.remove(`mindfulness--visible`)
-                this.el.start.classList.add(`mindfulness--visible`)
-                this.el.circle.classList.remove(`anim--breathe__out`)
-                console.log("Finished breatheout")
-                this.el.start.classList.add(`mindfulness--visible`)
-                this.el.circle.classList.remove(`mindfulness--visible`)
-            }, 7000)
-        }, 7000)
+            this.el.circle.classList.remove(`frame__circle--breatheIn`) // Removes these two frames and makes them invisible again after interval
+            this.el.breatheIn.classList.remove(`frame--active`)
+        }, this.BREATHINGINTERVAL)
     }
 
-    static getHTML() {
+    breatheOut() {
+        this.el.circle.classList.add(`frame__circle--breatheOut`) // Add animation frame for the circle - makes it get smaller!
+        this.el.breatheOut.classList.add(`frame--active`)
+
+        setTimeout(() => {
+            this.el.circle.classList.remove(`frame__circle--breatheOut`)
+            this.el.breatheOut.classList.remove(`frame--active`)
+        }, this.BREATHINGINTERVAL)
+    }
+
+    sequence() { // Ties all these functions together
+        this.breatheIn()
+
+        setTimeout(() => {
+            this.breatheOut()
+        }, this.BREATHINGINTERVAL)
+    }
+
+    static getHTML() { // I could've used javascript to construct the entire thing
+        // but to be honest it's actually a lot more efficent to just write out the entire thing and edit parts of that
         return `
-        <div class="mindfulness__container">
-            <span class="mindfulness mindfulness__frame mindfulness__frame--breathe-in">
-                <p>Breathe In</p>
-                <i class="fa-solid fa-down-left-and-up-right-to-center"></i>
-                </span>
-            <span class="mindfulness mindfulness__frame mindfulness__frame--breathe-out">
-                <p>Breathe Out</p>
-                <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
-                </span>
-            <div class="mindfulness mindfulness__breathing-circle">
-            </div>
-            <button type="button" class="mindfulness mindfulness--start shrink-border mindfulness--visible" type="button">
-                Start Mindfulness Exercise
+            <button type="button" class="mindfulness__frame frame__start frame--active" type="button">
+                <h2>start mindfulness exercise.</h2>
             </button>
-        </div>
+            <div class="frame__container">
+                <div class="mindfulness__frame frame__circle"></div>
+            </div>
+            
+            <span class="mindfulness__frame frame__breathe-in">
+                <h2>Breathe In</h2>
+                <span class="material-symbols-outlined">zoom_out_map</span>
+                </span>
+            <span class="mindfulness__frame frame__breathe-out">
+                <h2>Breathe Out</h2>
+                <span class="material-symbols-outlined">zoom_in_map</span>
+                </span>
         `;
     }
 

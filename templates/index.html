@@ -1,94 +1,102 @@
 {% set is_logged_in = is_logged_in %}
 {% extends "head.html" %}
 {% block content %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
 
 
+<!-- Stuff that varies from page to page -->
+<title>Libello</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
+<script src="{{ url_for('static', filename='js/index.js')}}" defer></script>
 
-<!-- Maybe COOOL Side bar here? -->
+<!-- Progress Bar -->
+<div class="progress-container">
+    <div class="progress-bar" id="myBar"></div>
+</div>
 
-<main class="content">
+<!-- Main Content -->
+<main>
     <!-- Title Section -->
-    <div class="container-fluid title__container">
-        <section id="title">
-            <div class="title title__row row">
-                <div class="title title__column title__column--words col-lg-6 col-sm-12">
-                    <h1 class="title__text header-text header-text--title">organization starts </h1>
-                    <h1 class="title__text header-text header-text--title title__text--here">here.</h1>
-                    {%if is_logged_in %}
-                    <a class="btn btn-dark get-started-button body-text" role="button" href="{{ url_for('work') }}">
-                        Assignments
-                        <i class="fa-solid fa-arrow-right-long"></i>
+    <section id="title">
+        <div class="title-wrapper container-fluid">
+            <div class="row">
+                <div class="title__content col-lg-6">
+                    <h1 class="spec-text">Improve your performance in the workplace.</h1>
+                    <h4 class="body-text">Organize your assignments using our systems, or cut off half the work by
+                        directly uploading your schoology assignments.</h4>
+                    <a href="{{ url_for('login') }}">
+                        <button class="get-started-button header-text">Get Started</button>
                     </a>
-                    {% else %}
-                    <a class="btn btn-dark get-started-button body-text" role="button" href="{{ url_for('login') }}">
-                        Get started
-                        <i class="fa-solid fa-arrow-right-long"></i>
-                    </a>
-                    {% endif %}
                 </div>
-                <div class="title title__column title__column--image col-lg-6 col-sm-12">
-                    <img class="notebook-image" src="{{url_for('static', filename='images/notebook.png')}}"
-                         alt="notebook">
-                </div>
+                <img class="title__image col-lg-6" draggable=false
+                    src="{{ url_for('static', filename='images/clean_desk.jpg')}}" alt="clean_desk">
+                <!-- Row -->
             </div>
-        </section>
-    </div>
+            <!-- Title Wrapper -->
+        </div>
+    </section>
 
+    <!-- Checklist Section -->
+    <section id="checklist">
+        <div class="checklist-wrapper container-fluid">
+            <div class="row">
+                <img class="checklist__image col-lg-4" draggable=false
+                    src="{{ url_for('static', filename='images/todo.png')}}" alt="">
 
-    <!-- Demonstration Section -->
-    <div class="container-fluid demo__container">
-        <section id="demonstration">
-            <div class="demo demo__main-container row">
-                <div class="demo demo--header col-lg-4 col-sm-12">
-                    <h1 class="header-text header-text--title">With Libello you can . . .</h1>
+                <div class="checklist__content col-lg-4">
+                    <h1 class="spec-text">The Better todo list.</h1>
+                    <h4 class="body-text">Check on your assignments from Schoology.</h4>
+                    <h4 class="header-text">View completion and due dates outside of Schoology.com as well as
+                        assignments without due dates.</h4>
                 </div>
-                <div class="demo demo__row row col-lg-8 col-sm-12">
-                    <div class="demo demo__column demo__column--schoology col-lg-4 col-sm-12">
-                        <img src="{{url_for('static', filename='images/Schoology.png')}}" alt="Schoology"
-                             class="demo__image demo__image--schoology">
-                        <p class="demo__text body-text body-text--primary">Take your assignments from Schoology</p>
-                    </div>
-                    <div class="demo demo__column demo__column--arrow col-lg-4 col-sm-12">
-                        <i class="demo__image demo__image--arrow fa-solid fa-arrow-right fa-rotate-by fa-9x"></i>
-                        <p class="demo__text body-text body-text--primary">And with the Schoology API ...</p>
-                    </div>
-                    <div class="demo demo__column demo__column--folder col-lg-4 col-sm-12">
-                        <i class="demo__image demo__image--folder fa-solid fa-folder-closed fa-10x"></i>
-                        <p class="demo__text body-text body-text--primary">Display them in a neat planner!</p>
-                    </div>
-                </div>
+                <!-- Row -->
             </div>
-        </section>
-    </div>
+            <!-- Checklist Wrapper -->
+        </div>
+    </section>
 
-    <!-- Features -->
-
-    <div class="container-fluid feature__container">
-        <section id="features">
-            <h1 class=" features features__header header-text header-text--primary">Features</h1>
-            <div class="features features__row row">
-                <div class="features features__column col-lg-4 col-sm-12">
-                    <i class="features__image features__image--calendar fa-solid fa-calendar-days fa-9x"></i>
-                    <h2 class="features__text header-text body-text--primary">Display due dates and time until
-                        submission.</h2>
+    <!-- Features Section -->
+    <section id="features">
+        <div class="features-wrapper container-fluid">
+            <div class="row">
+                <div class="features__upload col-sm-4">
+                    <span class="material-symbols-outlined icon__upload">cloud_upload</span>
+                    <h2 class="emphasis-text">Upload</h2>
+                    <h4 class="body-text">Schoology assignments via the Schoolopy Module.</h4>
                 </div>
-                <div class="features features__column col-lg-4 col-sm-12">
-                    <i class="features__image features__image--upload fa-solid fa-upload fa-9x"></i>
-                    <h2 class="features__text header-text body-text--primary">Upload Schoology data via the Schoolopy
-                        module.</h2>
+                <div class="features__schedule col-sm-4">
+                    <span class="material-symbols-outlined icon__schedule">calendar_month</span>
+                    <h2 class="emphasis-text">Schedule</h2>
+                    <h4 class="body-text">View due dates and time until submission.</h4>
                 </div>
-                <div class="features features__column col-lg-4 col-sm-12">
-                    <i class="features__image features__image--folder-tree fa-solid fa-folder-tree fa-9x"></i>
-                    <h2 class="features__text header-text body-text--primary">Organize the assignments into different
-                        cards.</h2>
+                <div class="features__organize col-sm-4">
+                    <span class="material-symbols-outlined icon__organize">inventory</span>
+                    <h2 class="emphasis-text">Organize</h2>
+                    <h4 class="body-text">Assignments can be fit into different classes.</h4>
                 </div>
+                <!-- Row -->
             </div>
-        </section>
-    </div>
+            <!-- Features Wrapper -->
+        </div>
+    </section>
+
+    <section id="demo">
+        <div class="demo-wrapper container-fluid">
+            <div class="row">
+                <img class="demo__image col-lg-8" draggable=false
+                    src="{{ url_for('static', filename='images/desk.jpg')}}" alt="desk">
+                <div class="demo__content col-lg-4">
+                    <h1 class="demo__text demo__text--1 emphasis-text">
+                        Create a comfortable workspace.
+                    </h1>
+                    <h1 class="demo__text demo__text--2 emphasis-text">
+                        Organize with Libello.
+                    </h1>
+                </div>
+                <!-- Row -->
+            </div>
+            <!-- Demo Wrapper -->
+        </div>
+    </section>
 </main>
 
 {% endblock %}
-<!-- https://webdesign.tutsplus.com/tutorials/reading-progress-bar-css-javascript--cms-36635 -->
-<!-- https://www.codeleaks.io/how-to-build-a-responsive-and-dynamic-progress-bar/ -->
-<!-- https://www.freecodecamp.org/news/how-to-build-a-responsive-and-dynamic-progress-bar/ -->

@@ -9,9 +9,8 @@ The link to the website can be found at https://libello.herokuapp.com/
 # Table of Contents
 1. [General Info](#libello)
 2. [Technologies](#technologies)
-3. [Installation](#installation)
 4. [Collaboration](#collaboration)
-5. [FAQs](#faqs)
+
 
 
 ## Credits 

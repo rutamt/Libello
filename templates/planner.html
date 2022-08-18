@@ -1,58 +1,33 @@
 {% set is_logged_in = is_logged_in %}
-{% extends "head.html" %}
+{% extends "head_test.html" %}
 {% block content %}
 
-<title>Planner</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/planner2.css')}}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css')}}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/planner.css')}}">
 
 <script src="{{ url_for('static', filename='js/modal.js')}}" defer></script>
 <script src="{{ url_for('static', filename='js/widgets.js')}}" type="module" defer></script>
 
-<!-- Main Content -->
+
 <main>
 
+    <div id="sideBar">
+        <h2 class="header-text">Classes</h2>
+        <div id="classList">
 
-    <!-- Header -->
-    <div class="header-wrapper container-fluid">
-        <h1 class="header-text">Hello {{name}}, it is {{time}}. </h1>
-    </div>
-    <!-- Header -->
+            {% for classes in assignments: %}
+
+            <a class="class__selector body-text" href="#{{loop.index}}">
+                <span class="class_label">Class</span>
+                <span class="class_number">{{loop.index}}</span>
+            </a>
+
+            {% endfor %}
 
 
-    <!-- Widget Container -->
-    <div class="container-fluid">
-
-        <div class="widget__bar">
-            <div class="widget-wrapper" data-bs-toggle="collapse" data-bs-target="#widgetDropdown" role="button"
-                aria-expanded="false" aria-controls="widgets">
-                <span class="symbol__plus material-symbols-outlined">add</span>
-                <h2 class="header-text">
-                    Add Widget
-                </h2>
-            </div>
-
-            <div class="widget__collapse collapse" id="widgetDropdown">
-                <button>
-                    <h3 class="header-text" id="timerBtn">Timer</h3>
-                </button>
-                <button>
-                    <h3 class="header-text" id="mindfulnessBtn">Mindfulness</h3>
-                </button>
-                <button>
-                    <h3 class="header-text" id="todoBtn">To Do</h3>
-                </button>
-            </div>
-            <!-- Widget Bar -->
         </div>
-        <!-- Container-fluid -->
     </div>
 
-    <div class="container-fluid row" id="widgetBar">
-        <!-- Its The Thought That Matters ;) -->
-    </div>
-
-    <!-- Modal Ask Classes -->
 
     {% if not creds %}
 
@@ -81,43 +56,56 @@
 
     {% else %}
 
-    <!-- Modal Ask Classes -->
 
-    <!-- PLANNER -->
 
-    <div class="planner-wrapper container-fluid">
+
+    <div id="classContent">
+        <h1 class="header-text">Hello {{name}}, it is {{time}}. </h1>
+        <h5 class="body-text">Click one of the classes on the side to view them!</h5>
+
+        <span>
+
+        </span>
+        <span>
+
+        </span>
+        <span>
+
+        </span>
 
         {% for classes in assignments: %}
 
-        <div class="class-wrapper">
-
-            <h1 class="header-text">Class
-                {{loop.index}}</h1>
+        <div class="class-wrapper" id="{{loop.index}}">
+            <h3 class="class__title header-text">Class
+                {{loop.index}}</h3>
 
             <div class="assignment__grid">
+
                 {% for title in classes %}
 
                 <div class="assignment">
-                    <h4 class="header-text">{{title['title']}}</h4>
 
-                    <div class="class__content">
+                    <h4 class="header-text">{{title['title']}}</h4>
+                    <h6 class="body-text">
                         {% if title['due'] == "" %}
                         <h3 class='boxed' style="color:red">No due date</h3>
                         {% else %}
-                        <h3 class='boxed' style="color:green">Due: {{title['due']}}</h3>
+                        <h5 class='boxed' style="color:green">Due: {{title['due']}}</h5>
                         {% endif %}
-                        <h3>
-                            <a href={{title['web_url']}} class='boxed' style="color:#023E8A">Link</a>
-                        </h3>
+                        <h5>
+                            <a href="{{title['web_url']}}" class='boxed' style="color:#023E8A">Link</a>
+                        </h5>
                         {% if title['completed'] == 1 %}
-                        <h3 class='boxed' style="color:green">Completed</h3>
+                        <h5 class='boxed' style="color:green">Completed</h5>
                         {% elif title['completed'] == 0 %}
-                        <h3 class='boxed' style="color:red">Incomplete</h3>
+                        <h5 class='boxed' style="color:red">Incomplete</h5>
                         {% endif %}
-                    </div>
-                </div>
+                    </h6>
 
+                    <!-- Assignment -->
+                </div>
                 {% endfor %}
+                <!-- Assignment Grid -->
             </div>
             <!-- Class Wrapper -->
         </div>
@@ -127,11 +115,6 @@
 
 
 
-
-
-
-
-        <!-- PLANNER -->
 </main>
 
 {% endblock %}

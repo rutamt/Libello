@@ -9,7 +9,7 @@
     /* Purple Variation */
     --black: #222831;
     /* Black */
-    --bg-emphasis: linear-gradient(45deg, #594AFF 0%, #3377FD 100%);
+    --bg-emphasis: linear-gradient(90deg, #594AFF 0%, #3377FD 100%);
     /* Drippy gradient */
 
     /* Timer Widget */
@@ -47,8 +47,14 @@
 
 body {
     padding-top: 58px;
+    width: 100%;
+    height: 100%;
     background: var(--bg-emphasis);
     overflow: overlay;
+}
+
+span {
+    user-select: none;
 }
 
 .col-lg-6,
@@ -149,6 +155,7 @@ body {
     padding: 0 10%;
     background: transparent;
     color: var(--bg-color);
+    z-index: 1;
 }
 
 .nav-item {
@@ -157,7 +164,6 @@ body {
     margin-right: auto;
     padding: 0 .5em;
     border-bottom: 2px solid transparent;
-
 }
 
 .navbar-brand {
@@ -175,6 +181,8 @@ body {
 .nav__sign-in {
     background: var(--bg-emphasis);
     border: none;
+    transition: transform 0.25s;
+    border-radius: 5px;
 }
 
 .nav__sign-in>.nav-link {
@@ -187,6 +195,10 @@ body {
 
 .nav__sign-in>.nav-link:hover {
     color: var(--purple);
+}
+
+.nav__sign-in:active {
+    transform: scale(0.95);
 }
 
 .navbar-toggler:focus {
@@ -205,26 +217,37 @@ body {
 /* Scrollbar */
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 20px;
 }
 
 ::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0);
+    background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--purple);
+    background-color: darkgrey;
+    opacity: 0.5;
     border-radius: 20px;
+    border: 7px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: grey;
+    border-radius: 20px;
+    border: 7px solid transparent;
+    background-clip: content-box;
 }
 
 /* Footer */
 
 footer {
     background-color: WhiteSmoke;
+    z-index: 1;
 }
 
-.footer__row>div {
-    margin: 0;
+.footer-wrapper {
+    background-color: whitesmoke;
 }
 
 /* Error Pages */

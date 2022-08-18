@@ -8,35 +8,35 @@ let mindfulnessIsHere = false;
 let todoIsHere = false;
 
 document.getElementById('timerBtn').addEventListener('click', () => {
-    
+
     if (timerIsHere) {
-        document.querySelector('.timer__container').remove()
+        document.remove()
         timerIsHere = false
     } else {
-        new Timer (document.querySelector('#widgetBar'))
+        new Timer(document.querySelector('#widgetBar'))
         timerIsHere = true
     }
-    
+
 })
 document.getElementById('mindfulnessBtn').addEventListener('click', () => {
-    
+
     if (mindfulnessIsHere) {
-        document.querySelector('.mindfulness__container').remove()
+        document.remove()
         mindfulnessIsHere = false
     } else {
-        new Mindfulness (document.querySelector('#widgetBar'))
+        new Mindfulness(document.querySelector('#widgetBar'))
         mindfulnessIsHere = true
     }
-    
+
 })
 document.getElementById('todoBtn').addEventListener('click', () => {
-    
+
     if (todoIsHere) {
-        document.querySelector('.todo__container').remove()
+        document.remove()
         todoIsHere = false
     } else {
-        new Todo (document.querySelector('#widgetBar'))
+        new Todo(document.querySelector('#widgetBar'))
         todoIsHere = true
     }
-    
+
 })

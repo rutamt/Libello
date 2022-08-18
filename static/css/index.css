@@ -1,24 +1,67 @@
-/* Title Section */
-
-.title-wrapper {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    background: var(--bg-emphasis);
+* {
+    position: relative;
 }
 
-.title-wrapper > .row {
+html {
+    /* scroll-snap-type: y proximity;
+    scroll-behavior: smooth; */
+}
+
+main>section>.container-fluid {
+    display: flex;
+
+    /* scroll-snap-align: start;
+    scroll-margin-top: 58px; */
+}
+
+@media (max-width: 690px) {
+    main>section>.container-fluid {
+        padding: 5% 0;
+    }
+}
+
+/* Title Section */
+
+/* https://stackoverflow.com/questions/29240028/css-make-a-background-image-scroll-slower-than-everything-else */
+/* https://www.w3schools.com/howto/howto_css_parallax.asp */
+
+
+.title-wrapper {
+    background: transparent;
+    overflow: hidden;
+    animation: 2s fadeSlide;
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateX(-50%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.title-wrapper>.row {
+    position: relative;
     margin: 5%;
     overflow: hidden;
     background-color: var(--bg-color);
-    border-radius: 20px;
+    border-radius: 15px;
+    z-index: 0;
+    margin-bottom: auto;
 }
 
 .title__content {
-    background-color: var(--bg-color);
+    z-index: 0;
+    background-color: transparent;
     padding: 2.5% 5%;
 }
+
 .title__image {
+    z-index: 0;
     object-fit: cover;
     filter: brightness(70%);
 }
@@ -26,6 +69,7 @@
 .get-started-button {
     padding: 1% 2.5%;
     margin: 3% 0;
+    margin-right: auto;
     color: var(--bg-color);
     background: var(--bg-emphasis);
     border: 2px solid transparent;
@@ -37,17 +81,19 @@
     transition:
         background 0.5s,
         color 0.5s,
-        border-color 0.5s;
+        border-color 0.25s;
 }
+
 .get-started-button::before {
     content: '';
     position: absolute;
-    bottom: -10px; right: -10px;
+    bottom: -10px;
+    right: -10px;
     border-bottom: 5px solid var(--blue);
     border-right: 5px solid var(--blue);
     margin: auto;
-    height: 40px;
-    width: 150px;
+    height: 2em;
+    width: 6.75em;
     z-index: 2;
 }
 
@@ -56,14 +102,16 @@
     color: var(--purple);
     border-color: 2px var(--purple);
 }
+
 .get-started-button:hover::before {
     opacity: 0;
-    bottom: 0%; right: 0%;
-    
+    bottom: 0%;
+    right: 0%;
+
     transition:
-        bottom 0.5s,
-        right 0.5s,
-        opacity 0.5s;
+        bottom 0.25s,
+        right 0.25s,
+        opacity 0.25s;
 }
 
 .title__down-arrow {
@@ -75,14 +123,8 @@
 
 /* Checklist Section */
 
-.checklist-wrapper {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-}
-
-.checklist-wrapper > .row {
-    margin: 5%;
+.checklist-wrapper>.row {
+    margin: auto 5%;
     display: flex;
     justify-content: center;
     align-content: center;
@@ -97,7 +139,9 @@
 }
 
 @media (max-width: 1700px) {
-    .checklist__image, .checklist__content {
+
+    .checklist__image,
+    .checklist__content {
         width: auto;
     }
 }
@@ -111,35 +155,37 @@
 
 .features-wrapper {
     text-align: center;
+    flex-direction: column;
 }
 
-.features-wrapper > .row {
-    margin: 5%;
+.features-wrapper>.row {
+    margin: auto 5%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.icon__upload, .icon__schedule, .icon__organize {
+.features-wrapper>.row>div>span:hover {
+    opacity: 0.8;
+    transition: opacity 0.5s;
+}
+
+.icon__upload,
+.icon__schedule,
+.icon__organize {
     font-size: 10em;
 }
 
-.features-wrapper > .row > .col-lg-4 {
+.features-wrapper>.row>.col-lg-4 {
     padding: 0% 7.5%;
 }
 
 /* Demo Section */
 
-.demo-wrapper {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-}
-
-.demo-wrapper > .row {
-    margin: 5%;
+.demo-wrapper>.row {
+    margin: auto 5%;
     overflow: hidden;
-    border-radius: 20px;
+    border-radius: 15px;
     background-color: var(--bg-color);
     border: 1px solid darkgray;
 }
@@ -156,10 +202,27 @@
     height: 50%;
     margin: 0;
 }
+
 .demo__text--1 {
     color: black;
 }
+
 .demo__text--2 {
     color: white;
     background-color: var(--blue)
+}
+
+/* Progress Bar */
+
+.progress-container {
+    position: fixed;
+    width: 100%;
+    height: 4px;
+    z-index: 1;
+}
+
+.progress-bar {
+    height: 4px;
+    background: var(--bg-emphasis);
+    width: 0%;
 }

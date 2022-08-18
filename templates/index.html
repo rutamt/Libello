@@ -6,6 +6,12 @@
 <!-- Stuff that varies from page to page -->
 <title>Libello</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
+<script src="{{ url_for('static', filename='js/index.js')}}" defer></script>
+
+<!-- Progress Bar -->
+<div class="progress-container">
+    <div class="progress-bar" id="myBar"></div>
+</div>
 
 <!-- Main Content -->
 <main>
@@ -51,7 +57,6 @@
     <!-- Features Section -->
     <section id="features">
         <div class="features-wrapper container-fluid">
-            <h1 class="emphasis-text">Features</h1>
             <div class="row">
                 <div class="features__upload col-sm-4">
                     <span class="material-symbols-outlined icon__upload">cloud_upload</span>

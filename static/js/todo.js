@@ -1,6 +1,6 @@
 // With reference to https://www.youtube.com/watch?v=Efo7nIUF2JY
 
-export default class Todo {    
+export default class Todo {
     constructor(root) {
 
         const newTodo = document.createElement("div")
@@ -56,14 +56,16 @@ export default class Todo {
         element.addEventListener("dblclick", () => {
             const newContent = prompt("Update your task (if this is left blank the note will delete):")
 
-            if (newContent === "") {
-                const doDelete = confirm("Do you want to delete this task?")
+            if (newContent !== null) {
+                if (newContent === "") {
+                    const doDelete = confirm("Do you want to delete this task?")
 
-                if (doDelete) {
-                    this.deleteTodo(id, element);
+                    if (doDelete) {
+                        this.deleteTodo(id, element);
+                    }
+                } else {
+                    this.updateTodo(id, newContent, element)
                 }
-            } else {
-                this.updateTodo(id, newContent, element)
             }
         });
 
@@ -100,7 +102,7 @@ export default class Todo {
     }
 
     updateTodo(id, newContent, element, done) {
-        
+
         const todos = this.getTodos()
         const targetTodo = todos.filter(todo => todo.id == id)[0];
 

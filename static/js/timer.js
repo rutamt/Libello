@@ -52,7 +52,7 @@ export default class Timer {
                 this.pomo = !this.pomo;
             } else {
                 const inputMinutes = prompt("Enter number of minutes:"); // Opens up a prompt in the browser
-                
+
                 if (inputMinutes < 60) {
                     if (inputMinutes > 0) {
                         this.stop(); // Stop before you set a new time
@@ -99,7 +99,7 @@ export default class Timer {
         if (this.remainingSeconds === 0) return; // If there are already remaining seconds we can just return and cancel out current operation
         // If not we do smth interesting
         this.interval = setInterval(() => { // This code runs every second
-            this.remainingSeconds-- ; // Remove a second every second
+            this.remainingSeconds--; // Remove a second every second
             this.updateInterfaceTime(); // Update timer
 
             if (this.remainingSeconds === 0) {
@@ -119,7 +119,7 @@ export default class Timer {
         this.updateInterfaceControls(); // Displays the updated buttons
     }
 
-    pomofy() { 
+    pomofy() {
         this.stop()
         this.remainingSeconds = 0;
 
@@ -169,7 +169,7 @@ export default class Timer {
                     <span class="material-symbols-outlined">timer</span>
                     </button>
                 <button type="button" class="timer__btn timer__btn--pomo timer__btn--pomodoro">
-                    <h5 class="header-text">Pomodoro</h5>
+                    POMODORO
                     </button>
             </div>
         `;

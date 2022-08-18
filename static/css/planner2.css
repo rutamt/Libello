@@ -170,11 +170,19 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 200px;
-    width: 200px;
+    text-align: center;
+
+    height: 100vh;
+    width: 100vw;
 
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
+    color: var(--bg-color);
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 999;
 }
 
 .timer__container--timer {
@@ -186,15 +194,15 @@ main {
 }
 
 .timer {
-    font-size: 2em;
+    font-size: 10vw;
 }
 
 .timer__buttons {
     display: grid;
 
-    grid-template-columns: 50px 50px;
-    grid-auto-rows: 45px;
-    grid-gap: 10px;
+    grid-template-columns: 15vw 15vw;
+    grid-auto-rows: 15vw;
+    grid-gap: 1.5vw;
 
     grid-template-areas:
         'start-stop control'
@@ -229,44 +237,61 @@ main {
 }
 
 .timer__btn--pomo>.header-text {
-    font-size: 1em;
     margin: 0;
 }
 
 .timer__btn--start {
     background-color: var(--time-green);
     border-color: var(--time-green-dark);
+    font-size: 4vw;
+    font-weight: bold;
 }
 
 .timer__btn--stop {
     background-color: var(--time-red);
     border-color: var(--time-red-dark);
+    font-size: 4vw;
+    font-weight: bold;
 }
 
 .timer__btn--break {
     background-color: var(--time-lightblue);
     border-color: var(--time-lightblue-dark);
+    font-size: 4vw;
+    font-weight: bold;
 }
 
 .timer__btn--reset {
     background-color: var(--time-purple);
     border-color: var(--time-purple-dark);
+    font-size: 4vw;
+    font-weight: bold;
 }
 
 .timer__btn--work {
     color: var(--black);
     background-color: white;
     border-color: grey;
+    font-size: 4vw;
+    font-weight: bold;
 }
 
 .timer__btn--pomodoro {
     background-color: var(--time-pomo);
     border-color: var(--time-pomo-dark);
+    font-size: 4vw;
+    font-weight: bold;
 }
 
 .timer__btn--timer {
     background-color: var(--time-bg);
     border-color: var(--time-bg-dark);
+    font-size: 4vw;
+    font-weight: bold;
+}
+
+.timer__btn>.material-symbols-outlined {
+    font-size: 7vw;
 }
 
 
@@ -274,16 +299,24 @@ main {
 /* Mindfulness Module */
 
 .mindfulness__container {
-    position: relative;
     text-align: center;
     overflow: hidden;
 
-    height: 200px;
-    width: 200px;
+    height: 100vh;
+    width: 100vw;
 
     background-color: var(--zen-green);
 
     font-family: "Amatic SC", sans-serif;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .mindfulness__frame {
@@ -291,7 +324,7 @@ main {
     display: none;
     margin: auto;
     /* Adds space between words and the borders */
-    z-index: 2;
+    z-index: 3;
 
     top: 50%;
     left: 0;
@@ -325,6 +358,11 @@ main {
     display: initial;
     transition:
         transform 0.5s color 0.5s;
+}
+
+.frame__container {
+    width: 100vw;
+    height: 100vw;
 }
 
 .frame__circle {

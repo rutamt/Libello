@@ -24,7 +24,7 @@ export default class Mindfulness {
 
             setTimeout(() => { // Wait until everything is over to then add it back and make it visible
                 this.el.start.classList.add(`frame--active`)
-            }, this.BREATHINGINTERVAL*2) // 2 Breaths mean 2 intervals
+            }, this.BREATHINGINTERVAL * 2) // 2 Breaths mean 2 intervals
         })
     }
 
@@ -37,7 +37,7 @@ export default class Mindfulness {
             this.el.breatheIn.classList.remove(`frame--active`)
         }, this.BREATHINGINTERVAL)
     }
-    
+
     breatheOut() {
         this.el.circle.classList.add(`frame__circle--breatheOut`) // Add animation frame for the circle - makes it get smaller!
         this.el.breatheOut.classList.add(`frame--active`)
@@ -50,19 +50,22 @@ export default class Mindfulness {
 
     sequence() { // Ties all these functions together
         this.breatheIn()
-        
+
         setTimeout(() => {
             this.breatheOut()
         }, this.BREATHINGINTERVAL)
     }
 
     static getHTML() { // I could've used javascript to construct the entire thing
-                       // but to be honest it's actually a lot more efficent to just write out the entire thing and edit parts of that
+        // but to be honest it's actually a lot more efficent to just write out the entire thing and edit parts of that
         return `
             <button type="button" class="mindfulness__frame frame__start frame--active" type="button">
                 <h2>start mindfulness exercise.</h2>
             </button>
-            <div class="mindfulness__frame frame__circle"></div>
+            <div class="frame__container">
+                <div class="mindfulness__frame frame__circle"></div>
+            </div>
+            
             <span class="mindfulness__frame frame__breathe-in">
                 <h2>Breathe In</h2>
                 <span class="material-symbols-outlined">zoom_out_map</span>

@@ -42,3 +42,7 @@ A list of technologies used within the project:
 * [Flask](https://flask.palletsprojects.com/en/2.2.x/): Version 2.1.3
 * [Schoolopy](https://github.com/ErikBoesen/schoolopy): Version 0.2.2
 * [Auth0](https://auth0.com/)
+
+## Collaboration
+
+Big thanks goes out to my friend [Keifnao](https://github.com/keifnao) for helping a lot with the front end. This project was done in collaboration with him for our IB personal project.

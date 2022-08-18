@@ -103,9 +103,11 @@ export default class Timer {
             this.updateInterfaceTime(); // Update timer
 
             if (this.remainingSeconds === 0) {
+                var audio = new Audio("../static/images/timer_ding.wav");
+                audio.play();
+                console
                 this.stop(); // Another function
             }
-
         }, 1000) // The setInterval function allows for code to run on a timer. The 1000 is 1000 miliseconds or one second
 
         this.updateInterfaceControls();

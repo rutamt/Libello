@@ -16,7 +16,6 @@ from urllib.parse import quote_plus, urlencode
 from authlib.integrations.flask_client import OAuth
 from flask import Flask, redirect, render_template, session, url_for, request, flash
 import schoolopy
-import datetime
 import requests
 from functools import wraps
 from flask_talisman import Talisman
@@ -123,14 +122,11 @@ def work():
     classes = auth0.get_user_classes(user_info)
     creds = auth0.get_user_creds(user_info)
 
-    time = datetime.datetime.now().strftime("%A %B %d, %Y")
-
     if not creds or creds == ["default", "default"]:
         print("NOT CREDS")
         return render_template(
             "planner.html",
             is_logged_in=is_logged_in(),
-            time=time,
             name=name,
             creds=None,
             classes="YES",
@@ -140,7 +136,6 @@ def work():
         return render_template(
             "planner.html",
             is_logged_in=is_logged_in(),
-            time=time,
             name=f"{name}",
             classes=None,
             creds="YES",
@@ -154,7 +149,6 @@ def work():
         return render_template(
             "planner.html",
             is_logged_in=is_logged_in(),
-            time=time,
             assignments=assignments,
             name=name,
             creds="YES",

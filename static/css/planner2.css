@@ -8,6 +8,7 @@ a {
 
 .navbar {
     background-color: var(--bg-color);
+    z-index: 2;
 }
 
 .navbar-brand {
@@ -33,6 +34,7 @@ main {
     width: 20%;
     left: 0;
     top: 0;
+    overflow: auto;
 
     color: var(--bg-color)
 }
@@ -49,8 +51,8 @@ main {
 
 .class__selector {
     cursor: pointer;
-    margin: 10% 0;
-    padding: 5% 10%;
+    margin: 3% 0;
+    padding: 2% 5%;
 
     background: none;
     border: none;
@@ -72,7 +74,7 @@ main {
     }
 
     .class__selector {
-        font-size: 4vw;
+        font-size: 3vw;
         text-align: center;
     }
 

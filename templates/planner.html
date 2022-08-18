@@ -24,7 +24,6 @@
 
             {% endfor %}
 
-
         </div>
     </div>
 
@@ -60,18 +59,9 @@
 
 
     <div id="classContent">
-        <h1 class="header-text">Hello {{name}}, it is {{time}}. </h1>
-        <h5 class="body-text">Click one of the classes on the side to view them!</h5>
+        <h1><span class="header-text">Hello {{name}}, it is <span id="dateTime"></span>.</span></h1>
 
-        <span>
-
-        </span>
-        <span>
-
-        </span>
-        <span>
-
-        </span>
+        <h5 class="body-text"> Click one of the classes on the side to view them!</h5>
 
         {% for classes in assignments: %}
 
@@ -88,7 +78,7 @@
                     <h4 class="header-text">{{title['title']}}</h4>
                     <h6 class="body-text">
                         {% if title['due'] == "" %}
-                        <h3 class='boxed' style="color:red">No due date</h3>
+                        <h4 class='boxed' style="color:red">No due date</h4>
                         {% else %}
                         <h5 class='boxed' style="color:green">Due: {{title['due']}}</h5>
                         {% endif %}

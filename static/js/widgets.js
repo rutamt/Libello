@@ -1,3 +1,12 @@
+// Time and Date Widget
+
+const dateTime = document.getElementById("dateTime")
+
+const event = new Date();
+const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+dateTime.innerHTML = event.toLocaleDateString(undefined, options);
+
 // import Timer from "./timer.js";
 import Mindfulness from "./mindfulness.js";
 import Timer from "./timer.js";

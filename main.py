@@ -261,6 +261,16 @@ def about():
     )
 
 
+@app.route("/test")
+@login_required
+def test():
+    return render_template(
+        "planner2.html",
+        is_logged_in=is_logged_in(),
+    )
+
+
+# https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/
 @app.errorhandler(404)
 def page_not_found(e):
     # note that we set the 404 status explicitly

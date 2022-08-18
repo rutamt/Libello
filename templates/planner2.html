@@ -1,0 +1,41 @@
+{% set is_logged_in = is_logged_in %}
+{% extends "head_test.html" %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/planner2.css')}}">
+
+
+<main>
+
+    <div id="sideBar">
+        <h2 class="header-text">Classes</h2>
+        <div id="classList">
+            <button class="class__selector body-text">
+                Class 1
+            </button>
+
+            <button class="class__selector body-text">
+                Class @
+            </button>
+
+            <button class="class__selector body-text">
+                Class 69
+            </button>
+        </div>
+    </div>
+
+    <div id="classContent">
+        <h1 class="header-text">Hello {{name}}, it is {{time}}. </h1>
+        <h5 class="body-text">Click one of the classes on the side to view them!</h5>
+
+        <div class="class-wrapper" id="class1">
+            <h3 class="class__title header-text">TITLE</h3>
+            <div class="assignment__grid">
+                FOR LOOP CONTENT
+            </div>
+
+        </div>
+
+</main>
+
+{% endblock %}

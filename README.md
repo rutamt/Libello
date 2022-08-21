@@ -40,7 +40,7 @@ Front End
 
 * Multi Action Buttons: https://www.youtube.com/watch?v=Xz-ApgT7rZc
 
-* Parallax Scroll Reference: https://blog.hubspot.com/website/parallax-scrolling#:~:text=What%20is%20Parallax%20Scrolling%3F,scroll%20through%20a%20web%20page.
+* Parallax Scroll Reference: https://blog.hubspot.com/website/parallax-scrolling
 
 ***
 

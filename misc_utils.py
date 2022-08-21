@@ -48,3 +48,26 @@ def get_assignments(key, secret, classes=None):
         # cl_list.append(new_cl)
         # # print(cl_list)
         return cl_list
+
+
+admin_key = "1de57784114df33651b1af7ec0d35fdf0625b5cbb"
+admin_secret = "89b44b05a27ebed1dc3a96b8d434627a"
+
+# Instantiate with 'three_legged' set to True for three_legged oauth.
+# Make sure to replace 'https://www.schoology.com' with your school's domain.
+DOMAIN = "https://henrico.schoology.com"
+
+
+auth = schoolopy.Auth(admin_key, admin_secret, three_legged=True, domain=DOMAIN)
+url = auth.request_authorization()
+
+# Open OAuth authorization webpage. Give time to authorize.
+def leggedurl():
+    if url is not None:
+        return url
+
+
+def leggedurl2():
+    test_key = auth.consumer_key
+    test_secret = auth.consumer_secret
+    print(f"LEGGED URL PT.2 KEY: {test_key}, SECRET: {test_secret}")

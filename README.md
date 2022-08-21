@@ -16,11 +16,15 @@ The link to the website can be found at https://libello.herokuapp.com/
 ## Credits 
 ***
 
+Back End
+
 * Schoology API wrapper: https://github.com/ErikBoesen/schoolopy
 
-* Navbar Functions: https://stackoverflow.com/questions/19900953/trying-to-trigger-event-on-certain-scroll-height-using-javascript
-
 * Check if given list contains any duplicates: https://thispointer.com/python-3-ways-to-check-if-there-are-duplicates-in-a-list/
+
+* Login: https://auth0.com/
+
+Front End
 
 * Todo list: https://www.youtube.com/watch?v=Efo7nIUF2JY
 
@@ -28,7 +32,15 @@ The link to the website can be found at https://libello.herokuapp.com/
 
 * CSS grid + button structuring: https://www.youtube.com/watch?v=9zBsdzdE4sM 
 
-* Login: https://auth0.com/
+* Navbar Functions: https://stackoverflow.com/questions/19900953/trying-to-trigger-event-on-certain-scroll-height-using-javascript
+
+* Modal Boxes: https://www.w3schools.com/howto/howto_css_modals.asp
+
+* Sidebar reference: https://blog.hubspot.com/website/css-sidebar
+
+* Multi Action Buttons: https://www.youtube.com/watch?v=Xz-ApgT7rZc
+
+* Parallax Scroll Reference: https://blog.hubspot.com/website/parallax-scrolling#:~:text=What%20is%20Parallax%20Scrolling%3F,scroll%20through%20a%20web%20page.
 
 ***
 

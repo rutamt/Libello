@@ -2,14 +2,14 @@
 """
 
 
-from re import T
+import time
+import webbrowser
 from dotenv import find_dotenv, load_dotenv
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
 
-import json
 import os
 from urllib.parse import quote_plus, urlencode
 
@@ -22,7 +22,7 @@ from flask_talisman import Talisman
 
 
 from auth0_utils import AUTH0_DOMAIN, CLIENT_ID, CLIENT_SECRET, Auth0Utils
-from misc_utils import check_if_duplicates, get_assignments
+from misc_utils import check_if_duplicates, get_assignments, leggedurl
 
 app = Flask(__name__)
 Talisman(app, content_security_policy=None)
@@ -106,6 +106,54 @@ def logout():
     )
 
 
+@app.route("/auth")
+@login_required
+def schoology_auth():
+
+    DOMAIN = "https://henrico.schoology.com"
+    admin_key = "1de57784114df33651b1af7ec0d35fdf0625b5cbb"
+    admin_secret = "89b44b05a27ebed1dc3a96b8d434627a"
+
+    auth = schoolopy.Auth(admin_key, admin_secret, three_legged=True, domain=DOMAIN)
+    url = auth.request_authorization()
+
+    user_info = session.get("user")["userinfo"]
+    creds = auth0.get_user_creds(user_info)
+
+    if creds != ["default", "default"]:
+        return redirect(url_for("work"))
+
+    def get_url():
+        if url is not None:
+            get_url2()
+            return url
+
+    def get_url2():
+        time.sleep(5)
+        print("CALLING GET_URL2")
+        get_url3()
+
+    def get_url3():
+        test_key = auth.consumer_key
+        test_secret = auth.consumer_secret
+        print(f"GET_URL3: KEY:{test_key}, SECRET: {test_secret}")
+        user_info = session.get("user")["userinfo"]
+        print("AUTH0.UPDATE USER CALLED")
+        auth0.update_user(user_info=user_info, key=test_key, secret=test_secret)
+
+        creds2 = auth0.get_user_creds(user_info)
+
+        if creds2 != ["default", "default"]:
+            time.sleep(1)
+            print("REDIRECTING TO WORK FROM GET_URL3")
+            flash("SUCCESS")
+            # return redirect(url_for("setup"))
+
+    return render_template(
+        "3leggedsignin.html", url=get_url(), is_logged_in=is_logged_in()
+    )
+
+
 @app.route("/work")
 @login_required
 def work():
@@ -124,13 +172,7 @@ def work():
 
     if not creds or creds == ["default", "default"]:
         print("NOT CREDS")
-        return render_template(
-            "planner.html",
-            is_logged_in=is_logged_in(),
-            name=name,
-            creds=None,
-            classes="YES",
-        )
+        return redirect(url_for("schoology_auth"))
     if not classes or classes == "default":
         print("NOT CLASSES")
         return render_template(

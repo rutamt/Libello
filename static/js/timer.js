@@ -18,6 +18,7 @@ export default class Timer {
             startStop: root.querySelector(".timer__btn--start-stop"),
             reset: root.querySelector(".timer__btn--control"),
             pomodoro: root.querySelector(".timer__btn--pomo"),
+            close: root.querySelector(".close__timer"),
         };
 
         this.interval = null; // Use the setinterval function in java to make the timer trigger.
@@ -25,6 +26,10 @@ export default class Timer {
         this.remainingSeconds = 0; // Current remaining seconds
 
         this.ispomodoro = false;
+
+        this.el.close.addEventListener("click", () => {
+            this.el.container.style.display = "none"
+        })
 
         // EventListeners for the buttons ie. check if they are clicked
         this.el.startStop.addEventListener("click", () => {
@@ -54,7 +59,7 @@ export default class Timer {
                 const inputMinutes = prompt("Enter number of minutes:"); // Opens up a prompt in the browser
 
                 if (inputMinutes < 60) {
-                    if (inputMinutes > 0) {
+                    if (Math.floor(inputMinutes) == inputMinutes && inputMinutes > 0) {
                         this.stop(); // Stop before you set a new time
                         this.remainingSeconds = inputMinutes * 60;
                         this.updateInterfaceTime();
@@ -154,6 +159,10 @@ export default class Timer {
 
     static getHTML() {
         return `
+            <span class="material-symbols-outlined close__timer">
+                close
+            </span>
+
             <div class="timer">
                 <span class="timer__part timer__part--minutes">00</span>
                 <span class="timer__part">:</span>

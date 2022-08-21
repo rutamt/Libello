@@ -2,7 +2,7 @@
 {% extends "head_test.html" %}
 {% block content %}
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/planner2.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/planner.css')}}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css')}}">
 
 <script src="{{ url_for('static', filename='js/modal.js')}}" defer></script>
@@ -11,6 +11,20 @@
 
 <main>
 
+    <!-- https://www.youtube.com/watch?v=Xz-ApgT7rZc -->
+    <div class="widget__bar">
+        <div class="widget__extender">
+            <span class="material-symbols-outlined" id="timerBtn">timer</span>
+            <span class="material-symbols-outlined" id="mindfulnessBtn">self_improvement</span>
+            <span class="material-symbols-outlined" id="todoBtn">checklist</span>
+        </div>
+        <button class="widget__btn">
+            <span class="material-symbols-outlined">add</span>
+        </button>
+    </div>
+
+
+    <!-- https://blog.hubspot.com/website/css-sidebar -->
     <div id="sideBar">
         <h2 class="header-text">Classes</h2>
         <div id="classList">
@@ -29,13 +43,13 @@
 
 
     {% if not creds %}
-
+    <!-- https://www.w3schools.com/howto/howto_css_modals.asp -->
     <div class="modal" id="modal">
         <div class="modal__content modal__tutorial">
 
             <h2 class="header-text">Warning</h2>
             <h1>You don't seem to have an api key or secret added to your account.</h1>
-            <a href="{{ url_for('register') }}"><button class="btn__setup header-text">Add key and
+            <a href="{{url}}" target="_blank"><button class="btn__setup header-text">Add key and
                     secret</button></a>
 
         </div>
@@ -69,6 +83,7 @@
             <h3 class="class__title header-text">Class
                 {{loop.index}}</h3>
 
+            <!-- https://www.youtube.com/watch?v=9zBsdzdE4sM -->
             <div class="assignment__grid">
 
                 {% for title in classes %}

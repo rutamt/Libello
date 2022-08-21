@@ -7,49 +7,51 @@ const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric
 
 dateTime.innerHTML = event.toLocaleDateString(undefined, options);
 
+// Widget Buttons
+
+const widgetBtn = document.querySelector(".widget__btn")
+const widgetBar = document.querySelector(".widget__bar")
+const widgetSelection = document.querySelector(".widget__extender")
+
+widgetBtn.addEventListener("click", () => {
+    if (widgetSelection.style.display === "none") {
+        widgetSelection.style.display = "flex"
+        widgetBar.style.height = "12rem"
+    } else {
+        widgetSelection.style.display = "none"
+        widgetBar.style.height = "4rem"
+    }
+})
+
 // import Timer from "./timer.js";
 import Mindfulness from "./mindfulness.js";
 import Timer from "./timer.js";
 import Todo from "./todo.js";
 
-// new Timer(document.body)
-// new Mindfulness(document.body)
-// new Todo(document.body)
+new Timer(document.body)
+new Mindfulness(document.body)
+new Todo(document.body)
 
-let timerIsHere = false;
-let mindfulnessIsHere = false;
-let todoIsHere = false;
+const timerContainer = document.querySelector(".timer__container")
+const mindfulnessContainer = document.querySelector(".mindfulness__container")
+const todoContainer = document.querySelector(".todo__container")
 
-// document.getElementById('timerBtn').addEventListener('click', () => {
 
-//     if (timerIsHere) {
-//         document.remove()
-//         timerIsHere = false
-//     } else {
-//         new Timer(document.querySelector('#widgetBar'))
-//         timerIsHere = true
-//     }
+document.getElementById('timerBtn').addEventListener('click', () => {
 
-// })
-// document.getElementById('mindfulnessBtn').addEventListener('click', () => {
+    timerContainer.style.display = "flex"
 
-//     if (mindfulnessIsHere) {
-//         document.remove()
-//         mindfulnessIsHere = false
-//     } else {
-//         new Mindfulness(document.querySelector('#widgetBar'))
-//         mindfulnessIsHere = true
-//     }
+})
+document.getElementById('mindfulnessBtn').addEventListener('click', () => {
 
-// })
-// document.getElementById('todoBtn').addEventListener('click', () => {
+    mindfulnessContainer.style.display = "flex"
+})
+document.getElementById('todoBtn').addEventListener('click', () => {
 
-//     if (todoIsHere) {
-//         document.remove()
-//         todoIsHere = false
-//     } else {
-//         new Todo(document.querySelector('#widgetBar'))
-//         todoIsHere = true
-//     }
+    if (todoContainer.style.display === "none") {
+        todoContainer.style.display === "inline"
+    } else {
+        todoContainer.style.display === "none"
+    }
 
-// })
+})

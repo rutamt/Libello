@@ -9,13 +9,19 @@ export default class Mindfulness {
         root.appendChild(newMindfulness)
 
         this.el = { // Selecting important parts of the html code; makes it easier to edit them
+            container: root.querySelector(".mindfulness__container"),
             start: root.querySelector(".frame__start"),
             circle: root.querySelector(".frame__circle"),
             breatheIn: root.querySelector(".frame__breathe-in"),
             breatheOut: root.querySelector(".frame__breathe-out"),
+            close: root.querySelector(".close__mindfulness"),
         }
 
         this.BREATHINGINTERVAL = 7000; // Length of each interval of breathing in or out
+
+        this.el.close.addEventListener("click", () => {
+            this.el.container.style.display = "none"
+        })
 
         this.el.start.addEventListener("click", () => { // When Clicked . . .
             this.el.start.classList.remove(`frame--active`) // Remove 'frame--active' class to the start button
@@ -59,6 +65,10 @@ export default class Mindfulness {
     static getHTML() { // I could've used javascript to construct the entire thing
         // but to be honest it's actually a lot more efficent to just write out the entire thing and edit parts of that
         return `
+            <span class="material-symbols-outlined close__mindfulness">
+                close
+            </span>
+
             <button type="button" class="mindfulness__frame frame__start frame--active" type="button">
                 <h2>start mindfulness exercise.</h2>
             </button>

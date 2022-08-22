@@ -10,16 +10,22 @@ dateTime.innerHTML = event.toLocaleDateString(undefined, options);
 // Widget Buttons
 
 const widgetBtn = document.querySelector(".widget__btn")
+const widgetPlus = document.querySelector(".plus")
 const widgetBar = document.querySelector(".widget__bar")
 const widgetSelection = document.querySelector(".widget__extender")
 
+let isOpen = false
+
 widgetBtn.addEventListener("click", () => {
-    if (widgetSelection.style.display === "none") {
-        widgetSelection.style.display = "flex"
-        widgetBar.style.height = "12rem"
+    widgetPlus.classList.toggle("spin")
+    if (isOpen) {
+        widgetBar.classList.remove("widget__bar--extend")
+        widgetBar.classList.add("widget__bar--retract")
+        isOpen = !isOpen
     } else {
-        widgetSelection.style.display = "none"
-        widgetBar.style.height = "4rem"
+        widgetBar.classList.remove("widget__bar--retract")
+        widgetBar.classList.add("widget__bar--extend")
+        isOpen = !isOpen
     }
 })
 
@@ -49,9 +55,9 @@ document.getElementById('mindfulnessBtn').addEventListener('click', () => {
 document.getElementById('todoBtn').addEventListener('click', () => {
 
     if (todoContainer.style.display === "none") {
-        todoContainer.style.display === "inline"
+        todoContainer.style.display = "inline"
     } else {
-        todoContainer.style.display === "none"
+        todoContainer.style.display = "none"
     }
 
 })

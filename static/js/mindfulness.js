@@ -17,7 +17,7 @@ export default class Mindfulness {
             close: root.querySelector(".close__mindfulness"),
         }
 
-        this.BREATHINGINTERVAL = 7000; // Length of each interval of breathing in or out
+        this.BREATHINGINTERVAL = 5000; // Length of each interval of breathing in or out
 
         this.el.close.addEventListener("click", () => {
             this.el.container.style.display = "none"

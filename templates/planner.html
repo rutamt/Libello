@@ -12,21 +12,30 @@
 <main>
 
     <!-- https://www.youtube.com/watch?v=Xz-ApgT7rZc -->
+
+
     <div class="widget__bar">
         <div class="widget__extender">
-            <span class="material-symbols-outlined" id="timerBtn">timer</span>
-            <span class="material-symbols-outlined" id="mindfulnessBtn">self_improvement</span>
-            <span class="material-symbols-outlined" id="todoBtn">checklist</span>
+            <span class="material-symbols-outlined widget" id="timerBtn">timer</span>
+            <span class="material-symbols-outlined widget" id="mindfulnessBtn">self_improvement</span>
+            <span class="material-symbols-outlined widget" id="todoBtn">checklist</span>
         </div>
-        <button class="widget__btn">
-            <span class="material-symbols-outlined">add</span>
-        </button>
     </div>
+    <button class="widget__btn">
+        <span class="material-symbols-outlined plus">add</span>
+    </button>
 
 
     <!-- https://blog.hubspot.com/website/css-sidebar -->
     <div id="sideBar">
-        <h2 class="header-text">Classes</h2>
+        <h2 class="sidebar__header header-text">
+            Classes
+            <span>
+                <a href="{{ url_for('setup') }}"><span class="material-symbols-outlined add__class">edit</span></a>
+            </span>
+
+
+        </h2>
         <div id="classList">
 
             {% for classes in assignments: %}
@@ -73,9 +82,12 @@
 
 
     <div id="classContent">
-        <h1><span class="header-text">Hello {{name}}, it is <span id="dateTime"></span>.</span></h1>
 
-        <h5 class="body-text"> Click one of the classes on the side to view them!</h5>
+        <div class="content__header">
+            <h1><span class="header-text">Hello {{name}}, it is <span id="dateTime"></span>.</span></h1>
+
+            <h5 class="body-text "> Click one of the classes on the side to view them!</h5>
+        </div>
 
         {% for classes in assignments: %}
 

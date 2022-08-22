@@ -98,6 +98,22 @@ main {
     transform: scale(1);
 }
 
+.add__class {
+    background: var(--bg-color);
+    color: var(--purple);
+    padding: 1%;
+    margin: 1%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add__class:hover {
+    transition: 0.5s;
+    background: transparent;
+    color: var(--bg-color);
+    transform: scale(1.05);
+
+}
 
 #classContent {
     scroll-behavior: smooth;
@@ -109,7 +125,7 @@ main {
     overflow: auto;
 }
 
-#classContent>h1 {
+.content__header {
     padding: 2.5%;
     border-bottom: 2px solid var(--blue);
 }
@@ -169,15 +185,40 @@ main {
 
 /* https://stackoverflow.com/questions/31000885/align-an-element-to-bottom-with-flexbox */
 
+@keyframes extend {
+    from {
+        height: 4rem;
+    }
+
+    to {
+        height: 12rem;
+    }
+}
+
+@keyframes retract {
+    from {
+        height: 12rem;
+    }
+
+    to {
+        height: 4rem;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .widget__bar {
     position: absolute;
     bottom: 20px;
     right: 20px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
 
     width: 4rem;
     height: 4rem;
@@ -186,10 +227,26 @@ main {
     z-index: 2;
     background: #ccc;
 
-    animation: "none"
+    animation: "none";
+    padding-bottom: 4rem;
+    overflow: hidden;
+}
+
+.widget__bar--extend {
+    animation: 0.5s extend ease-in;
+    height: 12rem;
+}
+
+.widget__bar--retract {
+    animation: 0.5s retract ease-out;
+    height: 4rem;
 }
 
 .widget__btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -205,10 +262,33 @@ main {
     color: var(--bg-color);
     background: var(--bg-emphasis);
     cursor: pointer;
+    z-index: 3;
+
+    transform: rotate(0deg);
+
+    transition: transform 0.5s;
+}
+
+.spin {
+    transform: rotate(360deg);
+    animation: 0.5s spin ease-in;
+}
+
+
+.widget__btn:hover {
+    color: var(--purple);
+    background: var(--bg-color);
+    border: 3px solid var(--purple);
+}
+
+.widget__btn:active {
+    transform: scale(0.95);
+
+    transition: 0.5s;
 }
 
 .widget__extender {
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -220,9 +300,14 @@ main {
     margin-top: auto;
 }
 
-.widget__extender>span {
+.widget {
     font-size: 25px;
     padding: 10% 0;
+    cursor: pointer;
+}
+
+.widget:hover {
+    color: var(--bg-color);
 }
 
 .close__mindfulness,
@@ -231,6 +316,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
     top: 20px;
     right: 20px;
@@ -391,7 +477,7 @@ main {
     position: absolute;
     top: 0;
     bottom: 0;
-    z-index: 2;
+    z-index: 999;
 }
 
 .mindfulness__frame {
@@ -449,12 +535,12 @@ main {
 
 .frame__circle--breatheIn {
     display: initial;
-    animation: breatheIn ease-in 7s;
+    animation: breatheIn ease-in 5s;
 }
 
 .frame__circle--breatheOut {
     display: initial;
-    animation: breatheOut ease-out 7s;
+    animation: breatheOut ease-out 5s;
 }
 
 @keyframes breatheIn {
@@ -487,7 +573,7 @@ main {
     position: absolute;
     display: none;
 
-    top: 30px;
+    top: 60px;
     right: 10px;
 
     height: 200px;

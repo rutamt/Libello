@@ -3,6 +3,12 @@ Misc utilities for use throughout the app.
 """
 
 import schoolopy
+import os
+
+
+SCHOOLOGY_API_KEY = os.environ.get("SCHOOLOGY_API_KEY")
+SCHOOLOGY_API_SECRET = os.environ.get("SCHOOLOGY_API_SECRET")
+DOMAIN = "https://app.schoology.com"
 
 
 def check_if_duplicates(list_of_elems):
@@ -23,7 +29,19 @@ def check_if_duplicates(list_of_elems):
 def get_assignments(key, secret, classes=None):
     """Use the Schoology API to return the user's assignments"""
     print("get_assignments()")
-    sc = schoolopy.Schoology(schoolopy.Auth(key, secret))
+
+    auth = schoolopy.Auth(
+        SCHOOLOGY_API_KEY,
+        SCHOOLOGY_API_SECRET,
+        three_legged=True,
+        domain=DOMAIN,
+        access_token=key,
+        access_token_secret=secret,
+    )
+    try:
+        sc = schoolopy.Schoology(auth)
+    except 401:
+        return False
 
     if classes == ["default"] or classes == "default":
         return "NONE"
@@ -50,24 +68,5 @@ def get_assignments(key, secret, classes=None):
         return cl_list
 
 
-admin_key = "1de57784114df33651b1af7ec0d35fdf0625b5cbb"
-admin_secret = "89b44b05a27ebed1dc3a96b8d434627a"
-
 # Instantiate with 'three_legged' set to True for three_legged oauth.
 # Make sure to replace 'https://www.schoology.com' with your school's domain.
-DOMAIN = "https://henrico.schoology.com"
-
-
-auth = schoolopy.Auth(admin_key, admin_secret, three_legged=True, domain=DOMAIN)
-url = auth.request_authorization()
-
-# Open OAuth authorization webpage. Give time to authorize.
-def leggedurl():
-    if url is not None:
-        return url
-
-
-def leggedurl2():
-    test_key = auth.consumer_key
-    test_secret = auth.consumer_secret
-    print(f"LEGGED URL PT.2 KEY: {test_key}, SECRET: {test_secret}")

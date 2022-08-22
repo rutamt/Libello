@@ -1,9 +1,7 @@
 """Python Flask WebApp Auth0 integration example
 """
 
-
 import time
-import webbrowser
 from dotenv import find_dotenv, load_dotenv
 
 ENV_FILE = find_dotenv()
@@ -14,15 +12,27 @@ import os
 from urllib.parse import quote_plus, urlencode
 
 from authlib.integrations.flask_client import OAuth
-from flask import Flask, redirect, render_template, session, url_for, request, flash
+from flask import (
+    Flask,
+    redirect,
+    render_template,
+    session,
+    url_for,
+    request,
+    flash,
+)
 import schoolopy
 import requests
 from functools import wraps
 from flask_talisman import Talisman
 
-
 from auth0_utils import AUTH0_DOMAIN, CLIENT_ID, CLIENT_SECRET, Auth0Utils
-from misc_utils import check_if_duplicates, get_assignments, leggedurl
+from misc_utils import check_if_duplicates, get_assignments
+
+SCHOOLOGY_API_KEY = os.environ.get("SCHOOLOGY_API_KEY")
+SCHOOLOGY_API_SECRET = os.environ.get("SCHOOLOGY_API_SECRET")
+HOSTNAME = os.environ.get("HOSTNAME")
+SCHOOLOGY_DOMAIN = "https://henrico.schoology.com"
 
 app = Flask(__name__)
 Talisman(app, content_security_policy=None)
@@ -30,6 +40,13 @@ app.secret_key = os.environ.get("APP_SECRET_KEY")
 oauth = OAuth(app)
 
 auth0 = Auth0Utils()
+
+auth = schoolopy.Auth(
+    consumer_key=SCHOOLOGY_API_KEY,
+    consumer_secret=SCHOOLOGY_API_SECRET,
+    three_legged=True,
+    domain=SCHOOLOGY_DOMAIN,
+)
 
 oauth.register(
     "auth0",
@@ -110,54 +127,32 @@ def logout():
 @login_required
 def schoology_auth():
 
-    DOMAIN = "https://henrico.schoology.com"
-    admin_key = "1de57784114df33651b1af7ec0d35fdf0625b5cbb"
-    admin_secret = "89b44b05a27ebed1dc3a96b8d434627a"
-
-    auth = schoolopy.Auth(admin_key, admin_secret, three_legged=True, domain=DOMAIN)
-    url = auth.request_authorization()
-
     user_info = session.get("user")["userinfo"]
     creds = auth0.get_user_creds(user_info)
-
     if creds != ["default", "default"]:
         return redirect(url_for("work"))
 
-    def get_url():
-        if url is not None:
-            get_url2()
-            return url
-
-    def get_url2():
-        time.sleep(5)
-        print("CALLING GET_URL2")
-        get_url3()
-
-    def get_url3():
-        test_key = auth.consumer_key
-        test_secret = auth.consumer_secret
-        print(f"GET_URL3: KEY:{test_key}, SECRET: {test_secret}")
-        user_info = session.get("user")["userinfo"]
-        print("AUTH0.UPDATE USER CALLED")
-        auth0.update_user(user_info=user_info, key=test_key, secret=test_secret)
-
-        creds2 = auth0.get_user_creds(user_info)
-
-        if creds2 != ["default", "default"]:
-            time.sleep(1)
-            print("REDIRECTING TO WORK FROM GET_URL3")
-            flash("SUCCESS")
-            # return redirect(url_for("setup"))
-
-    return render_template(
-        "3leggedsignin.html", url=get_url(), is_logged_in=is_logged_in()
-    )
+    url = auth.request_authorization(callback_url=f"6933-74-110-217-162.ngrok.io/work")
+    if url is None:
+        return "URL NOT NONE"
+    return render_template("3leggedsignin.html", url=url, is_logged_in=is_logged_in())
 
 
 @app.route("/work")
 @login_required
 def work():
+    def get_url3():
+        access_token = auth.access_token
+        access_token_secret = auth.access_token_secret
+        print(f"GET_URL3: KEY:{access_token}, SECRET: {access_token_secret}")
+        user_info = session.get("user")["userinfo"]
+        print("AUTH0.UPDATE USER CALLING")
+        auth0.update_user(
+            user_info=user_info, key=access_token, secret=access_token_secret
+        )
+
     print("work()")
+
     # print("Session in /work", session)
     user_info = session.get("user")["userinfo"]
     print("USER INFO:", session.get("user")["userinfo"])
@@ -171,8 +166,19 @@ def work():
     creds = auth0.get_user_creds(user_info)
 
     if not creds or creds == ["default", "default"]:
-        print("NOT CREDS")
-        return redirect(url_for("schoology_auth"))
+
+        # check if we got creds from an oauth 3-legged workflow
+        print("auth access tokens are", auth.access_token, auth.access_token_secret)
+        print("Running auth.authorize()")
+        auth.authorize()
+
+        if auth.access_token and auth.access_token_secret:
+            print("RUNNING GET_URL3")
+            get_url3()
+        else:
+            print("NOT CREDS")
+            return redirect(url_for("schoology_auth"))
+
     if not classes or classes == "default":
         print("NOT CLASSES")
         return render_template(
@@ -187,6 +193,10 @@ def work():
         assignments = get_assignments(
             key=creds[0], secret=creds[1], classes=classes.split(",")
         )
+        if not assignments:
+            print("Invalid token/secret")
+            return redirect(url_for("schoology_auth"))
+
         # print(f"ASSIGNMENTS {assignments}")
         return render_template(
             "planner.html",

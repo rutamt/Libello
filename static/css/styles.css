@@ -53,7 +53,7 @@ body {
     overflow: overlay;
 }
 
-span {
+.material-symbols-outlined {
     user-select: none;
 }
 

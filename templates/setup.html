@@ -18,9 +18,9 @@
     <div class="modal" id="modal">
         <div class="modal__content modal__error">
             <span class="close material-symbols-outlined">close</span>
-            <h2 class="header-text">ERROR</h2>
+            <h1 class="header-text">ERROR</h1>
             {% for message in messages %}
-            <h1 class="emphasis-text">{{message}}</h1>
+            <h2 class="emphasis-text">{{message}}</h2>
             {% endfor %}
 
         </div>
@@ -29,13 +29,17 @@
     {% endwith %}
 
 
-
-
     <div class="container-fluid input-window__container">
         <div class="input-window">
 
             <h1 class="emphasis-text p-5">Set Classes</h1>
-            <p class="header-text p-3">Type the IDs of the classes you have.</p>
+
+            <img class="guide" src="{{ url_for('static', filename='images/class_id.JPG')}}" alt="ClassId">
+
+            <p class="header-text p-3">
+                Type the IDs of the classes you have.
+                <span class="guide__Btn material-symbols-outlined">help</span>
+            </p>
 
             <button class="btn__control btn__control--add">
                 <span class="material-symbols-outlined">

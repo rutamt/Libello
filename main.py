@@ -266,39 +266,6 @@ def setup():
     )
 
 
-@app.route("/register", methods=["GET", "POST"])
-@login_required
-def register():
-    print("register()")
-
-    if request.method == "POST":
-        key = request.form.get("key")
-        secret = request.form.get("secret")
-        if not key or not secret:
-            flash("You must provide key and secret.", category="error")
-            return redirect(url_for("register"))
-
-        try:
-            sc = schoolopy.Schoology(schoolopy.Auth(key, secret))
-            sc.get_me()
-
-        except requests.exceptions.HTTPError:
-            flash("Invalid api key/secret", category="error")
-            return redirect(url_for("register"))
-
-        else:
-            print("SUCCESS")
-            user_info = session.get("user")["userinfo"]
-            auth0.update_user(user_info=user_info, key=key, secret=secret)
-            return redirect(url_for("work"))
-
-    # this is for HTTP method GET
-    return render_template(
-        "register.html",
-        is_logged_in=is_logged_in(),
-    )
-
-
 @app.route("/about")
 def about():
     return render_template(
@@ -315,4 +282,4 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=os.environ.get("PORT", 3000), debug=True)
+    app.run(host="localhost", port=os.environ.get("PORT", 3000))

@@ -1,4 +1,4 @@
-
+// Add Class Button
 const form = document.querySelector(".input__wrapper");
 let interval = 1
 
@@ -27,3 +27,16 @@ function removeParameter() {
         interval--
     }
 }
+
+// Guide Btn
+
+const guideBtn = document.querySelector(".guide__Btn")
+const guide = document.querySelector(".guide")
+
+guideBtn.addEventListener("click", () => {
+    if (guide.style.display === "none") {
+        guide.style.display = "inline"
+    } else {
+        guide.style.display = "none"
+    }
+})

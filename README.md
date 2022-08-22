@@ -42,6 +42,8 @@ Front End
 
 * Parallax Scroll Reference: https://blog.hubspot.com/website/parallax-scrolling
 
+* Modal Box Code reference: https://stackoverflow.com/questions/40645032/creating-multiple-modals-on-a-single-page
+
 ***
 
 

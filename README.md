@@ -58,4 +58,4 @@ A list of technologies used within the project:
 
 ## Collaboration
 
-Big thanks goes out to my friend [Keifnao](https://github.com/keifnao) for helping a lot with the front end. This project was done in collaboration with him for our IB personal project.
+Big thanks goes out to my friend [Jaewon](https://github.com/keifnao) for helping a lot with the front end. This project was done in collaboration with him for our IB personal project.

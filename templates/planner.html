@@ -2,7 +2,7 @@
 {% extends "head_test.html" %}
 {% block content %}
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/planner2.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/planner.css')}}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css')}}">
 
 <script src="{{ url_for('static', filename='js/modal.js')}}" defer></script>
@@ -11,8 +11,31 @@
 
 <main>
 
+    <!-- https://www.youtube.com/watch?v=Xz-ApgT7rZc -->
+
+
+    <div class="widget__bar">
+        <div class="widget__extender">
+            <span class="material-symbols-outlined widget" id="timerBtn">timer</span>
+            <span class="material-symbols-outlined widget" id="mindfulnessBtn">self_improvement</span>
+            <span class="material-symbols-outlined widget" id="todoBtn">checklist</span>
+        </div>
+    </div>
+    <button class="widget__btn">
+        <span class="material-symbols-outlined plus">add</span>
+    </button>
+
+
+    <!-- https://blog.hubspot.com/website/css-sidebar -->
     <div id="sideBar">
-        <h2 class="header-text">Classes</h2>
+        <h2 class="sidebar__header header-text">
+            Classes
+            <span>
+                <a href="{{ url_for('setup') }}"><span class="material-symbols-outlined add__class">edit</span></a>
+            </span>
+
+
+        </h2>
         <div id="classList">
 
             {% for classes in assignments: %}
@@ -29,14 +52,13 @@
 
 
     {% if not creds %}
-
+    <!-- https://www.w3schools.com/howto/howto_css_modals.asp -->
     <div class="modal" id="modal">
         <div class="modal__content modal__tutorial">
 
-            <h2 class="header-text">Warning</h2>
-            <h1>You don't seem to have an api key or secret added to your account.</h1>
-            <a href="{{ url_for('register') }}"><button class="btn__setup header-text">Add key and
-                    secret</button></a>
+            <h1 class="header-text">Warning</h1>
+            <h2>You don't seem to have an api key or secret added to your account.</h2>
+            <a href="{{url}}" target="_blank"><button class="btn__setup header-text">Add key and secret</button></a>
 
         </div>
     </div>
@@ -46,8 +68,8 @@
     <div class="modal" id="modal">
         <div class="modal__content modal__tutorial">
 
-            <h2 class="header-text">Warning</h2>
-            <h1>You don't seem to have any classes added to your account. Please add classes to your planner.</h1>
+            <h1 class="header-text">Warning</h1>
+            <h2>You don't seem to have any classes added to your account. Please add classes to your planner.</h2>
             <a href="{{ url_for('setup') }}"><button class="btn__setup header-text">Setup Classes</button></a>
 
         </div>
@@ -59,9 +81,12 @@
 
 
     <div id="classContent">
-        <h1><span class="header-text">Hello {{name}}, it is <span id="dateTime"></span>.</span></h1>
 
-        <h5 class="body-text"> Click one of the classes on the side to view them!</h5>
+        <div class="content__header">
+            <h1><span class="header-text">Hello {{name}}, it is <span id="dateTime"></span>.</span></h1>
+
+            <h5 class="body-text "> Click one of the classes on the side to view them!</h5>
+        </div>
 
         {% for classes in assignments: %}
 
@@ -69,6 +94,7 @@
             <h3 class="class__title header-text">Class
                 {{loop.index}}</h3>
 
+            <!-- https://www.youtube.com/watch?v=9zBsdzdE4sM -->
             <div class="assignment__grid">
 
                 {% for title in classes %}

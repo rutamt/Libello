@@ -1,0 +1,43 @@
+{% set is_logged_in = is_logged_in %}
+{% extends "head.html" %}
+{% block content %}
+<script src="{{ url_for('static', filename='js/modal.js')}}" defer></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css')}}">
+
+<title>Schoology authentication</title>
+
+
+
+<main>
+
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+
+
+    <div class="modal" id="error">
+        <div class="modal__content modal__error">
+
+            <span class="close material-symbols-outlined">close</span>
+
+            <h1 class="header-text">
+                {% for message in messages %}
+                {{message}}
+                {% endfor %}
+            </h1>
+            <h5><a href='{{url_for("work")}}'>WORK</a></h5>
+        </div>
+    </div>
+
+    {% endif %}
+    {% endwith %}
+
+
+
+    <div class="container__401 container-fluid">
+        <a href="{{url}}" target="_blank" style="color:white">Click this link to authenticate your schoology
+            account.</a>
+    </div>
+</main>
+
+{% endblock %}

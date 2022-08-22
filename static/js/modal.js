@@ -1,3 +1,5 @@
+// https://stackoverflow.com/questions/40645032/creating-multiple-modals-on-a-single-page
+
 const modals = document.querySelectorAll(".modal")
 const btn = document.querySelectorAll(".modal__Btn")
 const spans = document.getElementsByClassName("close")
@@ -14,7 +16,9 @@ for (var i = 0; i < btn.length; i++) {
 for (var i = 0; i < spans.length; i++) {
     spans[i].addEventListener("click", () => {
         for (var index in modals) {
-            if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none"
+            if (typeof modals[index].style !== 'undefined') {
+                modals[index].style.display = "none"
+            }
         }
     })
 }

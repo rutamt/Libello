@@ -1,7 +1,7 @@
 /* Input Window */
 
 .input-window__container {
-  padding: 20% 5%;
+  padding: 10% 5%;
   background: var(--bg-emphasis);
 }
 
@@ -80,6 +80,16 @@ form {
 .setup-button {
   display: flex;
 }
+
+.guide {
+  display: none;
+}
+
+.guide__Btn {
+  cursor: pointer;
+}
+
+
 
 /* Modal */
 

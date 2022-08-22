@@ -3,6 +3,12 @@ Misc utilities for use throughout the app.
 """
 
 import schoolopy
+import os
+
+
+SCHOOLOGY_API_KEY = os.environ.get("SCHOOLOGY_API_KEY")
+SCHOOLOGY_API_SECRET = os.environ.get("SCHOOLOGY_API_SECRET")
+DOMAIN = "https://app.schoology.com"
 
 
 def check_if_duplicates(list_of_elems):
@@ -23,7 +29,17 @@ def check_if_duplicates(list_of_elems):
 def get_assignments(key, secret, classes=None):
     """Use the Schoology API to return the user's assignments"""
     print("get_assignments()")
-    sc = schoolopy.Schoology(schoolopy.Auth(key, secret))
+
+    auth = schoolopy.Auth(
+        SCHOOLOGY_API_KEY,
+        SCHOOLOGY_API_SECRET,
+        three_legged=True,
+        domain=DOMAIN,
+        access_token=key,
+        access_token_secret=secret,
+    )
+
+    sc = schoolopy.Schoology(auth)
 
     if classes == ["default"] or classes == "default":
         return "NONE"
@@ -48,3 +64,7 @@ def get_assignments(key, secret, classes=None):
         # cl_list.append(new_cl)
         # # print(cl_list)
         return cl_list
+
+
+# Instantiate with 'three_legged' set to True for three_legged oauth.
+# Make sure to replace 'https://www.schoology.com' with your school's domain.

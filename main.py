@@ -1,28 +1,38 @@
 """Python Flask WebApp Auth0 integration example
 """
 
-
-from re import T
+import time
 from dotenv import find_dotenv, load_dotenv
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
 
-import json
 import os
 from urllib.parse import quote_plus, urlencode
 
 from authlib.integrations.flask_client import OAuth
-from flask import Flask, redirect, render_template, session, url_for, request, flash
+from flask import (
+    Flask,
+    redirect,
+    render_template,
+    session,
+    url_for,
+    request,
+    flash,
+)
 import schoolopy
 import requests
 from functools import wraps
 from flask_talisman import Talisman
 
-
 from auth0_utils import AUTH0_DOMAIN, CLIENT_ID, CLIENT_SECRET, Auth0Utils
 from misc_utils import check_if_duplicates, get_assignments
+
+SCHOOLOGY_API_KEY = os.environ.get("SCHOOLOGY_API_KEY")
+SCHOOLOGY_API_SECRET = os.environ.get("SCHOOLOGY_API_SECRET")
+HOSTNAME = os.environ.get("HOSTNAME")
+SCHOOLOGY_DOMAIN = "https://henrico.schoology.com"
 
 app = Flask(__name__)
 Talisman(app, content_security_policy=None)
@@ -30,6 +40,13 @@ app.secret_key = os.environ.get("APP_SECRET_KEY")
 oauth = OAuth(app)
 
 auth0 = Auth0Utils()
+
+auth = schoolopy.Auth(
+    consumer_key=SCHOOLOGY_API_KEY,
+    consumer_secret=SCHOOLOGY_API_SECRET,
+    three_legged=True,
+    domain=SCHOOLOGY_DOMAIN,
+)
 
 oauth.register(
     "auth0",
@@ -106,10 +123,36 @@ def logout():
     )
 
 
+@app.route("/auth")
+@login_required
+def schoology_auth():
+
+    user_info = session.get("user")["userinfo"]
+    creds = auth0.get_user_creds(user_info)
+    if creds != ["default", "default"]:
+        return redirect(url_for("work"))
+
+    url = auth.request_authorization(callback_url=f"libello.herokuapp.com/work")
+    if url is None:
+        return "URL NOT NONE"
+    return render_template("3leggedsignin.html", url=url, is_logged_in=is_logged_in())
+
+
 @app.route("/work")
 @login_required
 def work():
+    def get_url3():
+        access_token = auth.access_token
+        access_token_secret = auth.access_token_secret
+        print(f"GET_URL3: KEY:{access_token}, SECRET: {access_token_secret}")
+        user_info = session.get("user")["userinfo"]
+        print("AUTH0.UPDATE USER CALLING")
+        auth0.update_user(
+            user_info=user_info, key=access_token, secret=access_token_secret
+        )
+
     print("work()")
+
     # print("Session in /work", session)
     user_info = session.get("user")["userinfo"]
     print("USER INFO:", session.get("user")["userinfo"])
@@ -123,14 +166,19 @@ def work():
     creds = auth0.get_user_creds(user_info)
 
     if not creds or creds == ["default", "default"]:
-        print("NOT CREDS")
-        return render_template(
-            "planner.html",
-            is_logged_in=is_logged_in(),
-            name=name,
-            creds=None,
-            classes="YES",
-        )
+
+        # check if we got creds from an oauth 3-legged workflow
+        print("auth access tokens are", auth.access_token, auth.access_token_secret)
+        print("Running auth.authorize()")
+        auth.authorize()
+
+        if auth.access_token and auth.access_token_secret:
+            print("RUNNING GET_URL3")
+            get_url3()
+        else:
+            print("NOT CREDS")
+            return redirect(url_for("schoology_auth"))
+
     if not classes or classes == "default":
         print("NOT CLASSES")
         return render_template(
@@ -145,6 +193,10 @@ def work():
         assignments = get_assignments(
             key=creds[0], secret=creds[1], classes=classes.split(",")
         )
+        if not assignments:
+            print("Invalid token/secret")
+            return redirect(url_for("schoology_auth"))
+
         # print(f"ASSIGNMENTS {assignments}")
         return render_template(
             "planner.html",
@@ -214,39 +266,6 @@ def setup():
     )
 
 
-@app.route("/register", methods=["GET", "POST"])
-@login_required
-def register():
-    print("register()")
-
-    if request.method == "POST":
-        key = request.form.get("key")
-        secret = request.form.get("secret")
-        if not key or not secret:
-            flash("You must provide key and secret.", category="error")
-            return redirect(url_for("register"))
-
-        try:
-            sc = schoolopy.Schoology(schoolopy.Auth(key, secret))
-            sc.get_me()
-
-        except requests.exceptions.HTTPError:
-            flash("Invalid api key/secret", category="error")
-            return redirect(url_for("register"))
-
-        else:
-            print("SUCCESS")
-            user_info = session.get("user")["userinfo"]
-            auth0.update_user(user_info=user_info, key=key, secret=secret)
-            return redirect(url_for("work"))
-
-    # this is for HTTP method GET
-    return render_template(
-        "register.html",
-        is_logged_in=is_logged_in(),
-    )
-
-
 @app.route("/about")
 def about():
     return render_template(
@@ -263,4 +282,4 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=os.environ.get("PORT", 3000), debug=True)
+    app.run(host="localhost", port=os.environ.get("PORT", 3000))

@@ -1,15 +1,13 @@
 .modal {
     display: initial;
     position: fixed;
-    z-index: 1;
+    z-index: 4;
     left: 0;
     top: 0;
     width: 100%;
-    /* Full width */
     height: 100%;
-    /* Full height */
+
     overflow: auto;
-    /* Enable scroll if needed */
 
     background-color: rgba(0, 0, 0, 0.4);
 }
@@ -17,17 +15,27 @@
 .modal__content {
     background-color: var(--bg-color);
     margin: 15% auto;
-    padding: 20px;
-    border: 1px solid darkgray;
+    border-radius: 15px;
     width: 80%;
 
     color: var(--black);
+    overflow: hidden;
+}
+
+.modal__content>* {
+    padding: 20px;
+}
+
+.modal__content>.header-text {
+    background: var(--bg-emphasis);
+    color: var(--bg-color);
 }
 
 .close {
-    color: var(--black);
+    color: var(--bg-color);
     float: right;
-    font-size: 20px;
+    font-size: 30px;
+    z-index: 5;
 }
 
 .close:hover,
@@ -40,4 +48,8 @@
 #modalBtn {
     border: none;
     background: transparent;
+}
+
+.modal__guide {
+    display: none;
 }

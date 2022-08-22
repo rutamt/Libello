@@ -132,7 +132,7 @@ def schoology_auth():
     if creds != ["default", "default"]:
         return redirect(url_for("work"))
 
-    url = auth.request_authorization(callback_url=f"libello.herokuapp.com//work")
+    url = auth.request_authorization(callback_url=f"libello.herokuapp.com/work")
     if url is None:
         return "URL NOT NONE"
     return render_template("3leggedsignin.html", url=url, is_logged_in=is_logged_in())

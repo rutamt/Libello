@@ -2,10 +2,6 @@
     position: relative;
 }
 
-html {
-    /* scroll-snap-type: y proximity;
-    scroll-behavior: smooth; */
-}
 
 main>section>.container-fluid {
     display: flex;

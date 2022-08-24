@@ -10,8 +10,10 @@ API_USERS = "/api/v2/users"
 API_INFO = "/api/private/info"
 API_OAUTH_TOKEN = "/oauth/token"
 
+
 class AuthError(Exception):
     pass
+
 
 class Auth0Utils:
     def __init__(self) -> None:
@@ -41,7 +43,7 @@ class Auth0Utils:
         }
 
         try:
-            response = requests.post(f"{BASE_URL}{API_OAUTH_TOKEN}",  json=data)
+            response = requests.post(f"{BASE_URL}{API_OAUTH_TOKEN}", json=data)
         except Exception as e:
             print("Could not call the API :(", str(e))
 
@@ -57,21 +59,25 @@ class Auth0Utils:
 
     def get_user_id(self, user_info):
         print("Auth0Utils.get_user_id(), Getting user id for", user_info.get("email"))
-        user_email = user_info.get('email')
+        user_email = user_info.get("email")
         user_id = self.user_cache.get(user_email)
         if user_id:
             return user_id
-        
+
         api_url = f"{BASE_URL}{API_USERS}"
 
         resp = requests.get(api_url, headers=self.headers)
         res_json = resp.json()
 
-        user_id = list(filter(lambda x: x["email"] == user_email, res_json))[0]["user_id"]
+        user_id = list(filter(lambda x: x["email"] == user_email, res_json))[0][
+            "user_id"
+        ]
         self.user_cache[user_email] = user_id
         return user_id
 
-    def update_user(self, user_info, _class:str=None, key:str=None, secret:str=None):
+    def update_user(
+        self, user_info, _class: str = None, key: str = None, secret: str = None
+    ):
         print("Auth0Utils.update_user(), Getting user id for", user_info.get("email"))
         user_id = self.get_user_id(user_info)
         metadata = {}
@@ -96,7 +102,10 @@ class Auth0Utils:
         print("Updated user successfully.")
 
     def get_user_creds(self, user_info):
-        print("Auth0Utils.get_user_creds(), Getting user credentials for", user_info.get("email"))
+        print(
+            "Auth0Utils.get_user_creds(), Getting user credentials for",
+            user_info.get("email"),
+        )
         user_id = self.get_user_id(user_info)
 
         api_url = f"{BASE_URL}{API_USERS}/{user_id}"
@@ -109,12 +118,16 @@ class Auth0Utils:
             return creds
 
         print("Resetting creds for user")
-        self.update_user(user_info=user_info, _class="default", key="default", secret="default")
+        self.update_user(
+            user_info=user_info, _class="default", key="default", secret="default"
+        )
         return []
 
-
     def get_user_classes(self, user_info):
-        print("Auth0Utils.get_user_classes(), Getting user classes for", user_info.get("email"))
+        print(
+            "Auth0Utils.get_user_classes(), Getting user classes for",
+            user_info.get("email"),
+        )
         user_id = self.get_user_id(user_info)
 
         api_url = f"{BASE_URL}{API_USERS}/{user_id}"
@@ -126,7 +139,7 @@ class Auth0Utils:
             return classes
 
         print("RESETTING METADATA CLASS")
-        self.update_user(user_info=user_info, _class="default", key="default", secret="default")
+        self.update_user(
+            user_info=user_info, _class="default", key="default", secret="default"
+        )
         return ""
-
-

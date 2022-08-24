@@ -44,6 +44,9 @@ Front End
 
 * Modal Box Code reference: https://stackoverflow.com/questions/40645032/creating-multiple-modals-on-a-single-page
 
+* Scroll meter / Get scroll percentage JS: // https://www.w3schools.com/howto/howto_js_scroll_indicator.asp
+
+
 ***
 
 

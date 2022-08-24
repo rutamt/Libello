@@ -2,38 +2,114 @@
 {% extends "head.html" %}
 {% block content %}
 
-    <title>About</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css')}}">
+<title>About</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css')}}">
+<script src="{{ url_for('static', filename='js/about.js')}}" defer></script>
 
-    <main>
-        <section id="about">
-            <div class="about-wrapper container-fluid">
-                <h1 class="spec-text">Meet The Team</h1>
-                
-                <div class="about__people">
-                    <div class="jaewon">
-                        <img src="{{ url_for('static', filename='images/blank-profile-picture.png')}}" alt="Blank Profile Image">
-                        <div class="about__text">
-                            <h2 class="header-text">Front-End Developer</h2>
-                            <h4>
-                                Built website template and widgets for the organizer.
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="rutam">
-                        <img src="  {{ url_for('static', filename='images/blank-profile-picture.png')}}" alt="Blank Profile Image">
-                        <div class="about__text">
-                            <h2 class="header-text">Back-End Developer</h2>
-                            <h4>
-                                Built website template and widgets for the organizer.
-                            </h4>
-                        </div>
-                    </div>
+<main>
+    <div class="container-fluid header-wrapper">
+        <h1 class="spec-text">Our Story</h1>
+    </div>
+
+    <div class="container-fluid story-wrapper">
+        <h2 class="header-text">Summer of 2022: IB Personal Project</h2>
+        <h2 class="body-text">
+            The personal project is a project that all IB rising sophmores are required to do over the summer.
+            The goal of the project is to learn new skills and create something worthwhile with them.
+            We decided to do a group project, with both of us learning different skills to fit the different jobs
+            required for web development.
+        </h2>
+    </div>
+
+    <div class="container-fluid context-wrapper">
+        <h1 class="header-text">It all started with an idea.</h1>
+        <h1 clas="body-text">An app that could display all of your Schoology assignments in one place.</h1>
+    </div>
+
+    <div class="container-fluid timeline-wrapper">
+        <h1 class="header-text">31+ ONLINE MEETINGS</h1>
+        <img src="{{ url_for('static', filename='images/image_timeline.png')}}" alt="Libello Timeline"
+            draggable="false">
+    </div>
+
+    <div class="container-fluid about-wrapper">
+        <h1 class="header-text">About</h1>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="person__container">
+                    <h2 class="header-text">
+                        Rutam
+                    </h2>
+                    <h2 class="body-text">
+                        I am a 15 year old rising sophmore at Tucker High School. My job for the project was the
+                        backend.Going into it, I had no backend or web development experience, and python was still
+                        relatively new to me.
+                    </h2>
                 </div>
-            <!-- About Wrapper -->
             </div>
-        <!-- About Section -->
-        </section>
-    </main>
-  
-    {% endblock %}
+
+            <div class="col-lg-6">
+                <div class="person__container">
+                    <h2 class="header-text">
+                        Jaewon
+                    </h2>
+                    <h2 class="body-text">
+                        I’m a 15 year old rising sophmore at Tucker High School.
+                        I work the frontend and I designed this website as well as created the widgets.
+                        As a novice programmer, I’ve been able to learn a lot about web design and its functionalities.
+                    </h2>
+                </div>
+            </div>
+            <!-- Row -->
+        </div>
+        <!-- Container-fluid -->
+    </div>
+
+    <div class="container-fluid about-wrapper">
+        <h1 class="header-text">What We Learned</h1>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="person__container">
+                    <h2 class="header-text">
+                        Rutam
+                    </h2>
+                    <h2 class="body-text">
+                        By doing this project, I’ve learned a lot about python and the coding workflow. My job was to
+                        create the system for making and managing users, which I did using a service called Auth0. I
+                        also hosted the website using Heroku, and created the flask server that Heroku is hosting. I
+                        learned a lot about apis and authentication during the project, and I used a module called
+                        Schoolopy to help with the schoology api.
+                    </h2>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="person__container">
+                    <h2 class="header-text">
+                        Jaewon
+                    </h2>
+                    <h2 class="body-text">
+                        I came into this project without much knowledge about any of the languages used for web design,
+                        so approaching this was a big learning curve.
+                        In doing this project I've gotten the hang of languages like CSS, HTML, Javascript, and
+                        libraries like Boostrap 5 or
+                        jQuery.
+                        I've also been able to try functionalities like CSS keyframes and animations as well as
+                        Javascript modules.
+                        Overall, this is a good start to my web development journey.
+                    </h2>
+                </div>
+            </div>
+            <!-- Row -->
+        </div>
+        <!-- Container-fluid -->
+    </div>
+
+    <div class="container-fluid">
+        <h1 class="header-text">This project is <a href="https://github.com/rutamt/Libello">open source</a>.</h1>
+    </div>
+</main>
+
+{% endblock %}

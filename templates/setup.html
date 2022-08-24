@@ -54,7 +54,7 @@
             </button>
 
             {% if not classes %}
-            <form action="{{ url_for('setup') }}" method="post" id="setup">
+            <form action="{{ url_for('setup') }}" method="post" id="setup" autocomplete="off">
                 <div class="input__wrapper">
                     <input type='number' name='classes' placeholder='Type in Class ID' required='required'
                         class='form-control' />

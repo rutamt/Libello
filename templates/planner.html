@@ -1,5 +1,5 @@
 {% set is_logged_in = is_logged_in %}
-{% extends "head_test.html" %}
+{% extends "planner_head.html" %}
 {% block content %}
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/planner.css')}}">
@@ -16,9 +16,10 @@
 
     <div class="widget__bar">
         <div class="widget__extender">
-            <span class="material-symbols-outlined widget" id="timerBtn">timer</span>
-            <span class="material-symbols-outlined widget" id="mindfulnessBtn">self_improvement</span>
-            <span class="material-symbols-outlined widget" id="todoBtn">checklist</span>
+            <span class="material-symbols-outlined widget" id="timerBtn" title="Timer">timer</span>
+            <span class="material-symbols-outlined widget" id="mindfulnessBtn"
+                title="Meditation/mindfulness">self_improvement</span>
+            <span class="material-symbols-outlined widget" id="todoBtn" title="Todo list">checklist</span>
         </div>
     </div>
     <button class="widget__btn">

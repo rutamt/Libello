@@ -61,6 +61,12 @@ A list of technologies used within the project:
 * [Flask](https://flask.palletsprojects.com/en/2.2.x/): Version 2.1.3
 * [Schoolopy](https://github.com/ErikBoesen/schoolopy): Version 0.2.2
 * [Auth0](https://auth0.com/)
+* [Authlib](https://docs.authlib.org/en/latest/): Version 1.0.1
+* [Requests](https://pypi.org/project/requests/): Version 2.28.1
+* [Guincorn](https://gunicorn.org/): Version 20.1.0
+* [Oauthlib](https://github.com/oauthlib/oauthlib): Version 3.2.0
+* [Python-dotenv](https://pypi.org/project/python-dotenv/): Version 0.20.0
+* [Flask_talisman](https://pypi.org/project/flask-talisman/): Version 1.0.0
 
 ## Collaboration
 

@@ -24,6 +24,9 @@ Back End
 
 * Login: https://auth0.com/
 
+* Backend: https://www.udemy.com/course/100-days-of-code
+
+
 Front End
 
 * Todo list: https://www.youtube.com/watch?v=Efo7nIUF2JY

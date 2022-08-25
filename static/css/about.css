@@ -1,16 +1,97 @@
-
-.about__people {
-    padding: 5%;
+* {
+    text-align: center;
 }
 
-.about__people > div {
-    display: flex;
-    margin: 5% 0;
-} 
-.about__people > div > img {
+body {
+    background: linear-gradient(0deg, #594AFF 0%, #3377FD 100%);
+}
+
+main>.container-fluid {
+    background: transparent;
+    margin: 20% 0;
+    color: var(--bg-color);
+}
+
+a,
+a:hover {
+    color: var(--bg-color);
+}
+
+.spec-text {
+    font-size: 5rem;
+    color: var(--bg-color);
+}
+
+@media (max-width: 690px) {
+    .spec-text {
+        font-size: 2.5rem;
+    }
+
+    h1 {
+        font-size: 4vw;
+    }
+
+    h2 {
+        font-size: 3.5vw;
+    }
+}
+
+.spec-text::before {
+    border-color: var(--bg-color);
+}
+
+h1,
+h2 {
+    padding: 0 10%;
+}
+
+
+
+/* About Sections */
+
+.header-wrapper {
+    position: relative;
+    margin: 0 !important;
+    padding-top: 10%;
+    padding-bottom: 5%;
+}
+
+.timeline-wrapper>h1 {
+    padding-bottom: 5%;
+}
+
+.timeline-wrapper>img {
+    max-width: 90%;
     height: auto;
-    width: 20%;
-    background-color: var(--blue);
-    border-radius: 50%;
-    margin-right: 5%;
+
+    border-radius: 15px;
+    overflow: hidden;
+
+}
+
+.about-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.about-wrapper>h1 {
+    margin-bottom: 5%;
+}
+
+.about-wrapper>.row {
+    display: flex;
+    justify-content: center;
+}
+
+.about-wrapper>.row>.col-lg-6 {
+    padding: 3.5%;
+}
+
+.person__container {
+    color: var(--blue);
+    background: var(--bg-color);
+    border-radius: 15px;
+    padding: 3%
 }

@@ -38,8 +38,10 @@ def get_assignments(key, secret, classes=None):
         access_token=key,
         access_token_secret=secret,
     )
-
-    sc = schoolopy.Schoology(auth)
+    try:
+        sc = schoolopy.Schoology(auth)
+    except 401:
+        return False
 
     if classes == ["default"] or classes == "default":
         return "NONE"

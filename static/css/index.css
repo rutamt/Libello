@@ -2,10 +2,6 @@
     position: relative;
 }
 
-html {
-    /* scroll-snap-type: y proximity;
-    scroll-behavior: smooth; */
-}
 
 main>section>.container-fluid {
     display: flex;
@@ -17,6 +13,22 @@ main>section>.container-fluid {
 @media (max-width: 690px) {
     main>section>.container-fluid {
         padding: 5% 0;
+    }
+
+    h1 {
+        font-size: 4.5vw;
+    }
+
+    h2 {
+        font-size: 4vw;
+    }
+
+    h3 {
+        font-size: 3.5vw;
+    }
+
+    h4 {
+        font-size: 3.5vw;
     }
 }
 
@@ -82,6 +94,12 @@ main>section>.container-fluid {
         background 0.5s,
         color 0.5s,
         border-color 0.25s;
+}
+
+@media (max-width: 690px) {
+    .get-started-button {
+        font-size: 3.5vw;
+    }
 }
 
 .get-started-button::before {
@@ -223,6 +241,6 @@ main>section>.container-fluid {
 
 .progress-bar {
     height: 4px;
-    background: var(--bg-emphasis);
+    background: #0400ff;
     width: 0%;
 }

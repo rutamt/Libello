@@ -2,10 +2,6 @@ body {
     padding-top: 0px !important;
 }
 
-a {
-    text-decoration: none;
-}
-
 .navbar {
     background-color: var(--bg-color);
     z-index: 2;
@@ -23,6 +19,12 @@ main {
     display: flex;
     width: 100%;
 }
+
+a {
+    text-decoration: none;
+}
+
+/* Side Bar */
 
 #sideBar {
     position: fixed;
@@ -67,26 +69,6 @@ main {
         color 0.5s;
 }
 
-@media (max-width: 1200px) {
-    #sideBar>h2 {
-        font-size: 3vw;
-        text-align: center;
-    }
-
-    .class__selector {
-        font-size: 3vw;
-        text-align: center;
-    }
-
-    .class_label {
-        display: none;
-    }
-
-    .class_number {
-        text-align: center;
-    }
-}
-
 .class__selector:hover {
     background-color: var(--bg-color);
     color: var(--blue);
@@ -112,8 +94,29 @@ main {
     background: transparent;
     color: var(--bg-color);
     transform: scale(1.05);
-
 }
+
+@media (max-width: 1200px) {
+    #sideBar>h2 {
+        font-size: 3vw;
+        text-align: center;
+    }
+
+    .class__selector {
+        font-size: 3vw;
+        text-align: center;
+    }
+
+    .class_label {
+        display: none;
+    }
+
+    .class_number {
+        text-align: center;
+    }
+}
+
+/* Content Box (Assignment Display) */
 
 #classContent {
     scroll-behavior: smooth;
@@ -134,6 +137,15 @@ main {
     padding: 5%;
     padding-top: 58px;
     min-height: 0px;
+}
+
+.assignment {
+    background: var(--bg-gradient);
+    word-break: break-word;
+    padding: 5%;
+
+    border: 1px solid #ccc;
+    border-radius: 10px;
 }
 
 .assignment__grid {
@@ -158,15 +170,6 @@ main {
     .assignment__grid {
         grid-template-columns: 98%;
     }
-}
-
-.assignment {
-    background: var(--bg-gradient);
-    word-break: break-word;
-    padding: 5%;
-
-    border: 1px solid #ccc;
-    border-radius: 10px;
 }
 
 /* Modal */
@@ -269,12 +272,6 @@ main {
     transition: transform 0.5s;
 }
 
-.spin {
-    transform: rotate(360deg);
-    animation: 0.5s spin ease-in;
-}
-
-
 .widget__btn:hover {
     color: var(--purple);
     background: var(--bg-color);
@@ -283,8 +280,13 @@ main {
 
 .widget__btn:active {
     transform: scale(0.95);
-
     transition: 0.5s;
+}
+
+.spin {
+    /* Spin animation for the interior of the button */
+    transform: rotate(360deg);
+    animation: 0.5s spin ease-in;
 }
 
 .widget__extender {
@@ -312,6 +314,7 @@ main {
 
 .close__mindfulness,
 .close__timer {
+    /* Close buttons for the fullscreen widgets */
     position: absolute;
     display: flex;
     justify-content: center;
@@ -385,6 +388,8 @@ main {
     margin-top: 5px;
 }
 
+/* .timer__btn variations */
+
 .timer__btn--start-stop {
     grid-area: start-stop;
 }
@@ -400,6 +405,12 @@ main {
 .timer__btn--pomo>.header-text {
     margin: 0;
 }
+
+.timer__btn>.material-symbols-outlined {
+    font-size: 7vw;
+}
+
+/* .timer__btn */
 
 .timer__btn--start {
     background-color: var(--time-green);
@@ -449,10 +460,6 @@ main {
     border-color: var(--time-bg-dark);
     font-size: 4vw;
     font-weight: bold;
-}
-
-.timer__btn>.material-symbols-outlined {
-    font-size: 7vw;
 }
 
 

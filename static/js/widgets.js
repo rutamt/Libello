@@ -29,35 +29,45 @@ widgetBtn.addEventListener("click", () => {
     }
 })
 
-// import Timer from "./timer.js";
+// import Widget Modules
 import Mindfulness from "./mindfulness.js";
 import Timer from "./timer.js";
 import Todo from "./todo.js";
 
+// Create widgets from those modules
 new Timer(document.body)
 new Mindfulness(document.body)
 new Todo(document.body)
 
+// Define the base of those widgets
 const timerContainer = document.querySelector(".timer__container")
 const mindfulnessContainer = document.querySelector(".mindfulness__container")
 const todoContainer = document.querySelector(".todo__container")
 
+// Add buttons to flick them visible and invisible
 
+// Timer
 document.getElementById('timerBtn').addEventListener('click', () => {
 
     timerContainer.style.display = "flex"
 
 })
+
+// Mindfulness
 document.getElementById('mindfulnessBtn').addEventListener('click', () => {
 
     mindfulnessContainer.style.display = "flex"
 })
+
+// Todo List
+let openTodo = false;
+
 document.getElementById('todoBtn').addEventListener('click', () => {
 
-    if (todoContainer.style.display === "none") {
-        todoContainer.style.display = "inline"
-    } else {
+    if (openTodo) {
         todoContainer.style.display = "none"
+    } else {
+        todoContainer.style.display = "inline"
     }
-
+    openTodo = !openTodo
 })

@@ -2,10 +2,6 @@ const modal = document.querySelector(".modal");
 const btn = document.querySelector(".modal__Btn");
 const span = document.querySelector(".close");
 
-
-// BIGGIE BOY ERROR
-
-
 span.addEventListener("click", () => {
     modal.style.display = "none";
     modalOL.style.display = "none";

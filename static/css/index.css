@@ -32,11 +32,25 @@ main>section>.container-fluid {
     }
 }
 
+/* Progress Bar */
+
+.progress-container {
+    position: fixed;
+    width: 100%;
+    height: 4px;
+    z-index: 1;
+}
+
+.progress-bar {
+    height: 4px;
+    background: #0400ff;
+    width: 0%;
+}
+
 /* Title Section */
 
 /* https://stackoverflow.com/questions/29240028/css-make-a-background-image-scroll-slower-than-everything-else */
 /* https://www.w3schools.com/howto/howto_css_parallax.asp */
-
 
 .title-wrapper {
     background: transparent;
@@ -76,6 +90,13 @@ main>section>.container-fluid {
     z-index: 0;
     object-fit: cover;
     filter: brightness(70%);
+}
+
+.title__down-arrow {
+    position: absolute;
+    bottom: 1;
+    right: 0;
+    left: 0;
 }
 
 .get-started-button {
@@ -132,13 +153,6 @@ main>section>.container-fluid {
         opacity 0.25s;
 }
 
-.title__down-arrow {
-    position: absolute;
-    bottom: 1;
-    right: 0;
-    left: 0;
-}
-
 /* Checklist Section */
 
 .checklist-wrapper>.row {
@@ -156,17 +170,16 @@ main>section>.container-fluid {
     max-width: 50%;
 }
 
+.checklist__content {
+    padding: 2.5% 5%;
+}
+
 @media (max-width: 1700px) {
 
     .checklist__image,
     .checklist__content {
         width: auto;
     }
-}
-
-.checklist__content {
-    padding: 2.5% 5%;
-    /* width: auto; */
 }
 
 /* Features Section */
@@ -183,6 +196,10 @@ main>section>.container-fluid {
     align-items: center;
 }
 
+.features-wrapper>.row>.col-lg-4 {
+    padding: 0% 7.5%;
+}
+
 .features-wrapper>.row>div>span:hover {
     opacity: 0.8;
     transition: opacity 0.5s;
@@ -192,10 +209,6 @@ main>section>.container-fluid {
 .icon__schedule,
 .icon__organize {
     font-size: 10em;
-}
-
-.features-wrapper>.row>.col-lg-4 {
-    padding: 0% 7.5%;
 }
 
 /* Demo Section */
@@ -228,19 +241,4 @@ main>section>.container-fluid {
 .demo__text--2 {
     color: white;
     background-color: var(--blue)
-}
-
-/* Progress Bar */
-
-.progress-container {
-    position: fixed;
-    width: 100%;
-    height: 4px;
-    z-index: 1;
-}
-
-.progress-bar {
-    height: 4px;
-    background: #0400ff;
-    width: 0%;
 }

@@ -10,6 +10,7 @@
     --black: #222831;
     /* Black */
     --bg-emphasis: linear-gradient(90deg, #594AFF 0%, #3377FD 100%);
+
     /* Drippy gradient */
 
     /* Timer Widget */
@@ -244,6 +245,16 @@ body {
 footer {
     background-color: WhiteSmoke;
     z-index: 1;
+}
+
+.gradient-text {
+    background-color: #f3ec78;
+    background-image: var(--bg-emphasis);
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
 }
 
 .footer-wrapper {

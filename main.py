@@ -2,6 +2,7 @@
 """
 
 import time
+from urllib import response
 from dotenv import find_dotenv, load_dotenv
 
 ENV_FILE = find_dotenv()
@@ -72,7 +73,7 @@ def login_required(func):
     def _inner(*args, **kwargs):
         # check if user is logged in
         if not is_logged_in():
-            print("User was not logged in. :(")
+            # print("User was not logged in. :(")
             return render_template("401.html"), 401
         # they were logged in, so go ahead
         return func(*args, **kwargs)
@@ -83,7 +84,7 @@ def login_required(func):
 # Controllers API
 @app.route("/")
 def home():
-    print("home()")
+    # print("home()")
     return render_template(
         "index.html",
         session=session.get("user"),
@@ -93,7 +94,7 @@ def home():
 
 @app.route("/callback", methods=["GET", "POST"])
 def callback():
-    print("callback()")
+    # print("callback()")
     token = oauth.auth0.authorize_access_token()
     session["user"] = token
     return redirect("/work")
@@ -101,7 +102,7 @@ def callback():
 
 @app.route("/login")
 def login():
-    print("login()")
+    # print("login()")
     return oauth.auth0.authorize_redirect(
         redirect_uri=url_for("callback", _external=True)
     )
@@ -109,7 +110,7 @@ def login():
 
 @app.route("/logout")
 def logout():
-    print("logout()")
+    # print("logout()")
     session.clear()
     return redirect(
         f"https://{AUTH0_DOMAIN}/v2/logout?"
@@ -132,7 +133,7 @@ def schoology_auth():
     if creds != ["default", "default"]:
         return redirect(url_for("work"))
 
-    url = auth.request_authorization(callback_url=f"libello.herokuapp.com/work")
+    url = auth.request_authorization(callback_url="libello.herokuapp.com/work")
     if url is None:
         return "URL NOT NONE"
     return render_template("3leggedsignin.html", url=url, is_logged_in=is_logged_in())
@@ -144,18 +145,18 @@ def work():
     def get_url3():
         access_token = auth.access_token
         access_token_secret = auth.access_token_secret
-        print(f"GET_URL3: KEY:{access_token}, SECRET: {access_token_secret}")
+        # print(f"GET_URL3: KEY:{access_token}, SECRET: {access_token_secret}")
         user_info = session.get("user")["userinfo"]
-        print("AUTH0.UPDATE USER CALLING")
+        # print("AUTH0.UPDATE USER CALLING")
         auth0.update_user(
             user_info=user_info, key=access_token, secret=access_token_secret
         )
 
-    print("work()")
+    # print("work()")
 
-    # print("Session in /work", session)
+    # # print("Session in /work", session)
     user_info = session.get("user")["userinfo"]
-    print("USER INFO:", session.get("user")["userinfo"])
+    # print("USER INFO:", session.get("user")["userinfo"])
     try:
         name = session.get("user")["userinfo"]["given_name"]
     except KeyError:
@@ -168,19 +169,19 @@ def work():
     if not creds or creds == ["default", "default"]:
 
         # check if we got creds from an oauth 3-legged workflow
-        print("auth access tokens are", auth.access_token, auth.access_token_secret)
-        print("Running auth.authorize()")
+        # print("auth access tokens are", auth.access_token, auth.access_token_secret)
+        # print("Running auth.authorize()")
         auth.authorize()
 
         if auth.access_token and auth.access_token_secret:
-            print("RUNNING GET_URL3")
+            # print("RUNNING GET_URL3")
             get_url3()
         else:
-            print("NOT CREDS")
+            # print("NOT CREDS")
             return redirect(url_for("schoology_auth"))
 
     if not classes or classes == "default":
-        print("NOT CLASSES")
+        # print("NOT CLASSES")
         return render_template(
             "planner.html",
             is_logged_in=is_logged_in(),
@@ -189,15 +190,15 @@ def work():
             creds="YES",
         )
     else:
-        print(f"WORK GOING TO ELSE, creds: {creds}, classes {classes}")
+        # print(f"WORK GOING TO ELSE, creds: {creds}, classes {classes}")
         assignments = get_assignments(
             key=creds[0], secret=creds[1], classes=classes.split(",")
         )
         if not assignments:
-            print("Invalid token/secret")
+            # print("Invalid token/secret")
             return redirect(url_for("schoology_auth"))
 
-        # print(f"ASSIGNMENTS {assignments}")
+        # # print(f"ASSIGNMENTS {assignments}")
         return render_template(
             "planner.html",
             is_logged_in=is_logged_in(),
@@ -211,11 +212,11 @@ def work():
 @app.route("/setup", methods=["GET", "POST"])
 @login_required
 def setup():
-    print("setup()")
+    # print("setup()")
 
     user_info = session.get("user", {}).get("userinfo")
     if not user_info:
-        print("Could not find the user that is logged on :(")
+        # print("Could not find the user that is logged on :(")
         return redirect(url_for("work"))
 
     creds = auth0.get_user_creds(user_info=user_info)
@@ -231,7 +232,7 @@ def setup():
             )
         else:
             values = request.form.getlist("classes")
-            print(values)
+            # print(values)
 
             if check_if_duplicates(values):
                 flash("Please remove duplicate class ids")
@@ -241,17 +242,17 @@ def setup():
             else:
                 try:
                     # flash("Checking that the class IDs are valid.", category="info")
-                    print("Checking if class IDs are valid")
+                    # print("Checking if class IDs are valid")
                     get_assignments(key=creds[0], secret=creds[1], classes=values)
                 except requests.exceptions.HTTPError:
-                    print("Invalid class IDs ")
+                    # print("Invalid class IDs ")
                     flash("Invalid class ids", category="error")
                     return render_template(
                         "setup.html", is_logged_in=is_logged_in(), classes=[]
                     )
                 else:
                     # flash("Saving your class IDs.", category="info")
-                    print("Saving your class IDs.")
+                    # print("Saving your class IDs.")
                     auth0.update_user(user_info=user_info, _class=",".join(values))
                     return redirect(url_for("work"))
 

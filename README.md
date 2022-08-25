@@ -49,6 +49,8 @@ Front End
 
 * Scroll meter / Get scroll percentage JS: // https://www.w3schools.com/howto/howto_js_scroll_indicator.asp
 
+* Navbar Functions: https://stackoverflow.com/questions/19900953/trying-to-trigger-event-on-certain-scroll-height-using-javascript
+
 
 ***
 

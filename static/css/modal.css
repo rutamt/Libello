@@ -12,6 +12,11 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+#modalBtn {
+    border: none;
+    background: transparent;
+}
+
 .modal__content {
     background-color: var(--bg-color);
     margin: 15% auto;
@@ -31,6 +36,10 @@
     color: var(--bg-color);
 }
 
+.modal__guide {
+    display: none;
+}
+
 .close {
     color: var(--bg-color);
     float: right;
@@ -43,13 +52,4 @@
     color: var(black);
     text-decoration: none;
     cursor: pointer;
-}
-
-#modalBtn {
-    border: none;
-    background: transparent;
-}
-
-.modal__guide {
-    display: none;
 }

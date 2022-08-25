@@ -33,10 +33,13 @@ function removeParameter() {
 const guideBtn = document.querySelector(".guide__Btn")
 const guide = document.querySelector(".guide")
 
+let isOpen = false
+
 guideBtn.addEventListener("click", () => {
-    if (guide.style.display === "none") {
-        guide.style.display = "inline"
-    } else {
+    if (isOpen) {
         guide.style.display = "none"
+    } else {
+        guide.style.display = "inline"
     }
+    isOpen = !isOpen
 })

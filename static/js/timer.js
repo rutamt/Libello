@@ -126,7 +126,7 @@ export default class Timer {
         this.updateInterfaceControls(); // Displays the updated buttons
     }
 
-    pomofy() {
+    pomofy() { // Toggle pomodoro mode
         this.stop()
         this.remainingSeconds = 0;
 

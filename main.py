@@ -199,6 +199,7 @@ def work():
             return redirect(url_for("schoology_auth"))
 
         # # print(f"ASSIGNMENTS {assignments}")
+        print("Everything works")
         return render_template(
             "planner.html",
             is_logged_in=is_logged_in(),

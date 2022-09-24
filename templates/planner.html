@@ -92,6 +92,8 @@
         {% for classes in assignments: %}
 
         <div class="class-wrapper" id="{{loop.index}}">
+            <!-- <h3 class="class__title header-text">Class
+                {{loop.index}}</h3> -->
             <h3 class="class__title header-text">Class
                 {{loop.index}}</h3>
 
@@ -112,11 +114,6 @@
                         <h5>
                             <a href="{{title['web_url']}}" class='boxed' style="color:#023E8A">Link</a>
                         </h5>
-                        {% if title['completed'] == 1 %}
-                        <h5 class='boxed' style="color:green">Completed</h5>
-                        {% elif title['completed'] == 0 %}
-                        <h5 class='boxed' style="color:red">Incomplete</h5>
-                        {% endif %}
                     </h6>
 
                     <!-- Assignment -->

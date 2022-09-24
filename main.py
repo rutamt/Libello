@@ -199,7 +199,7 @@ def work():
             return redirect(url_for("schoology_auth"))
 
         # # print(f"ASSIGNMENTS {assignments}")
-        print("Everything works")
+        # print("Everything works")
         return render_template(
             "planner.html",
             is_logged_in=is_logged_in(),
@@ -284,4 +284,4 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=os.environ.get("PORT", 3000), debug=True)
+    app.run(host="localhost", port=os.environ.get("PORT", 3000))

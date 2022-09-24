@@ -53,7 +53,8 @@ def get_assignments(key, secret, classes=None):
         class_int = 0
         for i in range(0, classes_length):
             current_class_assignemnts = []
-            current_class_assignemnts.append(sc.get_assignments(classes[class_int]))
+            assignments = sc.get_assignments(classes[class_int])
+            current_class_assignemnts.append(assignments)
             cl_list += current_class_assignemnts
             class_int += 1
 

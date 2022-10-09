@@ -94,11 +94,14 @@ h2 {
     padding: 3%
 }
 
-.link_blue {
+.link_blue,
+.link_blue:active,
+.link_blue:hover {
     color: var(--blue);
 
 }
 
+.link_blue:focus,
 .link_blue:active {
     outline: none;
 }

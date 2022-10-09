@@ -93,3 +93,12 @@ h2 {
     border-radius: 15px;
     padding: 3%
 }
+
+.link_blue {
+    color: var(--blue);
+
+}
+
+.link_blue:active {
+    outline: none;
+}

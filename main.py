@@ -1,7 +1,6 @@
 """Python Flask WebApp Auth0 integration example
 """
 
-import time
 from urllib import response
 from dotenv import find_dotenv, load_dotenv
 
